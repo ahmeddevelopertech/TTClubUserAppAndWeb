@@ -84,7 +84,7 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
                 MediaQuery.of(context).viewInsets.bottom != 0)
             ? null
             : InkWell(
-                onTap: () => Get.toNamed(RouteHelper.getCartRoute()),
+                onTap: () => Get.toNamed(RouteHelper.getNearByProviderScreen()),
                 child: Container(
                   height: 70,
                   width: 70,
@@ -142,6 +142,32 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
                           onTap: () => Get.find<BottomNavController>()
                               .changePage(BnbItem.homePage),
                         ),
+                        _bnbItem(
+                          icon: Images.providerImage,
+                          bnbItem: BnbItem.providers,
+                          context: context,
+                          onTap: () => Get.find<BottomNavController>()
+                              .changePage(BnbItem.providers),
+                        ),
+
+                        _bnbItem(
+                          icon: '',
+                          bnbItem: BnbItem.cart,
+                          context: context,
+                          onTap: () {
+                            if (!isUserLoggedIn) {
+                              Get.toNamed(
+                                RouteHelper.getSignInRoute(
+                                  redirectUrl: RouteHelper.home,
+                                ),
+                              );
+                            } else {
+                              Get.find<BottomNavController>().changePage(
+                                BnbItem.cart,
+                              );
+                            }
+                          },
+                        ),
 
                         _bnbItem(
                           icon: Images.bookings,
@@ -167,50 +193,19 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
                           },
                         ),
 
-                        _bnbItem(
-                          icon: '',
-                          bnbItem: BnbItem.cart,
-                          context: context,
-                          onTap: () {
-                            if (!isUserLoggedIn) {
-                              Get.toNamed(
-                                RouteHelper.getSignInRoute(
-                                  redirectUrl: RouteHelper.home,
-                                ),
-                              );
-                            } else {
-                              Get.find<BottomNavController>().changePage(
-                                BnbItem.cart,
-                              );
-                            }
-                          },
-                        ),
-
-                        _bnbItem(
-                          icon: Images.offerMenu,
-                          bnbItem: BnbItem.offers,
-                          context: context,
-                          onTap: () => Get.find<BottomNavController>()
-                              .changePage(BnbItem.offers),
-                        ),
-
+                        // _bnbItem(
+                        //   icon: Images.offerMenu,
+                        //   bnbItem: BnbItem.offers,
+                        //   context: context,
+                        //   onTap: () => Get.find<BottomNavController>()
+                        //       .changePage(BnbItem.offers),
+                        // ),
                         _bnbItem(
                           icon: Images.menu,
                           bnbItem: BnbItem.more,
                           context: context,
                           onTap: () => Get.bottomSheet(
                             const MenuScreen(),
-                            backgroundColor: Colors.transparent,
-                            isScrollControlled: true,
-                          ),
-                        ),
-
-                        _bnbItem(
-                          icon: Images.providerImage,
-                          bnbItem: BnbItem.providers,
-                          context: context,
-                          onTap: () => Get.bottomSheet(
-                            const AllProviderView(),
                             backgroundColor: Colors.transparent,
                             isScrollControlled: true,
                           ),
@@ -301,14 +296,14 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
         if (!Get.find<AuthController>().isLoggedIn()) {
           break;
         } else {
-          return Get.toNamed(RouteHelper.getCartRoute());
+          return Get.toNamed(RouteHelper.getNearByProviderScreen());
         }
       case BnbItem.offers:
         return const OfferScreen();
       case BnbItem.more:
         break;
       case BnbItem.providers:
-       return AllProviderView();
+        return AllProviderView();
     }
   }
 }

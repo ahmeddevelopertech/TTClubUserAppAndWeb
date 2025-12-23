@@ -11,7 +11,7 @@ class CartWidget extends GetView<CartController> {
   Widget build(BuildContext context) {
     return Stack(clipBehavior: Clip.none, children: [
 
-      Image.asset(Images.cart, width: size, height: size, color: color),
+      Image.asset(Images.iconLocation, width: size, height: size, color: color),
       GetBuilder<CartController>(builder: (cartController) {
         return cartController.cartList.isNotEmpty ? Positioned(
           top: -5, right: 0,

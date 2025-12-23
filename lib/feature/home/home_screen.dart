@@ -143,6 +143,10 @@ class _HomeScreenState extends State<HomeScreen> {
                               child: CategoryView(),
                             ),
 
+
+                            const SizedBox(height: Dimensions.paddingSizeLarge),
+                            NearbyProviderListview(height: isLtr ? 210 : 225,),
+
                             const Padding(padding: EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeDefault),
                               child: HighlightProviderWidget(),
                             ),
@@ -151,6 +155,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             HorizontalScrollServiceView(fromPage: 'popular_services',serviceList: serviceController.popularServiceList),
 
                             const RandomCampaignView(),
+
 
                             const SizedBox(height: Dimensions.paddingSizeLarge),
                             RecommendedServiceView(height: isLtr ? 210 : 225,),

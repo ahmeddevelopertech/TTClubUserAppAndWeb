@@ -51,7 +51,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
       actions: showCart! ? [
         IconButton(
-          onPressed: () => Get.toNamed(RouteHelper.getCartRoute()),
+          onPressed: () => Get.toNamed(RouteHelper.getNearByProviderScreen()),
           icon:  CartWidget(color: Get.isDarkMode ? Theme.of(context).primaryColorLight : Colors.white, size: Dimensions.cartWidgetSize),
         )] : actionWidget != null ? [actionWidget!] : null,
     );
