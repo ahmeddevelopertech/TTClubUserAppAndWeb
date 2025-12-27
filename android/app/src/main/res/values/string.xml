@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">YOUR_APP_NAME</string>
-    <string name="facebook_app_id">YOUR_FACEBOOK_APP_ID</string>
-    <string name="fb_login_protocol_scheme">YOUR_SCHEME</string>
-    <string name="facebook_client_token">YOUR_FACEBOOK_CLIENT_TOKEN</string>
+    <string name="app_name">GeekX Digital</string>
+    <string name="facebook_app_id">9467564106641306</string>
+    <string name="fb_login_protocol_scheme">fb9467564106641306</string>
+    <string name="facebook_client_token">0f6231f6323ddf9f92883c13a2c819c0</string>
 </resources>

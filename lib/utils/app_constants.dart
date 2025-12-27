@@ -7,7 +7,7 @@ class AppConstants {
   static const String appVersion = '3.5'; /// Flutter SDK : 3.38.1
   static const String baseUrl = 'https://Admin.ttclub.org';
   static const String websiteUrl =  'YOUR_DOMAIN_HERE'; // Replace with your actual web site URL : ex: https://demandium-web.6amtech.com
-  static const String googleServerClientId = 'YOUR_CLIENT_ID_HERE'; /// find that in android/app/google-services.json || use client_type 3
+  static const String googleServerClientId = '493220544998-s0rcmp99qdm4q9md6mirtur6qu8ensfe.apps.googleusercontent.com'; /// find that in android/app/google-services.json || use client_type 3
   static const bool avoidMaintenanceMode = false;
   static const LocalCachesTypeEnum cachesType = LocalCachesTypeEnum.all;
   static const String categoryUrl = '/api/v1/customer/category?limit=20';
