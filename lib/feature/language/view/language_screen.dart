@@ -92,7 +92,7 @@ class _LanguageScreenState extends State<LanguageScreen> {
                               isInitial: true,
                             );
                             if(Get.find<SplashController>().isShowOnboardingScreen() && !kIsWeb){
-                              Get.offNamed(RouteHelper.onBoardScreen);
+                              Get.offNamed(RouteHelper.signIn);
                             }else{
                               Get.find<SplashController>().getConfigData();
 

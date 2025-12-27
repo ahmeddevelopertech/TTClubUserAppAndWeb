@@ -20,6 +20,8 @@ class Images {
   static String get facebook => 'facebook'.png;
   static String get google => 'google'.png;
   static String get logout => 'logout'.png;
+  static String get login_back => 'login_back'.png;
+
   static String get marker => 'marker'.png;
   static String get emptyCoupon => 'empty_coupon'.png;
   static String get noInternet => 'no_internet'.png;
