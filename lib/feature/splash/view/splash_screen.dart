@@ -84,7 +84,7 @@ class SplashScreenState extends State<SplashScreen> {
               } else if(Get.find<SplashController>().isShowOnboardingScreen()){
                 Get.offAllNamed(RouteHelper.onBoardScreen);
               }else{
-                Get.offNamed(RouteHelper.getInitialRoute());
+                Get.offNamed(RouteHelper.getSignInRoute());
               }
 
             }
