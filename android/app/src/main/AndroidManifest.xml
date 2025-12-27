@@ -32,7 +32,7 @@
         android:requestLegacyExternalStorage="true"
 
 
-        <meta-data android:name="com.google.android.geo.API_KEY" android:value="YOUR_MAP_KEY"/>
+        <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyBYkmb4w_90rwskGIUQXuKvtxyJiNIKUvs"/>
 
         <provider
             android:name="com.pichillilorenzo.flutter_inappwebview_android.InAppWebViewFileProvider"

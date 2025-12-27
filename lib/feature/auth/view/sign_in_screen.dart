@@ -65,7 +65,7 @@ class _SignInScreenState extends State<SignInScreen> {
           children: [
             // صورة الخلفية
             Image.asset(
-              Images.logo, // حط الصورة في assets وعرّفها في Images
+              Images.login_back, // حط الصورة في assets وعرّفها في Images
               fit: BoxFit.contain,
             ),
 
@@ -112,9 +112,9 @@ class _SignInScreenState extends State<SignInScreen> {
                                 child: Column(
                                   children: [
                                     Hero(
-                                      tag: Images.login_back,
+                                      tag: Images.logo,
                                       child: Image.asset(
-                                        Images.login_back,
+                                        Images.logo,
                                         width: Dimensions.logoSize,
                                       ),
                                     ),

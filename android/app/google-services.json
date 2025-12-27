@@ -7,14 +7,14 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:493220544998:android:03affc5104a12374a35627",
+        "mobilesdk_app_id": "1:493220544998:android:1ef32c3e34b66873a35627",
         "android_client_info": {
-          "package_name": "com.ttclub.app"
+          "package_name": "com.geekxdigital.ttclub.serviceman"
         }
       },
       "oauth_client": [
         {
-          "client_id": "493220544998-81f8c45lm6jji7da6bk268hacnjpgoo7.apps.googleusercontent.com",
+          "client_id": "493220544998-s0rcmp99qdm4q9md6mirtur6qu8ensfe.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
@@ -31,10 +31,10 @@
               "client_type": 3
             },
             {
-              "client_id": "493220544998-vopq59n4iemr5jhmff6p2hp62e1tlv58.apps.googleusercontent.com",
+              "client_id": "493220544998-4u4v6ed0c6ikccoar4mp0fts210m3aop.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.tclub.app"
+                "bundle_id": "com.ttclub.lawyer"
               }
             }
           ]
@@ -43,14 +43,14 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:493220544998:android:bb39ac1620302f07a35627",
+        "mobilesdk_app_id": "1:493220544998:android:a62440476da5e57ba35627",
         "android_client_info": {
-          "package_name": "com.ttclub.user"
+          "package_name": "com.geekxdigital.ttclub.user"
         }
       },
       "oauth_client": [
         {
-          "client_id": "493220544998-81f8c45lm6jji7da6bk268hacnjpgoo7.apps.googleusercontent.com",
+          "client_id": "493220544998-s0rcmp99qdm4q9md6mirtur6qu8ensfe.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
@@ -67,10 +67,46 @@
               "client_type": 3
             },
             {
-              "client_id": "493220544998-vopq59n4iemr5jhmff6p2hp62e1tlv58.apps.googleusercontent.com",
+              "client_id": "493220544998-4u4v6ed0c6ikccoar4mp0fts210m3aop.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.tclub.app"
+                "bundle_id": "com.ttclub.lawyer"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:493220544998:android:a7346effdac2082fa35627",
+        "android_client_info": {
+          "package_name": "com.geekxdigital.ttclup.providers"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "493220544998-s0rcmp99qdm4q9md6mirtur6qu8ensfe.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBrzLRBojMnxB8JqylnrBI6i1lKU3nThjc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "493220544998-81f8c45lm6jji7da6bk268hacnjpgoo7.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "493220544998-4u4v6ed0c6ikccoar4mp0fts210m3aop.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.ttclub.lawyer"
               }
             }
           ]
