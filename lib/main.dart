@@ -2,6 +2,8 @@ import 'package:get/get.dart';
 import 'package:url_strategy/url_strategy.dart';
 import 'utils/core_export.dart';
 import 'helper/get_di.dart' as di;
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 
 
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
@@ -81,7 +83,11 @@ Future<void> main() async {
       print("");
     }
   }
-  runApp(MyApp(languages: languages, body: body, route: path,));
+  runApp(
+    ProviderScope(
+      child: MyApp(languages: languages, body: body, route: path),
+    ),
+  );
 }
 
 class MyApp extends StatefulWidget {

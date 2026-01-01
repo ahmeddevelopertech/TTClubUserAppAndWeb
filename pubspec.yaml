@@ -83,6 +83,8 @@ dependencies:
   drift_flutter: ^0.2.7
   skeletonizer: ^2.1.0+1
   app_tracking_transparency: ^2.0.6+1
+  flutter_riverpod: ^2.5.1
+
 
 
 

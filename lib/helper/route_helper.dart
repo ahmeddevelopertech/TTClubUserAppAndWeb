@@ -6,6 +6,8 @@ import 'package:demandium/feature/home/all_category_screen.dart';
 import 'package:demandium/feature/provider/view/nearby_provider/near_by_provider_screen.dart';
 import 'package:get/get.dart';
 import 'package:demandium/utils/core_export.dart';
+import 'package:demandium/feature/tt_club_landing/presentation/pages/tt_club_landing_page.dart';
+
 
 class RouteHelper {
 
@@ -77,6 +79,10 @@ class RouteHelper {
   static const String updateProfile = '/update-profile';
   static const String offlinePayment = '/offline-payment';
   static const String allCategoriesScreen = '/all-categories';
+
+  static const String ttClubLanding = '/tt-club-landing';
+  static String getTtClubLandingRoute() => ttClubLanding;
+
 
 
 
@@ -273,6 +279,12 @@ class RouteHelper {
 
 
   static List<GetPage> routes = [
+
+    GetPage(
+      name: ttClubLanding,
+      page: () => const TtClubLandingPage(),
+    ),
+
     GetPage(
       name: initial,
       page: () => getRoute(ResponsiveHelper.isDesktop(Get.context)
