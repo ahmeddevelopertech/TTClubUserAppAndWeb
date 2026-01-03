@@ -1,24 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:get/get.dart';
-import 'package:url_launcher/url_launcher.dart';
 
-import '../../domain/entities/landing_config.dart';
+import '../../domain/entities/landing_action.dart';
+import '../providers/international_lawyers_providers.dart';
 import '../providers/tt_club_landing_providers.dart';
+import '../widgets/international_lawyers_marquee.dart';
 import '../widgets/landing_header.dart';
 import '../widgets/landing_tile.dart';
-import '../../../in_app_browser/presentation/pages/in_app_webview_page.dart';
 
 class TtClubLandingPage extends ConsumerWidget {
   const TtClubLandingPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final asyncConfig = ref.watch(landingConfigProvider);
+    final asyncCfg = ref.watch(landingConfigProvider);
 
     return Directionality(
       textDirection: TextDirection.rtl,
-      child: asyncConfig.when(
+      child: asyncCfg.when(
         loading: () => const Scaffold(
           backgroundColor: Color(0xFF0F0F0F),
           body: Center(child: CircularProgressIndicator()),
@@ -33,117 +32,144 @@ class TtClubLandingPage extends ConsumerWidget {
             ),
           ),
         ),
-        data: (config) => _LandingBody(config: config),
+        data: (cfg) => Scaffold(
+          backgroundColor: const Color(0xFF0F0F0F),
+          floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+          floatingActionButton: FloatingActionButton.extended(
+            backgroundColor: const Color(0xFFD6B36A),
+            foregroundColor: Colors.black,
+            onPressed: () => _handleAction(ref, cfg.nearestLawyerAction, context),
+            icon: const Icon(Icons.near_me),
+            label: const Text('اقرب محامي', style: TextStyle(fontWeight: FontWeight.w900)),
+          ),
+          body: CustomScrollView(
+            slivers: [
+              // ✅ Header تحت شريط الحالة
+              SliverSafeArea(
+                top: true,
+                bottom: false,
+                sliver: SliverToBoxAdapter(
+                  child: LandingHeader(
+                    title: cfg.appTitle,
+                    subtitle: cfg.subtitle,
+                    hotline: cfg.hotlineText,
+                    logoAssetPath: cfg.logoAssetPath,
+                  ),
+                ),
+              ),
+
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(12, 14, 12, 6),
+                  child: _JoinCard(
+                    onTap: () => _handleAction(ref, cfg.joinAction, context),
+                  ),
+                ),
+              ),
+
+              // International lawyers marquee
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(12, 12, 12, 6),
+                  child: const Text(
+                    'المحامين الدوليين',
+                    style: TextStyle(color: Colors.white, fontWeight: FontWeight.w900, fontSize: 16),
+                  ),
+                ),
+              ),
+              SliverToBoxAdapter(
+                child: Consumer(
+                  builder: (context, ref, _) {
+                    final asyncItems = ref.watch(internationalLawyersProvider);
+                    return asyncItems.when(
+                      loading: () => const SizedBox(
+                        height: 92,
+                        child: Center(child: CircularProgressIndicator()),
+                      ),
+                      error: (e, _) => SizedBox(
+                        height: 92,
+                        child: Center(
+                          child: Text(
+                            'تعذر تحميل المحامين الدوليين: $e',
+                            style: const TextStyle(color: Colors.white70),
+                          ),
+                        ),
+                      ),
+                      data: (items) => InternationalLawyersMarquee(items: items),
+                    );
+                  },
+                ),
+              ),
+
+              // Main tiles
+              SliverPadding(
+                padding: const EdgeInsets.fromLTRB(12, 10, 12, 90),
+                sliver: SliverGrid(
+                  delegate: SliverChildBuilderDelegate(
+                        (context, index) {
+                      final item = cfg.mainTiles[index];
+                      return LandingTile(
+                        title: item.title,
+                        icon: _iconFor(item.iconKey),
+                        onTap: () => _handleAction(ref, item, context),
+                      );
+                    },
+                    childCount: cfg.mainTiles.length,
+                  ),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3,
+                    mainAxisSpacing: 10,
+                    crossAxisSpacing: 10,
+                    childAspectRatio: 0.9,
+                  ),
+                ),
+              ),
+
+              // Footer icons
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(12, 0, 12, 130),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: cfg.footerIcons.map((a) {
+                      return IconButton(
+                        onPressed: () => _handleAction(ref, a, context),
+                        icon: Icon(_iconFor(a.iconKey), color: const Color(0xFFD6B36A)),
+                      );
+                    }).toList(growable: false),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
-}
 
-class _LandingBody extends StatelessWidget {
-  final LandingConfig config;
-  const _LandingBody({required this.config});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xFF0F0F0F),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: FloatingActionButton.extended(
-        backgroundColor: const Color(0xFFD6B36A),
-        foregroundColor: Colors.black,
-        onPressed: () => _openLink(context, config.nearestLawyerLink),
-        icon: const Icon(Icons.near_me),
-        label: const Text('اقرب محامي', style: TextStyle(fontWeight: FontWeight.w900)),
-      ),
-      body: CustomScrollView(
-        slivers: [
-          SliverToBoxAdapter(
-            child: LandingHeader(
-              title: config.appTitle,
-              subtitle: config.subtitle,
-              hotline: config.hotlineText,
-              logoAssetPath: config.logoAssetPath,
-            ),
-          ),
-
-          // Join card
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(12, 14, 12, 6),
-              child: _JoinCard(
-                onTap: () => _openLink(context, config.joinLink),
-              ),
-            ),
-          ),
-
-          // Main tiles
-          SliverPadding(
-            padding: const EdgeInsets.fromLTRB(12, 10, 12, 80),
-            sliver: SliverGrid(
-              delegate: SliverChildBuilderDelegate(
-                    (context, index) {
-                  final item = config.mainTiles[index];
-                  final icon = switch (item.title) {
-                    'التخصصات' => Icons.category,
-                    'المحامين' => Icons.person,
-                    _ => Icons.public,
-                  };
-                  return LandingTile(
-                    title: item.title,
-                    icon: icon,
-                    onTap: () => _openLink(context, item),
-                  );
-                },
-                childCount: config.mainTiles.length,
-              ),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 3,
-                mainAxisSpacing: 10,
-                crossAxisSpacing: 10,
-                childAspectRatio: 0.9,
-              ),
-            ),
-          ),
-
-          // Footer icons
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(12, 0, 12, 110),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: config.footerLinks.map((l) {
-                  final icon = switch (l.title) {
-                    'Email' => Icons.email,
-                    'Website' => Icons.language,
-                    'WhatsApp' => Icons.chat,
-                    'Facebook' => Icons.facebook,
-                    _ => Icons.link,
-                  };
-                  return IconButton(
-                    onPressed: () => _openLink(context, l),
-                    icon: Icon(icon, color: const Color(0xFFD6B36A)),
-                  );
-                }).toList(growable: false),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Future<void> _openLink(BuildContext context, LandingLink link) async {
-    if (link.type == LandingLinkType.inAppWebView) {
-      Get.to(() => InAppWebViewPage(title: link.title, url: link.url));
-      return;
-    }
-
-    final ok = await launchUrl(link.url, mode: LaunchMode.externalApplication);
-    if (!ok && context.mounted) {
+  Future<void> _handleAction(WidgetRef ref, LandingAction action, BuildContext context) async {
+    final nav = ref.read(landingNavigatorProvider);
+    try {
+      await nav.go(action.destination);
+    } catch (_) {
+      if (!context.mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('تعذر فتح الرابط')),
+        const SnackBar(content: Text('تعذر تنفيذ العملية')),
       );
     }
+  }
+
+  IconData _iconFor(String key) {
+    if (key == 'specialties') return Icons.category;
+    if (key == 'lawyers') return Icons.person;
+    if (key == 'intl') return Icons.public;
+    if (key == 'email') return Icons.email;
+    if (key == 'website') return Icons.language;
+    if (key == 'whatsapp') return Icons.chat;
+    if (key == 'facebook') return Icons.facebook;
+    if (key == 'near') return Icons.near_me;
+    if (key == 'join') return Icons.how_to_reg;
+    return Icons.link;
   }
 }
 

@@ -9,8 +9,7 @@ class ThemeController extends GetxController implements GetxService {
     _loadCurrentTheme();
   }
 
-
-  bool _darkTheme = false;
+  bool _darkTheme = true;
   String _lightMap = '[]';
   String _darkMap = '[]';
 
@@ -27,7 +26,10 @@ class ThemeController extends GetxController implements GetxService {
   void _loadCurrentTheme() async {
     _lightMap = await rootBundle.loadString('assets/map/light_map.json');
     _darkMap = await rootBundle.loadString('assets/map/dark_map.json');
-    _darkTheme = sharedPreferences.getBool(AppConstants.theme) ?? false;
+
+    // ✅ Dark default on first run
+    _darkTheme = sharedPreferences.getBool(AppConstants.theme) ?? true;
+
     update();
   }
 }

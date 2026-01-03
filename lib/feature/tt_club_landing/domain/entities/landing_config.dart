@@ -1,19 +1,5 @@
 import 'package:flutter/foundation.dart';
-
-enum LandingLinkType { inAppWebView, external }
-
-@immutable
-class LandingLink {
-  final String title;
-  final Uri url;
-  final LandingLinkType type;
-
-  const LandingLink({
-    required this.title,
-    required this.url,
-    required this.type,
-  });
-}
+import 'landing_action.dart';
 
 @immutable
 class LandingConfig {
@@ -22,20 +8,23 @@ class LandingConfig {
   final String hotlineText;
   final String logoAssetPath;
 
-  final LandingLink joinLink;
-  final LandingLink nearestLawyerLink;
+  final LandingAction joinAction;
+  final LandingAction nearestLawyerAction;
 
-  final List<LandingLink> mainTiles;     // التخصصات / المحامين / المحامين الدوليين
-  final List<LandingLink> footerLinks;   // Email / Website / WhatsApp / Facebook
+  /// Grid tiles (e.g., specialties / lawyers / international).
+  final List<LandingAction> mainTiles;
+
+  /// Footer icon actions (email / website / whatsapp / facebook).
+  final List<LandingAction> footerIcons;
 
   const LandingConfig({
     required this.appTitle,
     required this.subtitle,
     required this.hotlineText,
     required this.logoAssetPath,
-    required this.joinLink,
-    required this.nearestLawyerLink,
+    required this.joinAction,
+    required this.nearestLawyerAction,
     required this.mainTiles,
-    required this.footerLinks,
+    required this.footerIcons,
   });
 }

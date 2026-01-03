@@ -1,0 +1,257 @@
+[
+  {
+    "id": "intl_001",
+    "photoAsset": "assets/images/international_lawyers/photos/lawyer_001_photo.jpg",
+    "cardAsset": "assets/images/international_lawyers/cards/lawyer_001_card.jpg"
+  },
+  {
+    "id": "intl_002",
+    "photoAsset": "assets/images/international_lawyers/photos/lawyer_002_photo.jpg",
+    "cardAsset": "assets/images/international_lawyers/cards/lawyer_002_card.jpg"
+  },
+  {
+    "id": "intl_003",
+    "photoAsset": "assets/images/international_lawyers/photos/lawyer_003_photo.jpg",
+    "cardAsset": "assets/images/international_lawyers/cards/lawyer_003_card.jpg"
+  },
+  {
+    "id": "intl_004",
+    "photoAsset": "assets/images/international_lawyers/photos/lawyer_004_photo.jpg",
+    "cardAsset": "assets/images/international_lawyers/cards/lawyer_004_card.jpg"
+  },
+  {
+    "id": "intl_005",
+    "photoAsset": "assets/images/international_lawyers/photos/lawyer_005_photo.jpg",
+    "cardAsset": "assets/images/international_lawyers/cards/lawyer_005_card.jpg"
+  },
+  {
+    "id": "intl_006",
+    "photoAsset": "assets/images/international_lawyers/photos/lawyer_006_photo.jpg",
+    "cardAsset": "assets/images/international_lawyers/cards/lawyer_006_card.jpg"
+  },
+  {
+    "id": "intl_007",
+    "photoAsset": "assets/images/international_lawyers/photos/lawyer_007_photo.jpg",
+    "cardAsset": "assets/images/international_lawyers/cards/lawyer_007_card.jpg"
+  },
+  {
+    "id": "intl_008",
+    "photoAsset": "assets/images/international_lawyers/photos/lawyer_008_photo.jpg",
+    "cardAsset": "assets/images/international_lawyers/cards/lawyer_008_card.jpg"
+  },
+  {
+    "id": "intl_009",
+    "photoAsset": "assets/images/international_lawyers/photos/lawyer_009_photo.jpg",
+    "cardAsset": "assets/images/international_lawyers/cards/lawyer_009_card.jpg"
+  },
+  {
+    "id": "intl_010",
+    "photoAsset": "assets/images/international_lawyers/photos/lawyer_010_photo.jpg",
+    "cardAsset": "assets/images/international_lawyers/cards/lawyer_010_card.jpg"
+  },
+  {
+    "id": "intl_011",
+    "photoAsset": "assets/images/international_lawyers/photos/lawyer_011_photo.jpg",
+    "cardAsset": "assets/images/international_lawyers/cards/lawyer_011_card.jpg"
+  },
+  {
+    "id": "intl_012",
+    "photoAsset": "assets/images/international_lawyers/photos/lawyer_012_photo.jpg",
+    "cardAsset": "assets/images/international_lawyers/cards/lawyer_012_card.jpg"
+  },
+  {
+    "id": "intl_013",
+    "photoAsset": "assets/images/international_lawyers/photos/lawyer_013_photo.jpg",
+    "cardAsset": "assets/images/international_lawyers/cards/lawyer_013_card.jpg"
+  },
+  {
+    "id": "intl_014",
+    "photoAsset": "assets/images/international_lawyers/photos/lawyer_014_photo.jpg",
+    "cardAsset": "assets/images/international_lawyers/cards/lawyer_014_card.jpg"
+  },
+  {
+    "id": "intl_015",
+    "photoAsset": "assets/images/international_lawyers/photos/lawyer_015_photo.jpg",
+    "cardAsset": "assets/images/international_lawyers/cards/lawyer_015_card.jpg"
+  },
+  {
+    "id": "intl_016",
+    "photoAsset": "assets/images/international_lawyers/photos/lawyer_016_photo.jpg",
+    "cardAsset": "assets/images/international_lawyers/cards/lawyer_016_card.jpg"
+  },
+  {
+    "id": "intl_017",
+    "photoAsset": "assets/images/international_lawyers/photos/lawyer_017_photo.jpg",
+    "cardAsset": "assets/images/international_lawyers/cards/lawyer_017_card.jpg"
+  },
+  {
+    "id": "intl_018",
+    "photoAsset": "assets/images/international_lawyers/photos/lawyer_018_photo.jpg",
+    "cardAsset": "assets/images/international_lawyers/cards/lawyer_018_card.jpg"
+  },
+  {
+    "id": "intl_019",
+    "photoAsset": "assets/images/international_lawyers/photos/lawyer_019_photo.jpg",
+    "cardAsset": "assets/images/international_lawyers/cards/lawyer_019_card.jpg"
+  },
+  {
+    "id": "intl_020",
+    "photoAsset": "assets/images/international_lawyers/photos/lawyer_020_photo.jpg",
+    "cardAsset": "assets/images/international_lawyers/cards/lawyer_020_card.jpg"
+  },
+  {
+    "id": "intl_021",
+    "photoAsset": "assets/images/international_lawyers/photos/lawyer_021_photo.jpg",
+    "cardAsset": "assets/images/international_lawyers/cards/lawyer_021_card.jpg"
+  },
+  {
+    "id": "intl_022",
+    "photoAsset": "assets/images/international_lawyers/photos/lawyer_022_photo.jpg",
+    "cardAsset": "assets/images/international_lawyers/cards/lawyer_022_card.jpg"
+  },
+  {
+    "id": "intl_023",
+    "photoAsset": "assets/images/international_lawyers/photos/lawyer_023_photo.jpg",
+    "cardAsset": "assets/images/international_lawyers/cards/lawyer_023_card.jpg"
+  },
+  {
+    "id": "intl_024",
+    "photoAsset": "assets/images/international_lawyers/photos/lawyer_024_photo.jpg",
+    "cardAsset": "assets/images/international_lawyers/cards/lawyer_024_card.jpg"
+  },
+  {
+    "id": "intl_025",
+    "photoAsset": "assets/images/international_lawyers/photos/lawyer_025_photo.jpg",
+    "cardAsset": "assets/images/international_lawyers/cards/lawyer_025_card.jpg"
+  },
+  {
+    "id": "intl_026",
+    "photoAsset": "assets/images/international_lawyers/photos/lawyer_026_photo.jpg",
+    "cardAsset": "assets/images/international_lawyers/cards/lawyer_026_card.jpg"
+  },
+  {
+    "id": "intl_027",
+    "photoAsset": "assets/images/international_lawyers/photos/lawyer_027_photo.jpg",
+    "cardAsset": "assets/images/international_lawyers/cards/lawyer_027_card.jpg"
+  },
+  {
+    "id": "intl_028",
+    "photoAsset": "assets/images/international_lawyers/photos/lawyer_028_photo.jpg",
+    "cardAsset": "assets/images/international_lawyers/cards/lawyer_028_card.jpg"
+  },
+  {
+    "id": "intl_029",
+    "photoAsset": "assets/images/international_lawyers/photos/lawyer_029_photo.jpg",
+    "cardAsset": "assets/images/international_lawyers/cards/lawyer_029_card.jpg"
+  },
+  {
+    "id": "intl_030",
+    "photoAsset": "assets/images/international_lawyers/photos/lawyer_030_photo.jpg",
+    "cardAsset": "assets/images/international_lawyers/cards/lawyer_030_card.jpg"
+  },
+  {
+    "id": "intl_031",
+    "photoAsset": "assets/images/international_lawyers/photos/lawyer_031_photo.jpg",
+    "cardAsset": "assets/images/international_lawyers/cards/lawyer_031_card.jpg"
+  },
+  {
+    "id": "intl_032",
+    "photoAsset": "assets/images/international_lawyers/photos/lawyer_032_photo.jpg",
+    "cardAsset": "assets/images/international_lawyers/cards/lawyer_032_card.jpg"
+  },
+  {
+    "id": "intl_033",
+    "photoAsset": "assets/images/international_lawyers/photos/lawyer_033_photo.jpg",
+    "cardAsset": "assets/images/international_lawyers/cards/lawyer_033_card.jpg"
+  },
+  {
+    "id": "intl_034",
+    "photoAsset": "assets/images/international_lawyers/photos/lawyer_034_photo.jpg",
+    "cardAsset": "assets/images/international_lawyers/cards/lawyer_034_card.jpg"
+  },
+  {
+    "id": "intl_035",
+    "photoAsset": "assets/images/international_lawyers/photos/lawyer_035_photo.jpg",
+    "cardAsset": "assets/images/international_lawyers/cards/lawyer_035_card.jpg"
+  },
+  {
+    "id": "intl_036",
+    "photoAsset": "assets/images/international_lawyers/photos/lawyer_036_photo.jpg",
+    "cardAsset": "assets/images/international_lawyers/cards/lawyer_036_card.jpg"
+  },
+  {
+    "id": "intl_037",
+    "photoAsset": "assets/images/international_lawyers/photos/lawyer_037_photo.jpg",
+    "cardAsset": "assets/images/international_lawyers/cards/lawyer_037_card.jpg"
+  },
+  {
+    "id": "intl_038",
+    "photoAsset": "assets/images/international_lawyers/photos/lawyer_038_photo.jpg",
+    "cardAsset": "assets/images/international_lawyers/cards/lawyer_038_card.jpg"
+  },
+  {
+    "id": "intl_039",
+    "photoAsset": "assets/images/international_lawyers/photos/lawyer_039_photo.jpg",
+    "cardAsset": "assets/images/international_lawyers/cards/lawyer_039_card.jpg"
+  },
+  {
+    "id": "intl_040",
+    "photoAsset": "assets/images/international_lawyers/photos/lawyer_040_photo.jpg",
+    "cardAsset": "assets/images/international_lawyers/cards/lawyer_040_card.jpg"
+  },
+  {
+    "id": "intl_041",
+    "photoAsset": "assets/images/international_lawyers/photos/lawyer_041_photo.jpg",
+    "cardAsset": "assets/images/international_lawyers/cards/lawyer_041_card.jpg"
+  },
+  {
+    "id": "intl_042",
+    "photoAsset": "assets/images/international_lawyers/photos/lawyer_042_photo.jpg",
+    "cardAsset": "assets/images/international_lawyers/cards/lawyer_042_card.jpg"
+  },
+  {
+    "id": "intl_043",
+    "photoAsset": "assets/images/international_lawyers/photos/lawyer_043_photo.jpg",
+    "cardAsset": "assets/images/international_lawyers/cards/lawyer_043_card.jpg"
+  },
+  {
+    "id": "intl_044",
+    "photoAsset": "assets/images/international_lawyers/photos/lawyer_044_photo.jpg",
+    "cardAsset": "assets/images/international_lawyers/cards/lawyer_044_card.jpg"
+  },
+  {
+    "id": "intl_045",
+    "photoAsset": "assets/images/international_lawyers/photos/lawyer_045_photo.jpg",
+    "cardAsset": "assets/images/international_lawyers/cards/lawyer_045_card.jpg"
+  },
+  {
+    "id": "intl_046",
+    "photoAsset": "assets/images/international_lawyers/photos/lawyer_046_photo.jpg",
+    "cardAsset": "assets/images/international_lawyers/cards/lawyer_046_card.jpg"
+  },
+  {
+    "id": "intl_047",
+    "photoAsset": "assets/images/international_lawyers/photos/lawyer_047_photo.jpg",
+    "cardAsset": "assets/images/international_lawyers/cards/lawyer_047_card.jpg"
+  },
+  {
+    "id": "intl_048",
+    "photoAsset": "assets/images/international_lawyers/photos/lawyer_048_photo.jpg",
+    "cardAsset": "assets/images/international_lawyers/cards/lawyer_048_card.jpg"
+  },
+  {
+    "id": "intl_049",
+    "photoAsset": "assets/images/international_lawyers/photos/lawyer_049_photo.jpg",
+    "cardAsset": "assets/images/international_lawyers/cards/lawyer_049_card.jpg"
+  },
+  {
+    "id": "intl_050",
+    "photoAsset": "assets/images/international_lawyers/photos/lawyer_050_photo.jpg",
+    "cardAsset": "assets/images/international_lawyers/cards/lawyer_050_card.jpg"
+  },
+  {
+    "id": "intl_051",
+    "photoAsset": "assets/images/international_lawyers/photos/lawyer_051_photo.jpg",
+    "cardAsset": "assets/images/international_lawyers/cards/lawyer_051_card.jpg"
+  }
+]

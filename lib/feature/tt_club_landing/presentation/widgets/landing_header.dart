@@ -47,27 +47,37 @@ class LandingHeader extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(title,
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 26,
-                      fontWeight: FontWeight.w900,
-                      letterSpacing: 1.2,
-                    )),
+                Text(
+                  title,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 26,
+                    fontWeight: FontWeight.w900,
+                    letterSpacing: 1.2,
+                  ),
+                ),
                 const SizedBox(height: 4),
-                Text(subtitle,
-                    style: const TextStyle(color: Colors.white70, fontSize: 13)),
+                Text(
+                  subtitle,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(color: Colors.white70, fontSize: 13),
+                ),
                 const SizedBox(height: 10),
                 Row(
                   children: [
                     const Icon(Icons.location_on, size: 18, color: Color(0xFFD6B36A)),
                     const SizedBox(width: 6),
-                    Text(hotline,
-                        style: const TextStyle(
-                          color: Color(0xFFD6B36A),
-                          fontSize: 16,
-                          fontWeight: FontWeight.w800,
-                        )),
+                    Text(
+                      hotline,
+                      style: const TextStyle(
+                        color: Color(0xFFD6B36A),
+                        fontSize: 16,
+                        fontWeight: FontWeight.w800,
+                      ),
+                    ),
                   ],
                 ),
               ],

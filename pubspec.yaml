@@ -113,6 +113,9 @@ flutter:
     - assets/json/
     - assets/map/
     - assets/
+    - assets/data/international_lawyers.json
+    - assets/images/international_lawyers/photos/
+    - assets/images/international_lawyers/cards/
 
   fonts:
     - family: Ubuntu

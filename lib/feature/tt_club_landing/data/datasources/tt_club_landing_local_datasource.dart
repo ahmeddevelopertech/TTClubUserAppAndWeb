@@ -1,3 +1,6 @@
+import 'package:demandium/utils/core_export.dart';
+
+import '../../domain/entities/landing_action.dart';
 import '../../domain/entities/landing_config.dart';
 
 class TtClubLandingLocalDataSource {
@@ -8,58 +11,75 @@ class TtClubLandingLocalDataSource {
       appTitle: 'TT CLUB',
       subtitle: 'نادي الحماية الدولي للأنشطة القانونية',
       hotlineText: '1088.tel',
+      logoAssetPath: Images.logo,
 
-      // ✅ غيّر ده لمسار اللوجو الحقيقي عندك
-      logoAssetPath: 'assets/images/logo.png',
-
-      joinLink:  LandingLink(
+      joinAction: const LandingAction(
+        id: 'join',
         title: 'انضم الآن',
-        url: Uri.parse('https://www.1088.tel/w/Join'),
-        type: LandingLinkType.inAppWebView,
-      ),
-      nearestLawyerLink:  LandingLink(
-        title: 'اقرب محامي',
-        url: Uri.parse('https://www.1088.tel/w/near-by-Ar'),
-        type: LandingLinkType.inAppWebView,
+        iconKey: 'join',
+        destination: AppRouteDestination(key: AppRouteKey.signUp),
       ),
 
-      mainTiles:  [
-        LandingLink(
+      nearestLawyerAction: const LandingAction(
+        id: 'near',
+        title: 'اقرب محامي',
+        iconKey: 'near',
+        destination: AppRouteDestination(
+          key: AppRouteKey.nearByProviders,
+          params: {'tabIndex': '0'},
+        ),
+      ),
+
+      mainTiles: const [
+        LandingAction(
+          id: 'specialties',
           title: 'التخصصات',
-          url: Uri.parse('https://www.1088.tel/w/Specialty'),
-          type: LandingLinkType.inAppWebView,
+          iconKey: 'specialties',
+          destination: AppRouteDestination(key: AppRouteKey.allCategories),
         ),
-        LandingLink(
+        LandingAction(
+          id: 'lawyers',
           title: 'المحامين',
-          url: Uri.parse('https://ttclub.org/%D8%A7%D9%84%D9%85%D8%AD%D8%A7%D9%85%D9%8A%D9%86/'),
-          type: LandingLinkType.inAppWebView,
+          iconKey: 'lawyers',
+          destination: AppRouteDestination(key: AppRouteKey.allProviders),
         ),
-        LandingLink(
+        LandingAction(
+          id: 'intl',
           title: 'المحامين الدوليين',
-          url: Uri.parse('https://ttclub.org/%D8%A7%D9%84%D9%85%D8%AD%D8%A7%D9%85%D9%8A%D9%86-%D8%A7%D9%84%D8%AF%D9%88%D9%84%D9%8A%D9%8A%D9%86/'),
-          type: LandingLinkType.inAppWebView,
+          iconKey: 'intl',
+          destination: AppRouteDestination(key: AppRouteKey.internationalLawyers),
         ),
       ],
-      footerLinks:  [
-        LandingLink(
+
+      footerIcons:  [
+        LandingAction(
+          id: 'email',
           title: 'Email',
-          url: Uri.parse('mailto:info@ttclub.org'),
-          type: LandingLinkType.external,
+          iconKey: 'email',
+          destination: ExternalUriDestination(Uri.parse('mailto:info@ttclub.org')),
         ),
-        LandingLink(
+        LandingAction(
+          id: 'website',
           title: 'Website',
-          url: Uri.parse('https://ttclub.org/'),
-          type: LandingLinkType.inAppWebView,
+          iconKey: 'website',
+          destination: InAppWebViewDestination(
+            title: 'TT Club',
+            uri: Uri.parse('https://ttclub.org/'),
+          ),
         ),
-        LandingLink(
+        LandingAction(
+          id: 'whatsapp',
           title: 'WhatsApp',
-          url: Uri.parse('https://api.whatsapp.com/send?phone=201227491145'),
-          type: LandingLinkType.external,
+          iconKey: 'whatsapp',
+          destination: ExternalUriDestination(
+            Uri.parse('https://api.whatsapp.com/send?phone=201227491145'),
+          ),
         ),
-        LandingLink(
+        LandingAction(
+          id: 'facebook',
           title: 'Facebook',
-          url: Uri.parse('https://www.facebook.com/140.tel'),
-          type: LandingLinkType.external,
+          iconKey: 'facebook',
+          destination: ExternalUriDestination(Uri.parse('https://www.facebook.com/140.tel')),
         ),
       ],
     );

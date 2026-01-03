@@ -4,10 +4,10 @@ import 'package:demandium/feature/booking/view/repeat_booking_details_screen.dar
 import 'package:demandium/feature/checkout/view/offline_payment_screen.dart';
 import 'package:demandium/feature/home/all_category_screen.dart';
 import 'package:demandium/feature/provider/view/nearby_provider/near_by_provider_screen.dart';
+import 'package:demandium/feature/tt_club_landing/presentation/pages/tt_club_landing_page.dart';
+import 'package:demandium/feature/tt_club_landing/presentation/pages/international_lawyers_page.dart';
 import 'package:get/get.dart';
 import 'package:demandium/utils/core_export.dart';
-import 'package:demandium/feature/tt_club_landing/presentation/pages/tt_club_landing_page.dart';
-
 
 class RouteHelper {
 
@@ -79,10 +79,8 @@ class RouteHelper {
   static const String updateProfile = '/update-profile';
   static const String offlinePayment = '/offline-payment';
   static const String allCategoriesScreen = '/all-categories';
-
   static const String ttClubLanding = '/tt-club-landing';
-  static String getTtClubLandingRoute() => ttClubLanding;
-
+  static const String internationalLawyers = '/international-lawyers';
 
 
 
@@ -276,15 +274,11 @@ class RouteHelper {
     return "$offlinePayment?amount=$totalAmount&index=$index&id=$bookingId&readable_id=$readableId&partial=$isPartialPayment&page=$fromPage&data=$userData&offline=$offlineData&offline_id=$offlinePaymentId";
   }
   static String getAllCategoriesScreen() => allCategoriesScreen;
+  static String getTtClubLandingRoute() => ttClubLanding;
+  static String getInternationalLawyersRoute() => internationalLawyers;
 
 
   static List<GetPage> routes = [
-
-    GetPage(
-      name: ttClubLanding,
-      page: () => const TtClubLandingPage(),
-    ),
-
     GetPage(
       name: initial,
       page: () => getRoute(ResponsiveHelper.isDesktop(Get.context)
@@ -299,6 +293,9 @@ class RouteHelper {
       }
       return SplashScreen(body: data, route: Get.parameters['route'],);
     }),
+    GetPage(name: ttClubLanding, page: () => const TtClubLandingPage()),
+    GetPage(name: internationalLawyers, page: () => const InternationalLawyersPage()),
+
     GetPage(name: languageScreen, page: () => LanguageScreen(fromPage: Get.parameters['fromPage'],)),
     GetPage(name: offers, page: () => getRoute(const OfferScreen())),
     GetPage(name: signIn, page: () => SignInScreen(
@@ -785,18 +782,18 @@ class RouteHelper {
   }
 
 // static String? _getValidRedirectRoute(String? route) {
- //    if (route == null || route == 'null' || route.isEmpty) {
- //      return null;
- //    }
- //
- //    ///RouteHelper.signIn,  RouteHelper.signUp, RouteHelper.sendOtpScreen, RouteHelper.verification  all are string
- //    if(route.contains(RouteHelper.signIn)) return null;
- //    if(route.contains(RouteHelper.signUp)) return null;
- //    if(route.contains(RouteHelper.sendOtpScreen)) return null;
- //    if(route.contains(RouteHelper.verification)) return null;
- //
- //    return route;
- //  }
+//    if (route == null || route == 'null' || route.isEmpty) {
+//      return null;
+//    }
+//
+//    ///RouteHelper.signIn,  RouteHelper.signUp, RouteHelper.sendOtpScreen, RouteHelper.verification  all are string
+//    if(route.contains(RouteHelper.signIn)) return null;
+//    if(route.contains(RouteHelper.signUp)) return null;
+//    if(route.contains(RouteHelper.sendOtpScreen)) return null;
+//    if(route.contains(RouteHelper.verification)) return null;
+//
+//    return route;
+//  }
 }
 
 
