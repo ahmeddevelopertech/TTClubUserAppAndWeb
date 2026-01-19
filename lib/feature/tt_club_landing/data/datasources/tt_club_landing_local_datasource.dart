@@ -10,8 +10,20 @@ class TtClubLandingLocalDataSource {
     return LandingConfig(
       appTitle: 'TT CLUB',
       subtitle: 'نادي الحماية الدولي للأنشطة القانونية',
-      hotlineText: '1088.tel',
       logoAssetPath: Images.logo,
+
+      headerTrailingAction: const LandingAction(
+        id: 'notifications',
+        title: 'الإشعارات',
+        iconKey: 'notifications',
+        destination: AppRouteDestination(
+          key: AppRouteKey.notifications,
+          params: {
+            'fromNotification': 'false',
+            'reservationID': '0',
+          },
+        ),
+      ),
 
       joinAction: const LandingAction(
         id: 'join',
@@ -30,28 +42,40 @@ class TtClubLandingLocalDataSource {
         ),
       ),
 
-      mainTiles: const [
+      internationalLawyersAction: const LandingAction(
+        id: 'intl',
+        title: 'المحامين الدوليين',
+        iconKey: 'intl',
+        destination: AppRouteDestination(key: AppRouteKey.internationalLawyers),
+      ),
+
+      categories: const [
+        LandingAction(
+          id: 'comp_doc',
+          title: 'وثيقة التعويض',
+          iconKey: 'comp_doc',
+          destination: HtmlDestination(
+            pageKey: 'compensation_document',
+            title: 'وثيقة التعويض',
+          ),
+        ),
         LandingAction(
           id: 'specialties',
           title: 'التخصصات',
           iconKey: 'specialties',
+          // NOTE: this should navigate to the existing "Specialties / Categories" feature.
+          // If your project uses a different key, change it here only.
           destination: AppRouteDestination(key: AppRouteKey.allCategories),
         ),
         LandingAction(
-          id: 'lawyers',
-          title: 'المحامين',
-          iconKey: 'lawyers',
-          destination: AppRouteDestination(key: AppRouteKey.allProviders),
-        ),
-        LandingAction(
-          id: 'intl',
-          title: 'المحامين الدوليين',
-          iconKey: 'intl',
-          destination: AppRouteDestination(key: AppRouteKey.internationalLawyers),
+          id: 'taxi',
+          title: 'تاكسي',
+          iconKey: 'taxi',
+          destination: TaxiSheetDestination(),
         ),
       ],
 
-      footerIcons:  [
+      contactIcons:  [
         LandingAction(
           id: 'email',
           title: 'Email',
@@ -82,6 +106,37 @@ class TtClubLandingLocalDataSource {
           destination: ExternalUriDestination(Uri.parse('https://www.facebook.com/140.tel')),
         ),
       ],
+
+      servicesNavAction: const LandingAction(
+        id: 'services',
+        title: 'الخدمات',
+        iconKey: 'services',
+        destination: AppRouteDestination(
+          key: AppRouteKey.main,
+          params: {'page': 'home'},
+        ),
+      ),
+      aboutNavAction:  LandingAction(
+        id: 'about',
+        title: 'من نحن',
+        iconKey: 'about',
+        destination: InAppWebViewDestination(
+          title: 'من نحن',
+          uri: Uri.parse('https://1088.tel'),
+        ),
+      ),
+      messagesNavAction: const LandingAction(
+        id: 'messages',
+        title: 'الرسائل',
+        iconKey: 'messages',
+        destination: AppRouteDestination(key: AppRouteKey.chatInbox),
+      ),
+      profileNavAction: const LandingAction(
+        id: 'me',
+        title: 'أنا',
+        iconKey: 'me',
+        destination: AppRouteDestination(key: AppRouteKey.profile),
+      ),
     );
   }
 }

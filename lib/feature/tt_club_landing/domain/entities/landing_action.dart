@@ -3,7 +3,25 @@ import 'package:flutter/foundation.dart';
 /// Internal destinations are expressed as keys to keep the domain layer
 /// independent from routing (GetX / RouteHelper).
 enum AppRouteKey {
+  /// Original app home (BottomNavScreen).
+  /// Params: {"page": "home" | "offers" | ...}
+  main,
+
   signUp,
+
+  /// Discounts/Offers screen.
+  offers,
+
+  /// Chat inbox.
+  chatInbox,
+
+  /// Profile screen.
+  profile,
+
+  /// Notifications screen.
+  notifications,
+
+  /// Optional legacy routes (kept for compatibility).
   allCategories,
   allProviders,
   nearByProviders,
@@ -42,6 +60,25 @@ class InAppWebViewDestination extends LandingDestination {
     required this.title,
     required this.uri,
   });
+}
+
+/// RouteHelper.html?page=<pageKey>&title=<title>
+@immutable
+class HtmlDestination extends LandingDestination {
+  final String pageKey;
+  final String? title;
+
+  const HtmlDestination({
+    required this.pageKey,
+    this.title,
+  });
+}
+
+/// UI-only destination: open a taxi provider picker (bottom sheet) and launch
+/// installed apps (or fallback to store).
+@immutable
+class TaxiSheetDestination extends LandingDestination {
+  const TaxiSheetDestination();
 }
 
 @immutable

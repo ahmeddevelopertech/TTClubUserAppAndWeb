@@ -55,6 +55,7 @@ class _InternationalLawyersMarqueeState extends State<InternationalLawyersMarque
       final max = position.maxScrollExtent;
       if (max <= 0) return;
 
+      // With duplicated list, we loop at half extent.
       final half = max / 2;
       var next = position.pixels + delta;
       if (next >= half) next -= half;
@@ -92,7 +93,7 @@ class _InternationalLawyersMarqueeState extends State<InternationalLawyersMarque
         return false;
       },
       child: SizedBox(
-        height: 86,
+        height: 96,
         child: RepaintBoundary(
           child: ListView.separated(
             controller: _controller,
@@ -119,56 +120,151 @@ class _InternationalLawyerTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final cs = theme.colorScheme;
+    const brand = Color(0xFFD6B36A);
+
     final dpr = MediaQuery.of(context).devicePixelRatio;
     final photoCache = (56 * dpr).round();
-    final cardCache = (170 * dpr).round();
+    final flagCache = (18 * dpr).round();
+
+    final name = item.name.trim().isEmpty ? 'محامي دولي' : item.name.trim();
+    final country = item.countryName.trim().isNotEmpty
+        ? item.countryName.trim()
+        : (item.countryCode?.trim().isNotEmpty ?? false)
+            ? item.countryCode!.trim()
+            : '—';
 
     return Container(
-      width: 250,
-      padding: const EdgeInsets.all(8),
+      width: 260,
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
       decoration: BoxDecoration(
-        color: const Color(0xFF151515),
+        color: cs.surface,
         borderRadius: BorderRadius.circular(18),
-        border: Border.all(color: const Color(0xFFD6B36A), width: 1),
+        border: Border.all(color: brand, width: 1),
       ),
       child: Row(
         children: [
           SizedBox(
-            width: 56,
-            height: 56,
-            child: ClipOval(
-              child: Image.asset(
-                item.photoAsset,
-                fit: BoxFit.cover,
-                cacheWidth: photoCache,
-                filterQuality: FilterQuality.medium,
-                errorBuilder: (_, __, ___) => const ColoredBox(
-                  color: Color(0xFF2A2A2A),
-                  child: Icon(Icons.person, color: Color(0xFFD6B36A)),
-                ),
-              ),
-            ),
-          ),
-          const SizedBox(width: 10),
-          Expanded(
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(12),
-              child: Image.asset(
-                item.cardAsset,
-                fit: BoxFit.cover,
-                cacheWidth: cardCache,
-                filterQuality: FilterQuality.medium,
-                errorBuilder: (_, __, ___) => const ColoredBox(
-                  color: Color(0xFF2A2A2A),
-                  child: Center(
-                    child: Text('Missing card', style: TextStyle(color: Colors.white70)),
+            width: 58,
+            height: 58,
+            child: Stack(
+              clipBehavior: Clip.none,
+              children: [
+                ClipOval(
+                  child: Image.asset(
+                    item.photoAsset,
+                    fit: BoxFit.cover,
+                    cacheWidth: photoCache,
+                    filterQuality: FilterQuality.medium,
+                    errorBuilder: (_, __, ___) => ColoredBox(
+                      color: cs.surfaceVariant,
+                      child: const Center(child: Icon(Icons.person, color: brand)),
+                    ),
                   ),
                 ),
-              ),
+                Positioned(
+                  bottom: -2,
+                  right: -2,
+                  child: _FlagBadge(
+                    flagAsset: item.flagAsset,
+                    countryCode: item.countryCode,
+                    cacheWidth: flagCache,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  name,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: theme.textTheme.bodyMedium?.copyWith(
+                    color: cs.onSurface,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w900,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  country,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: theme.textTheme.bodySmall?.copyWith(
+                    color: cs.onSurfaceVariant,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                if ((item.specialty?.trim().isNotEmpty ?? false)) ...[
+                  const SizedBox(height: 4),
+                  Text(
+                    item.specialty!.trim(),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: theme.textTheme.bodySmall?.copyWith(
+                      color: brand,
+                      fontSize: 11,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ],
+              ],
             ),
           ),
         ],
       ),
+    );
+  }
+}
+
+class _FlagBadge extends StatelessWidget {
+  final String? flagAsset;
+  final String? countryCode;
+  final int cacheWidth;
+
+  const _FlagBadge({
+    required this.flagAsset,
+    required this.countryCode,
+    required this.cacheWidth,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final cs = theme.colorScheme;
+    const brand = Color(0xFFD6B36A);
+
+    final resolved = flagAsset?.trim().isNotEmpty ?? false
+        ? flagAsset!.trim()
+        : (countryCode?.trim().isNotEmpty ?? false)
+            ? 'assets/images/flags/${countryCode!.trim().toLowerCase()}.png'
+            : null;
+
+    return Container(
+      width: 20,
+      height: 20,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        border: Border.all(color: brand, width: 1),
+        color: cs.surfaceVariant,
+      ),
+      clipBehavior: Clip.antiAlias,
+      child: resolved == null
+          ? const Icon(Icons.flag, size: 12, color: brand)
+          : Image.asset(
+              resolved,
+              fit: BoxFit.cover,
+              cacheWidth: cacheWidth,
+              filterQuality: FilterQuality.low,
+              errorBuilder: (_, __, ___) => const Icon(Icons.flag, size: 12, color: brand),
+            ),
     );
   }
 }

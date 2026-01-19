@@ -84,6 +84,8 @@ dependencies:
   skeletonizer: ^2.1.0+1
   app_tracking_transparency: ^2.0.6+1
   flutter_riverpod: ^2.5.1
+  pdfx: ^2.9.2
+
 
 
 
@@ -116,6 +118,10 @@ flutter:
     - assets/data/international_lawyers.json
     - assets/images/international_lawyers/photos/
     - assets/images/international_lawyers/cards/
+    - assets/images/flags_generated/
+    - assets/docs/compensation_ar.pdf
+    - assets/docs/compensation_en.pdf
+
 
   fonts:
     - family: Ubuntu

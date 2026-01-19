@@ -3,41 +3,58 @@ import 'package:flutter/material.dart';
 class LandingHeader extends StatelessWidget {
   final String title;
   final String subtitle;
-  final String hotline;
   final String logoAssetPath;
+
+  /// Right-side icon (end side). Example: notifications.
+  final IconData trailingIcon;
+  final VoidCallback? onTrailingTap;
 
   const LandingHeader({
     super.key,
     required this.title,
     required this.subtitle,
-    required this.hotline,
     required this.logoAssetPath,
+    this.trailingIcon = Icons.notifications_none,
+    this.onTrailingTap,
   });
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final cs = theme.colorScheme;
+    final isDark = theme.brightness == Brightness.dark;
+
+    // Keep brand accent consistent, while backgrounds/text follow the app theme.
+    const brand = Color(0xFFD6B36A);
+
+    final top = isDark ? const Color(0xFF121212) : cs.surface;
+    final bottom = isDark ? const Color(0xFF1B1B1B) : cs.surfaceVariant;
+    final titleColor = cs.onSurface;
+    final subtitleColor = cs.onSurface.withOpacity(0.72);
+
     return Container(
       padding: const EdgeInsets.fromLTRB(16, 18, 16, 18),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
-          colors: [Color(0xFF121212), Color(0xFF1B1B1B)],
+          colors: [top, bottom],
         ),
       ),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(
-            width: 68,
-            height: 68,
+            width: 70,
+            height: 70,
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(14),
+              borderRadius: BorderRadius.circular(16),
               child: Image.asset(
                 logoAssetPath,
                 fit: BoxFit.cover,
-                errorBuilder: (_, __, ___) => const ColoredBox(
-                  color: Color(0xFF222222),
-                  child: Center(child: Icon(Icons.shield, color: Color(0xFFD6B36A))),
+                errorBuilder: (_, __, ___) => DecoratedBox(
+                  decoration: BoxDecoration(color: cs.surfaceVariant),
+                  child: const Center(child: Icon(Icons.shield, color: brand)),
                 ),
               ),
             ),
@@ -51,37 +68,33 @@ class LandingHeader extends StatelessWidget {
                   title,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                    color: Colors.white,
+                  style: TextStyle(
+                    color: titleColor,
                     fontSize: 26,
                     fontWeight: FontWeight.w900,
-                    letterSpacing: 1.2,
+                    letterSpacing: 0.6,
                   ),
                 ),
-                const SizedBox(height: 4),
+                const SizedBox(height: 6),
                 Text(
                   subtitle,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(color: Colors.white70, fontSize: 13),
-                ),
-                const SizedBox(height: 10),
-                Row(
-                  children: [
-                    const Icon(Icons.location_on, size: 18, color: Color(0xFFD6B36A)),
-                    const SizedBox(width: 6),
-                    Text(
-                      hotline,
-                      style: const TextStyle(
-                        color: Color(0xFFD6B36A),
-                        fontSize: 16,
-                        fontWeight: FontWeight.w800,
-                      ),
-                    ),
-                  ],
+                  style: TextStyle(
+                    color: subtitleColor,
+                    fontSize: 13,
+                    fontWeight: FontWeight.w600,
+                    height: 1.25,
+                  ),
                 ),
               ],
             ),
+          ),
+          const SizedBox(width: 8),
+          IconButton(
+            onPressed: onTrailingTap,
+            icon: Icon(trailingIcon, color: brand),
+            tooltip: 'إشعارات',
           ),
         ],
       ),
