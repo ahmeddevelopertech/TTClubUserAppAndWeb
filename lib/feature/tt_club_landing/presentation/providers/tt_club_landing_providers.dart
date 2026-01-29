@@ -138,6 +138,10 @@ class _LandingActionExecutor implements LandingActionExecutor {
   @override
   Future<void> execute(BuildContext context, LandingAction action) async {
     try {
+      if (action.id == 'join') {
+        await _showJoinSheet(context);
+        return;
+      }
       if (action.destination is TaxiSheetDestination) {
         await _showTaxiSheet(context);
         return;
@@ -228,6 +232,110 @@ class _LandingActionExecutor implements LandingActionExecutor {
     if (!ok && context.mounted) {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('تعذر فتح متجر التطبيقات')));
     }
+  }
+
+  Future<void> _showJoinSheet(BuildContext context) async {
+    final theme = Theme.of(context);
+    final cs = theme.colorScheme;
+    const brand = Color(0xFFD6B36A);
+
+    final selected = await showModalBottomSheet<_JoinOption>(
+      context: context,
+      backgroundColor: cs.surface,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(18)),
+      ),
+      builder: (context) {
+        return SafeArea(
+          top: false,
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(16, 14, 16, 16),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Text(
+                  'اختر نوع الانضمام',
+                  style: theme.textTheme.titleMedium?.copyWith(
+                    color: cs.onSurface,
+                    fontWeight: FontWeight.w900,
+                    fontSize: 16,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 12),
+                ..._JoinOption.values.map((o) {
+                  return ListTile(
+                    contentPadding: EdgeInsets.zero,
+                    leading: Icon(o.icon, color: brand),
+                    title: Text(
+                      o.label,
+                      style: theme.textTheme.bodyMedium?.copyWith(
+                        color: cs.onSurface,
+                        fontWeight: FontWeight.w800,
+                      ),
+                    ),
+                    trailing: Icon(Icons.chevron_left, color: cs.onSurfaceVariant),
+                    onTap: () => Navigator.of(context).pop(o),
+                  );
+                }),
+                const SizedBox(height: 4),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+
+    if (selected == null) return;
+
+    // Keep the existing SignUp flow, only passing an argument for the selected join type.
+    Get.toNamed(
+      RouteHelper.getSignUpRoute(),
+      arguments: <String, dynamic>{
+        'join_type': selected.joinTypeKey,
+        'join_title': selected.label,
+      },
+    );
+  }
+}
+
+enum _JoinOption {
+  lawyers,
+  companies,
+  individualsMembership,
+  clubDelegate,
+  legalSponsorship;
+
+  String get label {
+    return switch (this) {
+      _JoinOption.lawyers => 'انضمام محامين',
+      _JoinOption.companies => 'انضمام شركات',
+      _JoinOption.individualsMembership => 'انضمام افراد العضويه',
+      _JoinOption.clubDelegate => 'عضو منتدب للنادي',
+      _JoinOption.legalSponsorship => 'الرعايه القانونيه',
+    };
+  }
+
+  IconData get icon {
+    return switch (this) {
+      _JoinOption.lawyers => Icons.gavel,
+      _JoinOption.companies => Icons.business,
+      _JoinOption.individualsMembership => Icons.person_add,
+      _JoinOption.clubDelegate => Icons.badge,
+      _JoinOption.legalSponsorship => Icons.security,
+    };
+  }
+
+  String get joinTypeKey {
+    // Stable keys for backend/UI mapping.
+    return switch (this) {
+      _JoinOption.lawyers => 'lawyers',
+      _JoinOption.companies => 'companies',
+      _JoinOption.individualsMembership => 'individuals_membership',
+      _JoinOption.clubDelegate => 'club_delegate',
+      _JoinOption.legalSponsorship => 'legal_sponsorship',
+    };
   }
 }
 

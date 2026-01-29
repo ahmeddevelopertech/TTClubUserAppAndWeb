@@ -9,7 +9,7 @@ class TtClubLandingLocalDataSource {
   Future<LandingConfig> fetch() async {
     return LandingConfig(
       appTitle: 'TT CLUB',
-      subtitle: 'نادي الحماية الدولي للأنشطة القانونية',
+      subtitle: 'نادي الحماية الدولي \n للأنشطة القانونية',
       logoAssetPath: Images.logo,
 
       headerTrailingAction: const LandingAction(

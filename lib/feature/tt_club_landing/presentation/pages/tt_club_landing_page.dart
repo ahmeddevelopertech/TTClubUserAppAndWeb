@@ -272,12 +272,14 @@ class _JoinCard extends StatelessWidget {
               Icon(Icons.how_to_reg, color: Colors.black),
               SizedBox(width: 10),
               Expanded(
-                child: Text(
-                  'فتح باب الانضمام إلى عضوية النادي\nانضم الآن',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontWeight: FontWeight.w900,
-                    color: Colors.black,
+                child: Center(
+                  child: Text(
+                    'فتح باب الانضمام إلى عضوية النادي\nانضم الآن',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontWeight: FontWeight.w900,
+                      color: Colors.black,
+                    ),
                   ),
                 ),
               ),

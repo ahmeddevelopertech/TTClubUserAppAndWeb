@@ -1,5 +1,7 @@
 import 'package:demandium/utils/core_export.dart';
 import 'package:get/get.dart';
+import 'package:demandium/feature/conversation/binding/conversation_binding.dart';
+import 'package:demandium/feature/conversation/controller/conversation_controller.dart';
 
 class ProviderDetailsTopCard extends StatelessWidget {
 
@@ -112,9 +114,25 @@ class ProviderDetailsTopCard extends StatelessWidget {
                           top: -20,
                           child: Align(
                             alignment: isLtr ? Alignment.topRight : Alignment.topLeft,
-                            child: FavoriteIconWidget(
-                              value: providerDetails.isFavorite,
-                              providerId: providerDetails.id,
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: isLtr
+                                  ? [
+                                      _ChatActionButton(providerDetails: providerDetails),
+                                      const SizedBox(width: Dimensions.paddingSizeExtraSmall),
+                                      FavoriteIconWidget(
+                                        value: providerDetails.isFavorite,
+                                        providerId: providerDetails.id,
+                                      ),
+                                    ]
+                                  : [
+                                      FavoriteIconWidget(
+                                        value: providerDetails.isFavorite,
+                                        providerId: providerDetails.id,
+                                      ),
+                                      const SizedBox(width: Dimensions.paddingSizeExtraSmall),
+                                      _ChatActionButton(providerDetails: providerDetails),
+                                    ],
                             ),
                           ),
                         ),
@@ -270,3 +288,63 @@ class _ReviewInfoCard extends StatelessWidget {
   }
 }
 
+
+
+
+class _ChatActionButton extends StatelessWidget {
+  final ProviderData providerDetails;
+  const _ChatActionButton({required this.providerDetails});
+
+  Future<void> _openChat(BuildContext context) async {
+    // Follow same permission behavior as booking chat.
+    // if (providerDetails.chatEligibility != true) {
+    //   customSnackBar('this_provider_have_not_permission_to_chat'.tr, showDefaultSnackBar: false);
+    //   return;
+    // }
+
+    final String? toUserId = providerDetails.userId;
+    if (toUserId == null || toUserId.isEmpty) {
+      customSnackBar('something_went_wrong'.tr, showDefaultSnackBar: false);
+      return;
+    }
+
+    // Ensure ConversationController is registered (Binding).
+    if (!Get.isRegistered<ConversationController>()) {
+      ConversationBinding().dependencies();
+    }
+
+    final String name = providerDetails.companyName ?? '';
+    final String image = providerDetails.logoFullPath ?? '';
+    final String phone = providerDetails.companyPhone ?? '';
+
+    // We don't have booking_id here, use provider id as reference_id (best-effort).
+    await Get.find<ConversationController>().createChannel(
+      toUserId,
+      providerDetails.id ?? '',
+      name: name,
+      image: image,
+      phone: phone,
+      userType: 'provider',
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final bool enabled = providerDetails.chatEligibility == true;
+    final Color iconColor = enabled ? Theme.of(context).colorScheme.primary : Theme.of(context).hintColor;
+
+    return InkWell(
+      onTap: () => _openChat(context),
+      borderRadius: BorderRadius.circular(50),
+      child: Container(
+        padding: const EdgeInsets.all(6),
+        decoration: BoxDecoration(
+          color: Theme.of(context).cardColor,
+          shape: BoxShape.circle,
+          boxShadow: searchBoxShadow,
+        ),
+        child: Icon(Icons.chat_bubble_outline, size: 20, color: iconColor),
+      ),
+    );
+  }
+}
