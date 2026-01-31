@@ -311,9 +311,9 @@ enum _JoinOption {
     return switch (this) {
       _JoinOption.lawyers => 'انضمام محامين',
       _JoinOption.companies => 'انضمام شركات',
-      _JoinOption.individualsMembership => 'انضمام افراد العضويه',
+      _JoinOption.individualsMembership => 'انضمام افراد',
       _JoinOption.clubDelegate => 'عضو منتدب للنادي',
-      _JoinOption.legalSponsorship => 'الرعايه القانونيه',
+      _JoinOption.legalSponsorship => 'الانضمام للرعاية القانونية',
     };
   }
 
