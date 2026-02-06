@@ -2,6 +2,7 @@ import 'package:demandium/utils/core_export.dart';
 import 'package:get/get.dart';
 import 'package:demandium/feature/conversation/binding/conversation_binding.dart';
 import 'package:demandium/feature/conversation/controller/conversation_controller.dart';
+import 'package:demandium/feature/provider/widgets/square_action_tile.dart';
 
 class ProviderDetailsTopCard extends StatelessWidget {
 
@@ -118,8 +119,6 @@ class ProviderDetailsTopCard extends StatelessWidget {
                               mainAxisSize: MainAxisSize.min,
                               children: isLtr
                                   ? [
-                                      _ChatActionButton(providerDetails: providerDetails),
-                                      const SizedBox(width: Dimensions.paddingSizeExtraSmall),
                                       FavoriteIconWidget(
                                         value: providerDetails.isFavorite,
                                         providerId: providerDetails.id,
@@ -130,8 +129,6 @@ class ProviderDetailsTopCard extends StatelessWidget {
                                         value: providerDetails.isFavorite,
                                         providerId: providerDetails.id,
                                       ),
-                                      const SizedBox(width: Dimensions.paddingSizeExtraSmall),
-                                      _ChatActionButton(providerDetails: providerDetails),
                                     ],
                             ),
                           ),
@@ -188,107 +185,268 @@ class _ReviewInfoCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Container(
+    return Container(
       decoration: BoxDecoration(
         color: Theme.of(context).hoverColor,
         borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
       ),
       padding: EdgeInsets.symmetric(horizontal: 10, vertical: Dimensions.paddingSizeDefault),
-      child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-        InkWell(
-          onTap: (){
-            if(ResponsiveHelper.isDesktop(context)){
-              Get.dialog( Center(
-                child: ConstrainedBox(
-                  constraints: BoxConstraints(
-                      maxHeight: Get.height * 0.8
-                  ),
-                  child: Container(
-                    width: ResponsiveHelper.isDesktop(context) ? Dimensions.webMaxWidth / 2 : Dimensions.webMaxWidth,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(Dimensions.radiusSeven),
-                      color: Theme.of(context).cardColor,
+      child: Column(
+        children: [
+          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+            InkWell(
+              onTap: () => _openProviderReviews(context),
+              child: Flex(
+                spacing: Dimensions.paddingSizeExtraSmall,
+                direction: ResponsiveHelper.isDesktop(context) ? Axis.horizontal : Axis.vertical,
+                children: [
+                  Row(children: [
+                    Image.asset(Images.starIcon, color: Theme.of(context).colorScheme.secondary, height: 15, fit: BoxFit.fitHeight),
+                    const SizedBox(width: Dimensions.paddingSizeTine),
+                    Directionality(
+                      textDirection: TextDirection.ltr,
+                      child: Text(providerDetails.avgRating!.toStringAsFixed(2),
+                        style: robotoBold.copyWith(
+                          color: Get.isDarkMode ? Theme.of(context).textTheme.bodyLarge?.color : Theme.of(context).colorScheme.primary,
+                          fontSize: ResponsiveHelper.isDesktop(context) ? Dimensions.fontSizeSmall : Dimensions.fontSizeDefault,
+                        ),
+                      ),
                     ),
-                    padding: const EdgeInsets.all(Dimensions.paddingSizeSmall),
-                    child:  ProviderReviewBody(
-                      providerId: providerId,
-                    ),
-                  ),
-                ),
-              ));
-            }else{
-              Get.toNamed(RouteHelper.getProviderReviewScreen(providerId));
-            }
-          },
-          child: Flex(
-            spacing: Dimensions.paddingSizeExtraSmall,
-            direction: ResponsiveHelper.isDesktop(context) ? Axis.horizontal : Axis.vertical,
-            children: [
-              Row(children: [
-                Image.asset(Images.starIcon, color: Theme.of(context).colorScheme.secondary, height: 15, fit: BoxFit.fitHeight),
-                const SizedBox(width: Dimensions.paddingSizeTine),
-                Directionality(
-                  textDirection: TextDirection.ltr,
-                  child: Text(providerDetails.avgRating!.toStringAsFixed(2),
-                    style: robotoBold.copyWith(
-                      color: Get.isDarkMode ? Theme.of(context).textTheme.bodyLarge?.color : Theme.of(context).colorScheme.primary,
-                      fontSize: ResponsiveHelper.isDesktop(context) ? Dimensions.fontSizeSmall : Dimensions.fontSizeDefault,
-                    ),
-                  ),
-                ),
 
-                Gaps.horizontalGapOf(5),
-                Directionality(textDirection: TextDirection.ltr,
-                  child: Text("(${providerReview?.ratingCount ??""})", style: robotoBold.copyWith(
-                    color: Theme.of(context).textTheme.bodySmall?.color?.withValues(alpha: 0.6),
+                    Gaps.horizontalGapOf(5),
+                    Directionality(textDirection: TextDirection.ltr,
+                      child: Text("(${providerReview?.ratingCount ??""})", style: robotoBold.copyWith(
+                        color: Theme.of(context).textTheme.bodySmall?.color?.withValues(alpha: 0.6),
+                        fontSize: ResponsiveHelper.isDesktop(context) ? Dimensions.fontSizeSmall : Dimensions.fontSizeDefault,
+                      )),
+                    )
+                  ]),
+
+                  Text('${providerReview?.reviewCount ?? ""} ${'reviews'.tr}', style: robotoRegular.copyWith(
+                    color: Get.isDarkMode ? Theme.of(context).hintColor : Theme.of(context).colorScheme.primary,
                     fontSize: ResponsiveHelper.isDesktop(context) ? Dimensions.fontSizeSmall : Dimensions.fontSizeDefault,
-
                   )),
-                )
-              ]),
-
-              Text('${providerReview?.reviewCount ?? ""} ${'reviews'.tr}', style:   robotoRegular.copyWith(
-                color: Get.isDarkMode ? Theme.of(context).hintColor : Theme.of(context).colorScheme.primary,
-                fontSize: ResponsiveHelper.isDesktop(context) ? Dimensions.fontSizeSmall : Dimensions.fontSizeDefault,
-
-              )),
-            ],
-          ),
-        ),
-
-        Container(
-          width: 1, height: ResponsiveHelper.isDesktop(context) ? Dimensions.paddingSizeDefault : 30,
-          margin: const EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeExtraSmall),
-          decoration: BoxDecoration(
-            color: Theme.of(context).hintColor.withValues(alpha: 0.5),
-          ),
-        ),
-
-        Flex(
-          direction: ResponsiveHelper.isDesktop(context) ? Axis.horizontal : Axis.vertical,
-          spacing: Dimensions.paddingSizeExtraSmall,
-          children: [
-            Text('${providerDetails.totalServiceServed ?? "0"}', style: robotoBold.copyWith(
-              fontSize: ResponsiveHelper.isDesktop(context) ? Dimensions.fontSizeSmall : Dimensions.fontSizeDefault,
-            )),
-
-            Text('services_provided'.tr,
-              style:  robotoRegular.copyWith(
-                fontSize: ResponsiveHelper.isDesktop(context) ? Dimensions.fontSizeSmall : Dimensions.fontSizeDefault,
-                color: Theme.of(context).textTheme.bodySmall?.color?.withValues(alpha: 0.6),
+                ],
               ),
             ),
-          ],
-        ),
 
-        if(ResponsiveHelper.isDesktop(context)) SizedBox(width: Dimensions.paddingSizeSmall),
+            Container(
+              width: 1, height: ResponsiveHelper.isDesktop(context) ? Dimensions.paddingSizeDefault : 30,
+              margin: const EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeExtraSmall),
+              decoration: BoxDecoration(
+                color: Theme.of(context).hintColor.withValues(alpha: 0.5),
+              ),
+            ),
 
-      ]),
+            Flex(
+              direction: ResponsiveHelper.isDesktop(context) ? Axis.horizontal : Axis.vertical,
+              spacing: Dimensions.paddingSizeExtraSmall,
+              children: [
+                Text('${providerDetails.totalServiceServed ?? "0"}', style: robotoBold.copyWith(
+                  fontSize: ResponsiveHelper.isDesktop(context) ? Dimensions.fontSizeSmall : Dimensions.fontSizeDefault,
+                )),
+
+                Text('services_provided'.tr,
+                  style: robotoRegular.copyWith(
+                    fontSize: ResponsiveHelper.isDesktop(context) ? Dimensions.fontSizeSmall : Dimensions.fontSizeDefault,
+                    color: Theme.of(context).textTheme.bodySmall?.color?.withValues(alpha: 0.6),
+                  ),
+                ),
+              ],
+            ),
+
+            if (ResponsiveHelper.isDesktop(context)) SizedBox(width: Dimensions.paddingSizeSmall),
+          ]),
+
+          const SizedBox(height: Dimensions.paddingSizeDefault),
+
+          _ProviderActionTiles(
+            providerId: providerId,
+            providerDetails: providerDetails,
+          ),
+        ],
+      ),
     );
+  }
+
+  void _openProviderReviews(BuildContext context) {
+    if (ResponsiveHelper.isDesktop(context)) {
+      Get.dialog(Center(
+        child: ConstrainedBox(
+          constraints: BoxConstraints(maxHeight: Get.height * 0.8),
+          child: Container(
+            width: ResponsiveHelper.isDesktop(context) ? Dimensions.webMaxWidth / 2 : Dimensions.webMaxWidth,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(Dimensions.radiusSeven),
+              color: Theme.of(context).cardColor,
+            ),
+            padding: const EdgeInsets.all(Dimensions.paddingSizeSmall),
+            child: ProviderReviewBody(providerId: providerId),
+          ),
+        ),
+      ));
+    } else {
+      Get.toNamed(RouteHelper.getProviderReviewScreen(providerId));
+    }
   }
 }
 
+class _ProviderActionTiles extends StatelessWidget {
+  final String providerId;
+  final ProviderData providerDetails;
+  const _ProviderActionTiles({required this.providerId, required this.providerDetails});
 
+  Future<void> _openChat(BuildContext context) async {
+    // Keep behavior consistent with existing chat logic.
+    final String? toUserId = providerDetails.userId;
+    if (toUserId == null || toUserId.isEmpty) {
+      customSnackBar('something_went_wrong'.tr, showDefaultSnackBar: false);
+      return;
+    }
+    if (!Get.isRegistered<ConversationController>()) {
+      ConversationBinding().dependencies();
+    }
+
+    final String name = providerDetails.companyName ?? '';
+    final String image = providerDetails.logoFullPath ?? '';
+    final String phone = providerDetails.companyPhone ?? '';
+
+    await Get.find<ConversationController>().createChannel(
+      toUserId,
+      providerDetails.id ?? '',
+      name: name,
+      image: image,
+      phone: phone,
+      userType: 'provider',
+    );
+  }
+
+  Future<void> _callProvider(BuildContext context) async {
+    final String rawPhone = (providerDetails.companyPhone ?? '').trim();
+    final String phone = rawPhone.replaceAll(RegExp(r'\s+'), '');
+    if (phone.isEmpty) {
+      customSnackBar('غير متاح', showDefaultSnackBar: false);
+      return;
+    }
+
+    final Uri uri = Uri(scheme: 'tel', path: phone);
+
+    try {
+      // url_launcher APIs are available via core_export.dart in this project.
+      final bool launched = await launchUrl(uri);
+      if (!launched) {
+        customSnackBar('تعذر فتح الاتصال', showDefaultSnackBar: false);
+      }
+    } catch (_) {
+      // Some devices/emulators may throw if no dialer is available.
+      customSnackBar('تعذر فتح الاتصال', showDefaultSnackBar: false);
+    }
+  }
+
+  Future<void> _openLocation(BuildContext context) async {
+    final coords = providerDetails.coordinates;
+    final double? lat = coords?.latitude;
+    final double? lng = coords?.longitude;
+
+    final String address = (providerDetails.companyAddress ?? '').trim();
+
+    Uri? uri;
+    if (lat != null && lng != null) {
+      uri = Uri.parse(
+        'https://www.google.com/maps/dir/?api=1&destination=$lat,$lng&travelmode=driving',
+      );
+    } else if (address.isNotEmpty) {
+      // Best-effort if coordinates are not available.
+      uri = Uri.https('www.google.com', '/maps/dir/', <String, String>{
+        'api': '1',
+        'destination': address,
+        'travelmode': 'driving',
+      });
+    }
+
+    if (uri == null) {
+      customSnackBar('الموقع غير متاح', showDefaultSnackBar: false);
+      return;
+    }
+
+    try {
+      final bool launched = await launchUrl(uri);
+      if (!launched) {
+        customSnackBar('تعذر فتح الخرائط', showDefaultSnackBar: false);
+      }
+    } catch (_) {
+      customSnackBar('تعذر فتح الخرائط', showDefaultSnackBar: false);
+    }
+  }
+
+  void _openReviews(BuildContext context) {
+    // Reuse existing navigation.
+    if (ResponsiveHelper.isDesktop(context)) {
+      Get.dialog(Center(
+        child: ConstrainedBox(
+          constraints: BoxConstraints(maxHeight: Get.height * 0.8),
+          child: Container(
+            width: ResponsiveHelper.isDesktop(context) ? Dimensions.webMaxWidth / 2 : Dimensions.webMaxWidth,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(Dimensions.radiusSeven),
+              color: Theme.of(context).cardColor,
+            ),
+            padding: const EdgeInsets.all(Dimensions.paddingSizeSmall),
+            child: ProviderReviewBody(providerId: providerId),
+          ),
+        ),
+      ));
+    } else {
+      Get.toNamed(RouteHelper.getProviderReviewScreen(providerId));
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final String phone = (providerDetails.companyPhone ?? '').trim();
+    final bool canCall = phone.isNotEmpty;
+
+    final coords = providerDetails.coordinates;
+    final bool canLocate = (coords?.latitude != null && coords?.longitude != null) ||
+        (providerDetails.companyAddress ?? '').trim().isNotEmpty;
+
+    return Row(
+      children: [
+        Expanded(
+          child: SquareActionTile(
+            icon: Icons.star_rate_rounded,
+            label: 'Rate',
+            onTap: () => _openReviews(context),
+          ),
+        ),
+        SizedBox(width: Dimensions.paddingSizeDefault),
+        Expanded(
+          child: SquareActionTile(
+            icon: Icons.chat_bubble_outline,
+            label: 'شات',
+            onTap: () => _openChat(context),
+          ),
+        ),
+        SizedBox(width: Dimensions.paddingSizeDefault),
+        Expanded(
+          child: SquareActionTile(
+            icon: Icons.phone_outlined,
+            label: 'اتصال',
+            onTap: canCall ? () => _callProvider(context) : null,
+          ),
+        ),
+        SizedBox(width: Dimensions.paddingSizeDefault),
+        Expanded(
+          child: SquareActionTile(
+            icon: Icons.location_on_outlined,
+            label: 'موقع',
+            onTap: canLocate ? () => _openLocation(context) : null,
+          ),
+        ),
+      ],
+    );
+  }
+}
 
 
 class _ChatActionButton extends StatelessWidget {

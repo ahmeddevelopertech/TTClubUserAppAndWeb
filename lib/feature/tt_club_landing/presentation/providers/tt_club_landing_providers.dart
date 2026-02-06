@@ -289,6 +289,15 @@ class _LandingActionExecutor implements LandingActionExecutor {
 
     if (selected == null) return;
 
+    // For "Lawyers" and "Companies" flows, open the Providers app page.
+    // Assumption: the Providers app package is the target for these join types.
+    // If the Providers app later exposes deep links (e.g. scheme://join?type=lawyers),
+    // we can replace the store launch below with that deep link.
+    if (selected == _JoinOption.lawyers || selected == _JoinOption.companies) {
+      await _openProvidersApp();
+      return;
+    }
+
     // Keep the existing SignUp flow, only passing an argument for the selected join type.
     Get.toNamed(
       RouteHelper.getSignUpRoute(),
@@ -297,6 +306,44 @@ class _LandingActionExecutor implements LandingActionExecutor {
         'join_title': selected.label,
       },
     );
+  }
+
+  Future<void> _openProvidersApp() async {
+    // Providers app package on Android.
+    const package = 'com.geekxdigital.ttclup.providers';
+
+    // Best-effort: try to open the installed app directly (Android only).
+    // This works if the platform can resolve the package.
+    final androidApp = Uri.parse('android-app://$package');
+
+    // Prefer Play Store app when available.
+    final market = Uri.parse('market://details?id=$package');
+    // Fallback to HTTPS store listing.
+    final https = Uri.parse('https://play.google.com/store/apps/details?id=$package');
+
+    // On Android, try opening the Play Store app first.
+    if (GetPlatform.isAndroid) {
+      final okApp = await launchUrl(androidApp, mode: LaunchMode.externalApplication);
+      if (okApp) return;
+
+      final okMarket = await launchUrl(market, mode: LaunchMode.externalApplication);
+      if (okMarket) return;
+      final okHttps = await launchUrl(https, mode: LaunchMode.externalApplication);
+      if (!okHttps) {
+        throw PlatformException(code: 'LAUNCH_FAILED', message: 'Failed to launch providers app store url');
+      }
+      return;
+    }
+
+    // On iOS/Desktop: open the HTTPS listing in external browser.
+    // On Web: use platformDefault to avoid unsupported "externalApplication".
+    final ok = await launchUrl(
+      https,
+      mode: kIsWeb ? LaunchMode.platformDefault : LaunchMode.externalApplication,
+    );
+    if (!ok) {
+      throw PlatformException(code: 'LAUNCH_FAILED', message: 'Failed to launch providers app store url');
+    }
   }
 }
 

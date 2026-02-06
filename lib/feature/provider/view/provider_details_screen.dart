@@ -52,7 +52,9 @@ class ProviderDetailsScreenState extends State<ProviderDetailsScreen> with Singl
               return NotificationListener<ScrollNotification>(
                 onNotification: (scrollNotification) {
                   if (scrollNotification.metrics.axis == Axis.vertical) {
-                    final threshold = (context.width / 3 + 275) - kToolbarHeight;
+                    // Mobile header is composed of cover image (context.width/3) + SliverAppBar flexible space.
+                    // We increased the flexibleSpace height to fit the new action tiles (Rate/Chat/Call).
+                    final threshold = (context.width / 3 + 365) - kToolbarHeight;
                     if (scrollNotification.metrics.pixels >= threshold && !providerBookingController.isTabBarPinnedNotifier.value) {
                       providerBookingController.updateTabBarPinned(true);
                     } else if (scrollNotification.metrics.pixels < threshold && providerBookingController.isTabBarPinnedNotifier.value) {
@@ -113,7 +115,8 @@ class ProviderDetailsScreenState extends State<ProviderDetailsScreen> with Singl
                               pinned: true,
                               leading: const SizedBox(),
                               actions: const [SizedBox()],
-                              expandedHeight: !ResponsiveHelper.isDesktop(context) ? 270 : 0,
+                              // Increased to prevent clipping the new action tiles in ProviderDetailsTopCard.
+                              expandedHeight: !ResponsiveHelper.isDesktop(context) ? 360 : 0,
                               elevation: 0,
                               flexibleSpace: !ResponsiveHelper.isDesktop(context) ? FlexibleSpaceBar(background: ProviderDetailsTopCard(providerId: widget.providerId)) : SizedBox(),
                               toolbarHeight: 0,
