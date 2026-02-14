@@ -5,8 +5,16 @@ import 'package:demandium/utils/core_export.dart';
 class SignUpScreen extends StatefulWidget {
   final String? referralCode;
   final String? redirectRoute;
+  final String? joinType;
+  final String? joinTitle;
 
-  const SignUpScreen({super.key, this.referralCode, this.redirectRoute}) ;
+  const SignUpScreen({
+    super.key,
+    this.referralCode,
+    this.redirectRoute,
+    this.joinType,
+    this.joinTitle,
+  });
 
   @override
   State<SignUpScreen> createState() => _SignUpScreenState();
@@ -294,8 +302,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
           authController.countryDialCode + phoneController.value.text, withCountryCode: true
       );
 
-
-
       if(referCodeController.text!=""){
         signUpBody = SignUpBody(
             fName: firstNameController.value.text.trim(),
@@ -304,7 +310,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
             phone: numberWithCountryCode.trim(),
             password: passwordController.value.text.trim(),
             confirmPassword: confirmPasswordController.value.text.trim(),
-            referCode: referCodeController.text.trim()
+            referCode: referCodeController.text.trim(),
+            userType: widget.joinType
         );
       }else{
         signUpBody = SignUpBody(
@@ -314,6 +321,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           phone: numberWithCountryCode.trim(),
           password: passwordController.value.text.trim(),
           confirmPassword: confirmPasswordController.value.text.trim(),
+          userType: widget.joinType
         );
       }
       authController.registration(signUpBody: signUpBody, redirectUrl: widget.redirectRoute);

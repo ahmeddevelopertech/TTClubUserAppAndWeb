@@ -17,6 +17,7 @@ class UserInfoModel {
   int? isEmailVerified;
   int? isPhoneVerified;
   double? walletBalance;
+  String? userType;
   BookingDetailsContent? lastIncompleteOfflineBooking;
 
 
@@ -37,6 +38,7 @@ class UserInfoModel {
         this.isEmailVerified,
         this.isPhoneVerified,
         this.walletBalance,
+        this.userType,
         this.lastIncompleteOfflineBooking,
       });
 
@@ -51,6 +53,7 @@ class UserInfoModel {
     createdAt = json['created_at'];
     referCode = json['ref_code'];
     referredBy = json['referred_by'];
+    userType = json['user_type'];
     bookingsCount =  int.tryParse(json['bookings_count'].toString());
     isEmailVerified =  int.tryParse(json['is_email_verified'].toString());
     isPhoneVerified =  int.tryParse(json['is_phone_verified'].toString());
@@ -74,5 +77,36 @@ class UserInfoModel {
     data['ref_code'] = referCode;
     data['referred_by'] = referredBy;
     return data;
+  }
+
+  /// Get full name with user type
+  /// Example: "Ahmed Mohamed (محامي)"
+  String get fullNameWithType {
+    final name = '${fName ?? ''} ${lName ?? ''}'.trim();
+    final typeDisplay = _getUserTypeDisplay(userType);
+    return typeDisplay.isEmpty ? name : '$name $typeDisplay';
+  }
+
+  /// Get full name without type
+  String get fullName {
+    return '${fName ?? ''} ${lName ?? ''}'.trim();
+  }
+
+  /// Convert user type to readable format
+  static String _getUserTypeDisplay(String? userType) {
+    switch (userType?.toLowerCase()) {
+      case 'lawyers':
+        return '(محامي)';
+      case 'companies':
+        return '(شركة)';
+      case 'individuals_membership':
+        return '(عضو)';
+      case 'club_delegate':
+        return '(منتدب نادي)';
+      case 'legal_sponsorship':
+        return '(رعاية قانونية)';
+      default:
+        return '';
+    }
   }
 }

@@ -268,12 +268,25 @@ class _LandingActionExecutor implements LandingActionExecutor {
                   return ListTile(
                     contentPadding: EdgeInsets.zero,
                     leading: Icon(o.icon, color: brand),
-                    title: Text(
-                      o.label,
-                      style: theme.textTheme.bodyMedium?.copyWith(
-                        color: cs.onSurface,
-                        fontWeight: FontWeight.w800,
-                      ),
+                    title: Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            o.label,
+                            style: theme.textTheme.bodyMedium?.copyWith(
+                              color: cs.onSurface,
+                              fontWeight: FontWeight.w800,
+                            ),
+                          ),
+                        ),
+                        Text(
+                          '(${o.typeDescription})',
+                          style: theme.textTheme.bodySmall?.copyWith(
+                            color: cs.onSurfaceVariant,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
                     ),
                     trailing: Icon(Icons.chevron_left, color: cs.onSurfaceVariant),
                     onTap: () => Navigator.of(context).pop(o),
@@ -361,6 +374,16 @@ enum _JoinOption {
       _JoinOption.individualsMembership => 'انضمام افراد',
       _JoinOption.clubDelegate => 'عضو منتدب للنادي',
       _JoinOption.legalSponsorship => 'الانضمام للرعاية القانونية',
+    };
+  }
+
+  String get typeDescription {
+    return switch (this) {
+      _JoinOption.lawyers => 'مستخدم احترافي',
+      _JoinOption.companies => 'مستخدم احترافي',
+      _JoinOption.individualsMembership => 'مستخدم عادي',
+      _JoinOption.clubDelegate => 'عضو نادي',
+      _JoinOption.legalSponsorship => 'رعاية قانونية',
     };
   }
 

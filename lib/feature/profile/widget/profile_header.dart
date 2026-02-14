@@ -39,7 +39,7 @@ class ProfileHeader extends GetView<UserController> {
                         style: robotoBold.copyWith(fontSize: Dimensions.fontSizeExtraLarge, color: Theme.of(context).textTheme.bodyMedium!.color!.withValues(alpha: .5)),
                       ),
                     if( isLoggedIn && userInfoModel?.fName != null && userInfoModel?.lName != null )
-                      Text("${userInfoModel?.fName!} ${userInfoModel?.lName!}",
+                      Text(userInfoModel?.fullNameWithType ?? "Unknown",
                         style: robotoBold.copyWith(fontSize: Dimensions.fontSizeExtraLarge, color: Theme.of(context).textTheme.bodyMedium!.color),
                       ),
 

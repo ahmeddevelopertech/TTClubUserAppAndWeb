@@ -77,4 +77,35 @@ class Customer {
     data['updated_at'] = updatedAt;
     return data;
   }
+
+  /// Get full name with user type
+  /// Example: "Ahmed Mohamed (محامي)"
+  String get fullNameWithType {
+    final name = '${firstName ?? ''} ${lastName ?? ''}'.trim();
+    final typeDisplay = _getUserTypeDisplay(userType);
+    return typeDisplay.isEmpty ? name : '$name $typeDisplay';
+  }
+
+  /// Get full name without type
+  String get fullName {
+    return '${firstName ?? ''} ${lastName ?? ''}'.trim();
+  }
+
+  /// Convert user type to readable format
+  static String _getUserTypeDisplay(String? userType) {
+    switch (userType?.toLowerCase()) {
+      case 'lawyers':
+        return '(محامي)';
+      case 'companies':
+        return '(شركة)';
+      case 'individuals_membership':
+        return '(عضو)';
+      case 'club_delegate':
+        return '(منتدب نادي)';
+      case 'legal_sponsorship':
+        return '(رعاية قانونية)';
+      default:
+        return '';
+    }
+  }
 }

@@ -6,8 +6,9 @@ class SignUpBody {
   String? password;
   String? confirmPassword;
   String? referCode;
+  String? userType;
 
-  SignUpBody({this.fName, this.lName, this.phone, this.email='', this.password, this.confirmPassword,this.referCode});
+  SignUpBody({this.fName, this.lName, this.phone, this.email='', this.password, this.confirmPassword, this.referCode, this.userType});
 
   SignUpBody.fromJson(Map<String, dynamic> json) {
     fName = json['first_name'];
@@ -17,6 +18,7 @@ class SignUpBody {
     password = json['password'];
     confirmPassword = json['confirm_password'];
     referCode = json['referral_code'];
+    userType = json['user_type'];
   }
 
   Map<String, dynamic> toJson() {
@@ -29,6 +31,9 @@ class SignUpBody {
     data['confirm_password'] = confirmPassword;
     if(referCode!=null){
       data['referral_code'] = referCode;
+    }
+    if(userType!=null){
+      data['user_type'] = userType;
     }
     return data;
   }

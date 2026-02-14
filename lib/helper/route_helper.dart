@@ -525,6 +525,8 @@ class RouteHelper {
         redirectRoute: RedirectRouteValidator.getValidRoute(
           Get.parameters['redirect_to'],
         ),
+        joinType: Get.arguments?['join_type'],
+        joinTitle: Get.arguments?['join_title'],
       ),
       middlewares: [RedirectToHomeMiddleware()],
     ),

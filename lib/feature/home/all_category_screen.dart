@@ -22,7 +22,11 @@ class AllCategoryScreen extends StatelessWidget {
         body: FooterBaseView(
           child: SizedBox(
             width: pageSizeWidth,
-            child: GetBuilder<CategoryController>(builder: (categoryController) {
+            child: GetBuilder<CategoryController>(
+              initState: (state) {
+                Get.find<CategoryController>().getCategoryList(false);
+              },
+              builder: (categoryController) {
               return Padding(
                 padding: const EdgeInsets.all(Dimensions.paddingSizeDefault),
                 child: GridView.builder(
