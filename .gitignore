@@ -1,4 +1,4 @@
-# Miscellaneous
+﻿# Miscellaneous
 *.class
 *.log
 *.pyc
@@ -33,7 +33,7 @@
 firebase.json
 .firebase
 get_changed_files.sh
-get_demo_app_demandium_user.sh
+get_demo_app_GeekXDigital_user.sh
 pubspec.lock
 
 # Web related
@@ -54,3 +54,4 @@ ios/Podfile.lock
 build
 /devtools_options.yaml
 /.qodo/indexes.sqlite
+

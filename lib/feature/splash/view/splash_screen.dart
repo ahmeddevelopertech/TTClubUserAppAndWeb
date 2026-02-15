@@ -80,20 +80,26 @@ class SplashScreenState extends State<SplashScreen> {
 
       if (isSuccess) {
         Timer(const Duration(seconds: 1), () async {
-          if (_checkAvailableUpdate()) {
-            Get.offNamed(RouteHelper.getUpdateRoute('update'));
-          } else if (_checkMaintenanceModeActive() &&
-              !AppConstants.avoidMaintenanceMode) {
-            Get.offAllNamed(RouteHelper.getMaintenanceRoute());
-          } else {
-            if (widget.body != null) {
-              _notificationRoute();
+          try {
+            if (_checkAvailableUpdate()) {
+              Get.offNamed(RouteHelper.getUpdateRoute('update'));
+            } else if (_checkMaintenanceModeActive() &&
+                !AppConstants.avoidMaintenanceMode) {
+              Get.offAllNamed(RouteHelper.getMaintenanceRoute());
             } else {
-              if (Get.find<SplashController>().isShowInitialLanguageScreen()) {
-                Get.offNamed(RouteHelper.getLanguageScreen('fromOthers'));
+              if (widget.body != null) {
+                _notificationRoute();
+              } else {
+                if (Get.find<SplashController>()
+                    .isShowInitialLanguageScreen()) {
+                  Get.offNamed(RouteHelper.getLanguageScreen('fromOthers'));
+                }
+                Get.offNamed(RouteHelper.getTtClubLandingRoute());
               }
-              Get.offNamed(RouteHelper.getTtClubLandingRoute());
             }
+          } catch (_) {
+            // Never block user on splash due to config/version parse issues.
+            Get.offNamed(RouteHelper.getTtClubLandingRoute());
           }
         });
       } else {}
@@ -118,14 +124,29 @@ class SplashScreenState extends State<SplashScreen> {
   }
 
   bool _checkAvailableUpdate() {
-    ConfigModel? configModel = Get.find<SplashController>().configModel;
-    final localVersion = Version.parse(AppConstants.appVersion);
-    final serverVersion = Version.parse(
+    final ConfigModel configModel = Get.find<SplashController>().configModel;
+    final localVersion = _tryParseVersion(AppConstants.appVersion);
+    final serverVersion = _tryParseVersion(
       GetPlatform.isAndroid
-          ? configModel.content?.minimumVersion?.minVersionForAndroid ?? ""
-          : configModel.content?.minimumVersion?.minVersionForIos ?? "",
+          ? configModel.content?.minimumVersion?.minVersionForAndroid
+          : configModel.content?.minimumVersion?.minVersionForIos,
     );
+    if (localVersion == null || serverVersion == null) {
+      return false;
+    }
     return localVersion.compareTo(serverVersion) == -1;
+  }
+
+  Version? _tryParseVersion(String? value) {
+    final raw = (value ?? '').trim();
+    if (raw.isEmpty) {
+      return null;
+    }
+    try {
+      return Version.parse(raw);
+    } catch (_) {
+      return null;
+    }
   }
 
   bool _checkMaintenanceModeActive() {

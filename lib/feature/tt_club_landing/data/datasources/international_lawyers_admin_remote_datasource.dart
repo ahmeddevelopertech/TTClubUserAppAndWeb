@@ -21,7 +21,8 @@ class InternationalLawyersAdminRemoteDataSource {
     required String requestStatus,
   }) async {
     try {
-      final uri = '/api/v1/admin/provider/data/international-requests?'
+      final uri =
+          '/api/v1/admin/provider/data/international-requests?'
           'limit=$limit&offset=$offset&request_status=$requestStatus';
 
       final response = await _apiClient.getData(uri);
@@ -31,7 +32,8 @@ class InternationalLawyersAdminRemoteDataSource {
         return InternationalLawyersListResponse.fromJson(decoded);
       } else {
         throw Exception(
-            'Failed to load international lawyers list: ${response.statusText}');
+          'Failed to load international lawyers list: ${response.statusText}',
+        );
       }
     } catch (e) {
       rethrow;
@@ -47,19 +49,79 @@ class InternationalLawyersAdminRemoteDataSource {
   ) async {
     try {
       final uri = '/api/v1/admin/provider/data/overview/$providerId';
-
       final response = await _apiClient.getData(uri);
 
       if (response.statusCode == 200) {
         final Map<String, dynamic> decoded = _parseResponse(response.body);
-        return InternationalLawyerDetailsResponse.fromJson(decoded);
-      } else {
-        throw Exception(
-            'Failed to load international lawyer details: ${response.statusText}');
+        final content = decoded['content'];
+        if (content is Map && content['provider_info'] is Map) {
+          return InternationalLawyerDetailsResponse.fromJson(decoded);
+        }
       }
+
+      final fallback = await _getInternationalLawyerDetailsFromCustomer(
+        providerId,
+      );
+      if (fallback != null) {
+        return InternationalLawyerDetailsResponse.fromJson(fallback);
+      }
+
+      throw Exception(
+        'Failed to load international lawyer details: ${response.statusText}',
+      );
     } catch (e) {
+      final fallback = await _getInternationalLawyerDetailsFromCustomer(
+        providerId,
+      );
+      if (fallback != null) {
+        return InternationalLawyerDetailsResponse.fromJson(fallback);
+      }
       rethrow;
     }
+  }
+
+  Future<Map<String, dynamic>?> _getInternationalLawyerDetailsFromCustomer(
+    String providerId,
+  ) async {
+    final response = await _apiClient.getData(
+      '/api/v1/customer/provider-details?id=$providerId&limit=10&offset=1',
+    );
+    if (response.statusCode != 200 || response.body == null) {
+      return null;
+    }
+
+    final decoded = _parseResponse(response.body);
+    final content = decoded['content'];
+    if (content is! Map) {
+      return null;
+    }
+    final provider = content['provider'];
+    if (provider is! Map) {
+      return null;
+    }
+
+    final providerMap = Map<String, dynamic>.from(provider);
+    final mappedProviderInfo = <String, dynamic>{
+      'id': providerMap['id'],
+      'provider_category':
+          providerMap['provider_category'] ??
+          providerMap['provider_type'] ??
+          '',
+      'company_name': providerMap['company_name'],
+      'phone': providerMap['company_phone'] ?? providerMap['phone'],
+      'address': providerMap['company_address'] ?? providerMap['address'],
+      'logo': providerMap['logo_full_path'] ?? providerMap['logo'],
+      'is_approved': providerMap['is_approved'] ?? 1,
+      'owner': providerMap['owner'],
+      'zone': providerMap['zone'],
+    };
+
+    return <String, dynamic>{
+      'content': <String, dynamic>{
+        'provider_info': mappedProviderInfo,
+        'booking_overview': const <dynamic>[],
+      },
+    };
   }
 
   /// Helper method to parse response body (handles String or Map)
@@ -76,5 +138,3 @@ class InternationalLawyersAdminRemoteDataSource {
     }
   }
 }
-
-

@@ -1,20 +1,16 @@
+import 'package:demandium/feature/language/controller/localization_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pdfx/pdfx.dart';
 
-/// Displays "وثيقة تعويض / Compensation Document" based on the current app language.
-///
-/// Recommended asset names (avoid spaces/arabic in file names):
-/// - assets/docs/compensation_ar.pdf
-/// - assets/docs/compensation_en.pdf
 class CompensationDocumentPage extends StatefulWidget {
   const CompensationDocumentPage({super.key});
 
-  /// Optional: if you want to route via RouteHelper.
   static const String routeName = '/compensation-document';
 
   @override
-  State<CompensationDocumentPage> createState() => _CompensationDocumentPageState();
+  State<CompensationDocumentPage> createState() =>
+      _CompensationDocumentPageState();
 }
 
 class _CompensationDocumentPageState extends State<CompensationDocumentPage> {
@@ -31,8 +27,8 @@ class _CompensationDocumentPageState extends State<CompensationDocumentPage> {
   }
 
   String _pdfAssetForCurrentLocale() {
-    final languageCode = (Get.locale?.languageCode ?? 'ar').toLowerCase();
-    // If you support more than English/Arabic, map here.
+    final languageCode =
+        (Get.find<LocalizationController>().locale.languageCode).toLowerCase();
     if (languageCode.startsWith('en')) {
       return 'assets/docs/compensation_en.pdf';
     }
@@ -47,7 +43,8 @@ class _CompensationDocumentPageState extends State<CompensationDocumentPage> {
 
   @override
   Widget build(BuildContext context) {
-    final languageCode = (Get.locale?.languageCode ?? 'ar').toLowerCase();
+    final languageCode =
+        (Get.find<LocalizationController>().locale.languageCode).toLowerCase();
     final isEnglish = languageCode.startsWith('en');
     final title = isEnglish ? 'Compensation Document' : 'وثيقة تعويض';
 
@@ -57,12 +54,12 @@ class _CompensationDocumentPageState extends State<CompensationDocumentPage> {
         controller: _pdfController,
         builders: PdfViewPinchBuilders<DefaultBuilderOptions>(
           options: const DefaultBuilderOptions(),
-          documentLoaderBuilder: (_) => const Center(child: CircularProgressIndicator()),
-          pageLoaderBuilder: (_) => const Center(child: CircularProgressIndicator()),
-          errorBuilder: (context, error) => _PdfErrorView(
-            error: error,
-            assetPath: _assetPath,
-          ),
+          documentLoaderBuilder: (_) =>
+              const Center(child: CircularProgressIndicator()),
+          pageLoaderBuilder: (_) =>
+              const Center(child: CircularProgressIndicator()),
+          errorBuilder: (context, error) =>
+              _PdfErrorView(error: error, assetPath: _assetPath),
         ),
       ),
     );
@@ -73,20 +70,18 @@ class _PdfErrorView extends StatelessWidget {
   final Object error;
   final String assetPath;
 
-  const _PdfErrorView({
-    required this.error,
-    required this.assetPath,
-  });
+  const _PdfErrorView({required this.error, required this.assetPath});
 
   @override
   Widget build(BuildContext context) {
-    final languageCode = (Get.locale?.languageCode ?? 'ar').toLowerCase();
+    final languageCode =
+        (Get.find<LocalizationController>().locale.languageCode).toLowerCase();
     final isEnglish = languageCode.startsWith('en');
 
     final title = isEnglish ? 'Failed to open document' : 'تعذر فتح الوثيقة';
     final hint = isEnglish
         ? 'Make sure the PDF is included in pubspec.yaml assets and exists at:'
-        : 'تأكد من إضافة ملف الـ PDF في pubspec.yaml وأنه موجود في المسار:';
+        : 'تأكد من إضافة ملف PDF في pubspec.yaml وأنه موجود في المسار:';
 
     return Padding(
       padding: const EdgeInsets.all(16),

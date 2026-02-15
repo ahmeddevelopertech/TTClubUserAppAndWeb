@@ -1,6 +1,6 @@
-{
-    "name": "Demandium",
-    "short_name": "Demandium",
+﻿{
+    "name": "GeekXDigital",
+    "short_name": "GeekXDigital",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
@@ -21,3 +21,4 @@
         }
     ]
 }
+

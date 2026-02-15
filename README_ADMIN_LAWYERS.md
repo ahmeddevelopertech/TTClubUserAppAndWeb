@@ -1,77 +1,77 @@
-# 🎯 README - Admin International Lawyers System
+﻿# ðŸŽ¯ README - Admin International Lawyers System
 
-## 🚀 ابدأ هنا!
+## ðŸš€ Ø§Ø¨Ø¯Ø£ Ù‡Ù†Ø§!
 
-هذا ملف البداية السريعة لفهم نظام Admin International Lawyers المتكامل.
-
----
-
-## 📋 ما هو هذا النظام؟
-
-نظام شامل لإدارة المحامين الدوليين من لوحة التحكم (Admin Panel)، يوفر:
-- ✅ جلب قائمة المحامين الدوليين مع التصفية والـ Pagination
-- ✅ جلب تفاصيل محامي واحد مع إحصائيات الحجوزات
-- ✅ معمارية نظيفة تتبع Clean Architecture
-- ✅ توثيق شامل وأمثلة عملية جاهزة
+Ù‡Ø°Ø§ Ù…Ù„Ù Ø§Ù„Ø¨Ø¯Ø§ÙŠØ© Ø§Ù„Ø³Ø±ÙŠØ¹Ø© Ù„ÙÙ‡Ù… Ù†Ø¸Ø§Ù… Admin International Lawyers Ø§Ù„Ù…ØªÙƒØ§Ù…Ù„.
 
 ---
 
-## 📁 أين الملفات؟
+## ðŸ“‹ Ù…Ø§ Ù‡Ùˆ Ù‡Ø°Ø§ Ø§Ù„Ù†Ø¸Ø§Ù…ØŸ
 
-### الملفات الأساسية (الكود)
+Ù†Ø¸Ø§Ù… Ø´Ø§Ù…Ù„ Ù„Ø¥Ø¯Ø§Ø±Ø© Ø§Ù„Ù…Ø­Ø§Ù…ÙŠÙ† Ø§Ù„Ø¯ÙˆÙ„ÙŠÙŠÙ† Ù…Ù† Ù„ÙˆØ­Ø© Ø§Ù„ØªØ­ÙƒÙ… (Admin Panel)ØŒ ÙŠÙˆÙØ±:
+- âœ… Ø¬Ù„Ø¨ Ù‚Ø§Ø¦Ù…Ø© Ø§Ù„Ù…Ø­Ø§Ù…ÙŠÙ† Ø§Ù„Ø¯ÙˆÙ„ÙŠÙŠÙ† Ù…Ø¹ Ø§Ù„ØªØµÙÙŠØ© ÙˆØ§Ù„Ù€ Pagination
+- âœ… Ø¬Ù„Ø¨ ØªÙØ§ØµÙŠÙ„ Ù…Ø­Ø§Ù…ÙŠ ÙˆØ§Ø­Ø¯ Ù…Ø¹ Ø¥Ø­ØµØ§Ø¦ÙŠØ§Øª Ø§Ù„Ø­Ø¬ÙˆØ²Ø§Øª
+- âœ… Ù…Ø¹Ù…Ø§Ø±ÙŠØ© Ù†Ø¸ÙŠÙØ© ØªØªØ¨Ø¹ Clean Architecture
+- âœ… ØªÙˆØ«ÙŠÙ‚ Ø´Ø§Ù…Ù„ ÙˆØ£Ù…Ø«Ù„Ø© Ø¹Ù…Ù„ÙŠØ© Ø¬Ø§Ù‡Ø²Ø©
+
+---
+
+## ðŸ“ Ø£ÙŠÙ† Ø§Ù„Ù…Ù„ÙØ§ØªØŸ
+
+### Ø§Ù„Ù…Ù„ÙØ§Øª Ø§Ù„Ø£Ø³Ø§Ø³ÙŠØ© (Ø§Ù„ÙƒÙˆØ¯)
 ```
 lib/feature/tt_club_landing/
-├── domain/
-│   ├── entities/
-│   │   ├── international_lawyer_provider.dart
-│   │   ├── international_lawyers_list_response.dart
-│   │   └── international_lawyer_details_response.dart
-│   ├── repositories/
-│   │   └── international_lawyers_admin_repository.dart
-│   └── usecases/
-│       ├── get_international_lawyers_list_usecase.dart
-│       └── get_international_lawyer_details_usecase.dart
-├── data/
-│   ├── datasources/
-│   │   └── international_lawyers_admin_remote_datasource.dart
-│   └── repositories/
-│       └── international_lawyers_admin_repository_impl.dart
-└── presentation/
-    └── providers/
-        └── international_lawyers_admin_providers.dart
+â”œâ”€â”€ domain/
+â”‚   â”œâ”€â”€ entities/
+â”‚   â”‚   â”œâ”€â”€ international_lawyer_provider.dart
+â”‚   â”‚   â”œâ”€â”€ international_lawyers_list_response.dart
+â”‚   â”‚   â””â”€â”€ international_lawyer_details_response.dart
+â”‚   â”œâ”€â”€ repositories/
+â”‚   â”‚   â””â”€â”€ international_lawyers_admin_repository.dart
+â”‚   â””â”€â”€ usecases/
+â”‚       â”œâ”€â”€ get_international_lawyers_list_usecase.dart
+â”‚       â””â”€â”€ get_international_lawyer_details_usecase.dart
+â”œâ”€â”€ data/
+â”‚   â”œâ”€â”€ datasources/
+â”‚   â”‚   â””â”€â”€ international_lawyers_admin_remote_datasource.dart
+â”‚   â””â”€â”€ repositories/
+â”‚       â””â”€â”€ international_lawyers_admin_repository_impl.dart
+â””â”€â”€ presentation/
+    â””â”€â”€ providers/
+        â””â”€â”€ international_lawyers_admin_providers.dart
 ```
 
-### ملفات التوثيق (اقرأها!)
+### Ù…Ù„ÙØ§Øª Ø§Ù„ØªÙˆØ«ÙŠÙ‚ (Ø§Ù‚Ø±Ø£Ù‡Ø§!)
 ```
-📖 INDEX_ADMIN_LAWYERS.md
-   └─ فهرس شامل لجميع الملفات
+ðŸ“– INDEX_ADMIN_LAWYERS.md
+   â””â”€ ÙÙ‡Ø±Ø³ Ø´Ø§Ù…Ù„ Ù„Ø¬Ù…ÙŠØ¹ Ø§Ù„Ù…Ù„ÙØ§Øª
 
-⚡ QUICK_START - 5 Minutes.md
-   └─ ابدأ في 5 دقائق فقط
+âš¡ QUICK_START - 5 Minutes.md
+   â””â”€ Ø§Ø¨Ø¯Ø£ ÙÙŠ 5 Ø¯Ù‚Ø§Ø¦Ù‚ ÙÙ‚Ø·
 
-📚 ADMIN_LAWYERS_API_DOCUMENTATION.md
-   └─ توثيق تفصيلي كامل
+ðŸ“š ADMIN_LAWYERS_API_DOCUMENTATION.md
+   â””â”€ ØªÙˆØ«ÙŠÙ‚ ØªÙØµÙŠÙ„ÙŠ ÙƒØ§Ù…Ù„
 
-🏗️ ARCHITECTURE_DIAGRAM.md
-   └─ رسوم بيانية معمارية
+ðŸ—ï¸ ARCHITECTURE_DIAGRAM.md
+   â””â”€ Ø±Ø³ÙˆÙ… Ø¨ÙŠØ§Ù†ÙŠØ© Ù…Ø¹Ù…Ø§Ø±ÙŠØ©
 
-🧪 TESTING_ADMIN_LAWYERS.md
-   └─ أمثلة اختبارات وحدة
+ðŸ§ª TESTING_ADMIN_LAWYERS.md
+   â””â”€ Ø£Ù…Ø«Ù„Ø© Ø§Ø®ØªØ¨Ø§Ø±Ø§Øª ÙˆØ­Ø¯Ø©
 
-💡 QUICK_REFERENCE_ADMIN_LAWYERS.md
-   └─ مرجع سريع مع أمثلة
+ðŸ’¡ QUICK_REFERENCE_ADMIN_LAWYERS.md
+   â””â”€ Ù…Ø±Ø¬Ø¹ Ø³Ø±ÙŠØ¹ Ù…Ø¹ Ø£Ù…Ø«Ù„Ø©
 ```
 
 ---
 
-## 🎯 3 خطوات للبدء السريع
+## ðŸŽ¯ 3 Ø®Ø·ÙˆØ§Øª Ù„Ù„Ø¨Ø¯Ø¡ Ø§Ù„Ø³Ø±ÙŠØ¹
 
-### 1️⃣ استيراد الـ Provider (10 ثواني)
+### 1ï¸âƒ£ Ø§Ø³ØªÙŠØ±Ø§Ø¯ Ø§Ù„Ù€ Provider (10 Ø«ÙˆØ§Ù†ÙŠ)
 ```dart
-import 'package:demandium/feature/tt_club_landing/presentation/providers/international_lawyers_admin_providers.dart';
+import 'package:GeekXDigital/feature/tt_club_landing/presentation/providers/international_lawyers_admin_providers.dart';
 ```
 
-### 2️⃣ استخدم في Widget (30 ثانية)
+### 2ï¸âƒ£ Ø§Ø³ØªØ®Ø¯Ù… ÙÙŠ Widget (30 Ø«Ø§Ù†ÙŠØ©)
 ```dart
 final lawyersAsync = ref.watch(
   internationalLawyersListProvider(
@@ -80,7 +80,7 @@ final lawyersAsync = ref.watch(
 );
 ```
 
-### 3️⃣ عرض النتائج (1 دقيقة)
+### 3ï¸âƒ£ Ø¹Ø±Ø¶ Ø§Ù„Ù†ØªØ§Ø¦Ø¬ (1 Ø¯Ù‚ÙŠÙ‚Ø©)
 ```dart
 lawyersAsync.when(
   data: (response) => showList(response.providers),
@@ -89,30 +89,30 @@ lawyersAsync.when(
 );
 ```
 
-**انتهى! ✨**
+**Ø§Ù†ØªÙ‡Ù‰! âœ¨**
 
 ---
 
-## 🔌 الـ Endpoints
+## ðŸ”Œ Ø§Ù„Ù€ Endpoints
 
-| # | الاسم | الـ URL | الحالة |
+| # | Ø§Ù„Ø§Ø³Ù… | Ø§Ù„Ù€ URL | Ø§Ù„Ø­Ø§Ù„Ø© |
 |---|-------|--------|--------|
-| 1 | جلب القائمة | `GET /api/v1/admin/provider/data/international-requests` | ✅ |
-| 2 | جلب التفاصيل | `GET /api/v1/admin/provider/data/overview/{id}` | ✅ |
+| 1 | Ø¬Ù„Ø¨ Ø§Ù„Ù‚Ø§Ø¦Ù…Ø© | `GET /api/v1/admin/provider/data/international-requests` | âœ… |
+| 2 | Ø¬Ù„Ø¨ Ø§Ù„ØªÙØ§ØµÙŠÙ„ | `GET /api/v1/admin/provider/data/overview/{id}` | âœ… |
 
 ---
 
-## 📊 البيانات المتاحة
+## ðŸ“Š Ø§Ù„Ø¨ÙŠØ§Ù†Ø§Øª Ø§Ù„Ù…ØªØ§Ø­Ø©
 
-### من القائمة:
+### Ù…Ù† Ø§Ù„Ù‚Ø§Ø¦Ù…Ø©:
 ```dart
 response.providers              // List<InternationalLawyerProvider>
 response.currentPage           // int
-response.onboardingCount       // int (عدد المعلقة)
-response.deniedCount          // int (عدد المرفوضة)
+response.onboardingCount       // int (Ø¹Ø¯Ø¯ Ø§Ù„Ù…Ø¹Ù„Ù‚Ø©)
+response.deniedCount          // int (Ø¹Ø¯Ø¯ Ø§Ù„Ù…Ø±ÙÙˆØ¶Ø©)
 ```
 
-### من التفاصيل:
+### Ù…Ù† Ø§Ù„ØªÙØ§ØµÙŠÙ„:
 ```dart
 response.providerInfo          // InternationalLawyerProvider
 response.bookingOverview       // List<BookingOverview>
@@ -120,25 +120,25 @@ response.bookingOverview       // List<BookingOverview>
 
 ---
 
-## 🎓 أنت تريد...؟
+## ðŸŽ“ Ø£Ù†Øª ØªØ±ÙŠØ¯...ØŸ
 
-| تريد أن... | اقرأ هذا |
+| ØªØ±ÙŠØ¯ Ø£Ù†... | Ø§Ù‚Ø±Ø£ Ù‡Ø°Ø§ |
 |-----------|---------|
-| تبدأ بسرعة جداً | QUICK_START - 5 Minutes.md |
-| تفهم الـ API | ADMIN_LAWYERS_API_DOCUMENTATION.md |
-| تشوف أمثلة | QUICK_REFERENCE_ADMIN_LAWYERS.md |
-| تفهم المعمارية | ARCHITECTURE_DIAGRAM.md |
-| تكتب اختبارات | TESTING_ADMIN_LAWYERS.md |
-| تجد ملف معين | INDEX_ADMIN_LAWYERS.md |
+| ØªØ¨Ø¯Ø£ Ø¨Ø³Ø±Ø¹Ø© Ø¬Ø¯Ø§Ù‹ | QUICK_START - 5 Minutes.md |
+| ØªÙÙ‡Ù… Ø§Ù„Ù€ API | ADMIN_LAWYERS_API_DOCUMENTATION.md |
+| ØªØ´ÙˆÙ Ø£Ù…Ø«Ù„Ø© | QUICK_REFERENCE_ADMIN_LAWYERS.md |
+| ØªÙÙ‡Ù… Ø§Ù„Ù…Ø¹Ù…Ø§Ø±ÙŠØ© | ARCHITECTURE_DIAGRAM.md |
+| ØªÙƒØªØ¨ Ø§Ø®ØªØ¨Ø§Ø±Ø§Øª | TESTING_ADMIN_LAWYERS.md |
+| ØªØ¬Ø¯ Ù…Ù„Ù Ù…Ø¹ÙŠÙ† | INDEX_ADMIN_LAWYERS.md |
 
 ---
 
-## ✨ مثال كامل في دقيقة
+## âœ¨ Ù…Ø«Ø§Ù„ ÙƒØ§Ù…Ù„ ÙÙŠ Ø¯Ù‚ÙŠÙ‚Ø©
 
 ```dart
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:demandium/feature/tt_club_landing/presentation/providers/international_lawyers_admin_providers.dart';
+import 'package:GeekXDigital/feature/tt_club_landing/presentation/providers/international_lawyers_admin_providers.dart';
 
 class LawyersScreen extends ConsumerWidget {
   @override
@@ -172,105 +172,106 @@ class LawyersScreen extends ConsumerWidget {
 
 ---
 
-## 🎯 Features
+## ðŸŽ¯ Features
 
-✅ Pagination (limit & offset)  
-✅ Filtering (all, pending, denied)  
-✅ Type Safe  
-✅ Null Safe  
-✅ Error Handling  
-✅ Loading States  
-✅ Clean Architecture  
+âœ… Pagination (limit & offset)  
+âœ… Filtering (all, pending, denied)  
+âœ… Type Safe  
+âœ… Null Safe  
+âœ… Error Handling  
+âœ… Loading States  
+âœ… Clean Architecture  
 
 ---
 
-## 🚀 الحالة
+## ðŸš€ Ø§Ù„Ø­Ø§Ù„Ø©
 
-| العنصر | الحالة |
+| Ø§Ù„Ø¹Ù†ØµØ± | Ø§Ù„Ø­Ø§Ù„Ø© |
 |--------|--------|
-| **Endpoints** | ✅ مربوطة وجاهزة |
-| **Code** | ✅ منتج وخالي من الأخطاء |
-| **Documentation** | ✅ شامل جداً |
-| **Examples** | ✅ متعددة وعملية |
-| **Ready to Use** | ✅ 100% جاهز |
+| **Endpoints** | âœ… Ù…Ø±Ø¨ÙˆØ·Ø© ÙˆØ¬Ø§Ù‡Ø²Ø© |
+| **Code** | âœ… Ù…Ù†ØªØ¬ ÙˆØ®Ø§Ù„ÙŠ Ù…Ù† Ø§Ù„Ø£Ø®Ø·Ø§Ø¡ |
+| **Documentation** | âœ… Ø´Ø§Ù…Ù„ Ø¬Ø¯Ø§Ù‹ |
+| **Examples** | âœ… Ù…ØªØ¹Ø¯Ø¯Ø© ÙˆØ¹Ù…Ù„ÙŠØ© |
+| **Ready to Use** | âœ… 100% Ø¬Ø§Ù‡Ø² |
 
 ---
 
-## 💡 نصائح سريعة
+## ðŸ’¡ Ù†ØµØ§Ø¦Ø­ Ø³Ø±ÙŠØ¹Ø©
 
 ```dart
-// لتحديث البيانات
+// Ù„ØªØ­Ø¯ÙŠØ« Ø§Ù„Ø¨ÙŠØ§Ù†Ø§Øª
 ref.refresh(internationalLawyersListProvider(...));
 
-// مع Pagination
+// Ù…Ø¹ Pagination
 (limit: 10, offset: pageNumber, requestStatus: 'all')
 
-// مع Filtering
-requestStatus: 'pending'  // أو 'denied' أو 'all'
+// Ù…Ø¹ Filtering
+requestStatus: 'pending'  // Ø£Ùˆ 'denied' Ø£Ùˆ 'all'
 
-// جلب تفاصيل
+// Ø¬Ù„Ø¨ ØªÙØ§ØµÙŠÙ„
 internationalLawyerDetailsProvider(providerId)
 ```
 
 ---
 
-## 📞 تحتاج مساعدة؟
+## ðŸ“ž ØªØ­ØªØ§Ø¬ Ù…Ø³Ø§Ø¹Ø¯Ø©ØŸ
 
-### أسئلة شائعة
-👉 **س:** كيف أبدأ؟  
-**ج:** اقرأ `QUICK_START - 5 Minutes.md`
+### Ø£Ø³Ø¦Ù„Ø© Ø´Ø§Ø¦Ø¹Ø©
+ðŸ‘‰ **Ø³:** ÙƒÙŠÙ Ø£Ø¨Ø¯Ø£ØŸ  
+**Ø¬:** Ø§Ù‚Ø±Ø£ `QUICK_START - 5 Minutes.md`
 
-👉 **س:** كيف أستخدمه؟  
-**ج:** اقرأ `QUICK_REFERENCE_ADMIN_LAWYERS.md`
+ðŸ‘‰ **Ø³:** ÙƒÙŠÙ Ø£Ø³ØªØ®Ø¯Ù…Ù‡ØŸ  
+**Ø¬:** Ø§Ù‚Ø±Ø£ `QUICK_REFERENCE_ADMIN_LAWYERS.md`
 
-👉 **س:** كيف يعمل؟  
-**ج:** اقرأ `ARCHITECTURE_DIAGRAM.md`
+ðŸ‘‰ **Ø³:** ÙƒÙŠÙ ÙŠØ¹Ù…Ù„ØŸ  
+**Ø¬:** Ø§Ù‚Ø±Ø£ `ARCHITECTURE_DIAGRAM.md`
 
-👉 **س:** كيف أختبره؟  
-**ج:** اقرأ `TESTING_ADMIN_LAWYERS.md`
+ðŸ‘‰ **Ø³:** ÙƒÙŠÙ Ø£Ø®ØªØ¨Ø±Ù‡ØŸ  
+**Ø¬:** Ø§Ù‚Ø±Ø£ `TESTING_ADMIN_LAWYERS.md`
 
 ---
 
-## 🎉 ملخص سريع
+## ðŸŽ‰ Ù…Ù„Ø®Øµ Ø³Ø±ÙŠØ¹
 
 ```
-✅ 10 ملفات كود
-✅ 6 ملفات توثيق
-✅ 0 أخطاء
-✅ 100% جاهز
-✅ ابدأ الآن!
+âœ… 10 Ù…Ù„ÙØ§Øª ÙƒÙˆØ¯
+âœ… 6 Ù…Ù„ÙØ§Øª ØªÙˆØ«ÙŠÙ‚
+âœ… 0 Ø£Ø®Ø·Ø§Ø¡
+âœ… 100% Ø¬Ø§Ù‡Ø²
+âœ… Ø§Ø¨Ø¯Ø£ Ø§Ù„Ø¢Ù†!
 ```
 
 ---
 
-## 📚 الملفات بترتيب الأهمية
+## ðŸ“š Ø§Ù„Ù…Ù„ÙØ§Øª Ø¨ØªØ±ØªÙŠØ¨ Ø§Ù„Ø£Ù‡Ù…ÙŠØ©
 
-1. **QUICK_START - 5 Minutes.md** ← ابدأ هنا!
-2. **QUICK_REFERENCE_ADMIN_LAWYERS.md** ← أمثلة
-3. **ADMIN_LAWYERS_API_DOCUMENTATION.md** ← تفاصيل
-4. **ARCHITECTURE_DIAGRAM.md** ← معمارية
-5. **INDEX_ADMIN_LAWYERS.md** ← فهرس شامل
-6. **TESTING_ADMIN_LAWYERS.md** ← اختبارات
-
----
-
-## 🎯 Next Steps
-
-- [ ] اقرأ QUICK_START - 5 Minutes.md
-- [ ] جرب المثال البسيط
-- [ ] استخدم في مشروعك
-- [ ] اقرأ المزيد من التوثيق حسب الحاجة
+1. **QUICK_START - 5 Minutes.md** â† Ø§Ø¨Ø¯Ø£ Ù‡Ù†Ø§!
+2. **QUICK_REFERENCE_ADMIN_LAWYERS.md** â† Ø£Ù…Ø«Ù„Ø©
+3. **ADMIN_LAWYERS_API_DOCUMENTATION.md** â† ØªÙØ§ØµÙŠÙ„
+4. **ARCHITECTURE_DIAGRAM.md** â† Ù…Ø¹Ù…Ø§Ø±ÙŠØ©
+5. **INDEX_ADMIN_LAWYERS.md** â† ÙÙ‡Ø±Ø³ Ø´Ø§Ù…Ù„
+6. **TESTING_ADMIN_LAWYERS.md** â† Ø§Ø®ØªØ¨Ø§Ø±Ø§Øª
 
 ---
 
-**🚀 ابدأ الآن!**
+## ðŸŽ¯ Next Steps
+
+- [ ] Ø§Ù‚Ø±Ø£ QUICK_START - 5 Minutes.md
+- [ ] Ø¬Ø±Ø¨ Ø§Ù„Ù…Ø«Ø§Ù„ Ø§Ù„Ø¨Ø³ÙŠØ·
+- [ ] Ø§Ø³ØªØ®Ø¯Ù… ÙÙŠ Ù…Ø´Ø±ÙˆØ¹Ùƒ
+- [ ] Ø§Ù‚Ø±Ø£ Ø§Ù„Ù…Ø²ÙŠØ¯ Ù…Ù† Ø§Ù„ØªÙˆØ«ÙŠÙ‚ Ø­Ø³Ø¨ Ø§Ù„Ø­Ø§Ø¬Ø©
+
+---
+
+**ðŸš€ Ø§Ø¨Ø¯Ø£ Ø§Ù„Ø¢Ù†!**
 
 ```dart
-// فقط هذا:
+// ÙÙ‚Ø· Ù‡Ø°Ø§:
 import '...international_lawyers_admin_providers.dart';
 final data = ref.watch(internationalLawyersListProvider(...));
-// وكل شيء يعمل! ✨
+// ÙˆÙƒÙ„ Ø´ÙŠØ¡ ÙŠØ¹Ù…Ù„! âœ¨
 ```
 
 ---
+
 

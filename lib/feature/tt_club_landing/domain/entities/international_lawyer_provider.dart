@@ -5,6 +5,10 @@ import 'package:flutter/foundation.dart';
 class InternationalLawyerProvider {
   final String id;
   final String providerCategory;
+  final String? companyName;
+  final String? phone;
+  final String? address;
+  final String? logo;
   final int isApproved; // 0=pending, 1=approved, 2=denied
   final ProviderOwner? owner;
   final ProviderZone? zone;
@@ -12,6 +16,10 @@ class InternationalLawyerProvider {
   const InternationalLawyerProvider({
     required this.id,
     required this.providerCategory,
+    this.companyName,
+    this.phone,
+    this.address,
+    this.logo,
     required this.isApproved,
     this.owner,
     this.zone,
@@ -21,6 +29,10 @@ class InternationalLawyerProvider {
     return InternationalLawyerProvider(
       id: json['id'] as String? ?? '',
       providerCategory: json['provider_category'] as String? ?? '',
+      companyName: json['company_name'] as String?,
+      phone: (json['phone'] ?? json['contact_person_phone']) as String?,
+      address: (json['address'] ?? json['contact_person_address']) as String?,
+      logo: (json['logo'] ?? json['logo_full_path'] ?? json['image_full_path']) as String?,
       isApproved: json['is_approved'] as int? ?? 0,
       owner: json['owner'] != null ? ProviderOwner.fromJson(json['owner'] as Map<String, dynamic>) : null,
       zone: json['zone'] != null ? ProviderZone.fromJson(json['zone'] as Map<String, dynamic>) : null,
@@ -31,6 +43,10 @@ class InternationalLawyerProvider {
     return {
       'id': id,
       'provider_category': providerCategory,
+      'company_name': companyName,
+      'phone': phone,
+      'address': address,
+      'logo': logo,
       'is_approved': isApproved,
       'owner': owner?.toJson(),
       'zone': zone?.toJson(),
@@ -72,6 +88,8 @@ class Account {
   final String? lastName;
   final String? email;
   final String? phone;
+  final String? address;
+  final String? profileImage;
 
   const Account({
     this.id,
@@ -79,6 +97,8 @@ class Account {
     this.lastName,
     this.email,
     this.phone,
+    this.address,
+    this.profileImage,
   });
 
   factory Account.fromJson(Map<String, dynamic> json) {
@@ -88,6 +108,8 @@ class Account {
       lastName: json['last_name'] as String?,
       email: json['email'] as String?,
       phone: json['phone'] as String?,
+      address: (json['address'] ?? json['street_address']) as String?,
+      profileImage: (json['profile_image'] ?? json['image_full_path']) as String?,
     );
   }
 
@@ -98,6 +120,8 @@ class Account {
       'last_name': lastName,
       'email': email,
       'phone': phone,
+      'address': address,
+      'profile_image': profileImage,
     };
   }
 }

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../domain/entities/landing_action.dart';
 import '../providers/international_lawyers_providers.dart';
 import '../providers/tt_club_landing_providers.dart';
 import '../widgets/international_lawyers_marquee.dart';
@@ -126,11 +125,32 @@ class TtClubLandingPage extends ConsumerWidget {
                           error: (e, _) => SizedBox(
                             height: 96,
                             child: Center(
-                              child: Text(
-                                'تعذر تحميل المحامين الدوليين',
-                                style: theme.textTheme.bodyMedium?.copyWith(
-                                  color: cs.onSurfaceVariant,
-                                ),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Text(
+                                    'تعذر تحميل المحامين الدوليين',
+                                    style: theme.textTheme.bodyMedium?.copyWith(
+                                      color: cs.onSurfaceVariant,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 8),
+                                  Text(
+                                    e.toString(),
+                                    textAlign: TextAlign.center,
+                                    style: theme.textTheme.bodySmall?.copyWith(
+                                      color: cs.error,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 8),
+                                  ElevatedButton(
+                                    onPressed: () {
+                                      // Retry by invalidating the provider so it re-fetches
+                                      ref.invalidate(internationalLawyersProvider);
+                                    },
+                                    child: Text('إعادة المحاولة'),
+                                  ),
+                                ],
                               ),
                             ),
                           ),

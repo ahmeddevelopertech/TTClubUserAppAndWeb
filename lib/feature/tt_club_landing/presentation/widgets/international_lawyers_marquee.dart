@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 
 import '../../domain/entities/international_lawyer_visual.dart';
+import '../pages/international_lawyer_details_page.dart';
+import 'lawyer_network_image.dart';
 
 class InternationalLawyersMarquee extends StatefulWidget {
   final List<InternationalLawyerVisual> items;
@@ -135,90 +137,100 @@ class _InternationalLawyerTile extends StatelessWidget {
             ? item.countryCode!.trim()
             : '—';
 
-    return Container(
-      width: 260,
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-      decoration: BoxDecoration(
-        color: cs.surface,
-        borderRadius: BorderRadius.circular(18),
-        border: Border.all(color: brand, width: 1),
-      ),
-      child: Row(
-        children: [
-          SizedBox(
-            width: 58,
-            height: 58,
-            child: Stack(
-              clipBehavior: Clip.none,
-              children: [
-                ClipOval(
-                  child: Image.asset(
-                    item.photoAsset,
-                    fit: BoxFit.cover,
-                    cacheWidth: photoCache,
-                    filterQuality: FilterQuality.medium,
-                    errorBuilder: (_, __, ___) => ColoredBox(
-                      color: cs.surfaceVariant,
-                      child: const Center(child: Icon(Icons.person, color: brand)),
+    return InkWell(
+      borderRadius: BorderRadius.circular(18),
+      onTap: () {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (_) => InternationalLawyerDetailsPage(lawyer: item),
+          ),
+        );
+      },
+      child: Container(
+        width: 260,
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+        decoration: BoxDecoration(
+          color: cs.surface,
+          borderRadius: BorderRadius.circular(18),
+          border: Border.all(color: brand, width: 1),
+        ),
+        child: Row(
+          children: [
+            SizedBox(
+              width: 58,
+              height: 58,
+              child: Stack(
+                clipBehavior: Clip.none,
+                children: [
+                  ClipOval(
+                    child: LawyerNetworkImage(
+                      path: item.photoAsset,
+                      fit: BoxFit.cover,
+                      cacheWidth: photoCache,
+                      filterQuality: FilterQuality.medium,
+                      fallback: ColoredBox(
+                        color: cs.surfaceVariant,
+                        child: const Center(child: Icon(Icons.person, color: brand)),
+                      ),
                     ),
                   ),
-                ),
-                Positioned(
-                  bottom: -2,
-                  right: -2,
-                  child: _FlagBadge(
-                    flagAsset: item.flagAsset,
-                    countryCode: item.countryCode,
-                    cacheWidth: flagCache,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  name,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: theme.textTheme.bodyMedium?.copyWith(
-                    color: cs.onSurface,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w900,
-                  ),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  country,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: theme.textTheme.bodySmall?.copyWith(
-                    color: cs.onSurfaceVariant,
-                    fontSize: 12,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                if ((item.specialty?.trim().isNotEmpty ?? false)) ...[
-                  const SizedBox(height: 4),
-                  Text(
-                    item.specialty!.trim(),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: theme.textTheme.bodySmall?.copyWith(
-                      color: brand,
-                      fontSize: 11,
-                      fontWeight: FontWeight.w700,
+                  Positioned(
+                    bottom: -2,
+                    right: -2,
+                    child: _FlagBadge(
+                      flagAsset: item.flagAsset,
+                      countryCode: item.countryCode,
+                      cacheWidth: flagCache,
                     ),
                   ),
                 ],
-              ],
+              ),
             ),
-          ),
-        ],
+            const SizedBox(width: 12),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    name,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: theme.textTheme.bodyMedium?.copyWith(
+                      color: cs.onSurface,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w900,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    country,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: theme.textTheme.bodySmall?.copyWith(
+                      color: cs.onSurfaceVariant,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  if ((item.specialty?.trim().isNotEmpty ?? false)) ...[
+                    const SizedBox(height: 4),
+                    Text(
+                      item.specialty!.trim(),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: theme.textTheme.bodySmall?.copyWith(
+                        color: brand,
+                        fontSize: 11,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  ],
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -234,6 +246,11 @@ class _FlagBadge extends StatelessWidget {
     required this.countryCode,
     required this.cacheWidth,
   });
+
+  bool _isRemote(String path) {
+    final p = path.trim().toLowerCase();
+    return p.startsWith('http://') || p.startsWith('https://');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -258,13 +275,21 @@ class _FlagBadge extends StatelessWidget {
       clipBehavior: Clip.antiAlias,
       child: resolved == null
           ? const Icon(Icons.flag, size: 12, color: brand)
-          : Image.asset(
-              resolved,
-              fit: BoxFit.cover,
-              cacheWidth: cacheWidth,
-              filterQuality: FilterQuality.low,
-              errorBuilder: (_, __, ___) => const Icon(Icons.flag, size: 12, color: brand),
-            ),
+          : _isRemote(resolved)
+              ? Image.network(
+                  resolved,
+                  fit: BoxFit.cover,
+                  cacheWidth: cacheWidth,
+                  filterQuality: FilterQuality.low,
+                  errorBuilder: (_, __, ___) => const Icon(Icons.flag, size: 12, color: brand),
+                )
+              : Image.asset(
+                  resolved,
+                  fit: BoxFit.cover,
+                  cacheWidth: cacheWidth,
+                  filterQuality: FilterQuality.low,
+                  errorBuilder: (_, __, ___) => const Icon(Icons.flag, size: 12, color: brand),
+                ),
     );
   }
 }

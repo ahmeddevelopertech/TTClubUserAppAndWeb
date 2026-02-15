@@ -2,9 +2,10 @@ import 'package:get/get.dart';
 import 'package:demandium/utils/core_export.dart';
 import 'package:flutter/scheduler.dart';
 
-enum ServiceTabControllerState {serviceOverview,faq,review}
+enum ServiceTabControllerState { serviceOverview, lawyers, faq, review }
 
-class ServiceTabController extends GetxController with GetTickerProviderStateMixin{
+class ServiceTabController extends GetxController
+    with GetTickerProviderStateMixin {
   final ServiceDetailsRepo serviceDetailsRepo;
   ServiceTabController({required this.serviceDetailsRepo});
 
@@ -35,15 +36,19 @@ class ServiceTabController extends GetxController with GetTickerProviderStateMix
   }
 
   List<Widget> serviceDetailsTabs(Service? service) {
-    if (service != null && service.faqs != null && (service.faqs?.isNotEmpty ?? false)) {
+    if (service != null &&
+        service.faqs != null &&
+        (service.faqs?.isNotEmpty ?? false)) {
       return [
         Tab(child: Text("service_overview".tr, maxLines: 2)),
+        const Tab(child: Text("المحامين", maxLines: 2)),
         Tab(child: Text("faqs".tr, maxLines: 2)),
         Tab(child: Text("reviews".tr, maxLines: 2)),
       ];
     }
     return [
       Tab(child: Text("service_overview".tr, maxLines: 2)),
+      const Tab(child: Text("المحامين", maxLines: 2)),
       Tab(child: Text("reviews".tr, maxLines: 2)),
     ];
   }
@@ -62,37 +67,46 @@ class ServiceTabController extends GetxController with GetTickerProviderStateMix
   int? get offset => _offset;
   String? get serviceID => _serviceID;
 
-
-  Future<void> getServiceReview(String serviceID,int offset, {bool reload = true,}) async {
+  Future<void> getServiceReview(
+    String serviceID,
+    int offset, {
+    bool reload = true,
+  }) async {
     _offset = offset;
-    Response response = await serviceDetailsRepo.getServiceReviewList(serviceID,offset);
-    if (response.statusCode == 200 && response.body['response_code'] ==  'default_200') {
-      if(reload){
+    Response response = await serviceDetailsRepo.getServiceReviewList(
+      serviceID,
+      offset,
+    );
+    if (response.statusCode == 200 &&
+        response.body['response_code'] == 'default_200') {
+      if (reload) {
         _reviewList = [];
       }
-       reviewContent = ReviewContent.fromJson(response.body['content']);
-      if(_reviewList != null && offset != 1){
+      reviewContent = ReviewContent.fromJson(response.body['content']);
+      if (_reviewList != null && offset != 1) {
         _reviewList!.addAll(reviewContent!.reviews!.reviewList!);
-      }else{
+      } else {
         _reviewList = [];
         _reviewList!.addAll(reviewContent!.reviews!.reviewList!);
       }
       _rating = reviewContent!.rating;
-      _pageSize = response.body['content']['reviews']['last_page']?? 0;
+      _pageSize = response.body['content']['reviews']['last_page'] ?? 0;
     }
     update();
   }
 
-
-  void updateProviderReviewExpendedStatus({int? index, bool shouldUpdate = true}){
-    if(index  !=null){
+  void updateProviderReviewExpendedStatus({
+    int? index,
+    bool shouldUpdate = true,
+  }) {
+    if (index != null) {
       _reviewList?[index].isExpended = 1;
-      if(shouldUpdate){
+      if (shouldUpdate) {
         update();
       }
-    } else{
-      if(_reviewList !=null && reviewList!.isNotEmpty){
-        for(int index = 0; index < _reviewList!.length ; index ++){
+    } else {
+      if (_reviewList != null && reviewList!.isNotEmpty) {
+        for (int index = 0; index < _reviewList!.length; index++) {
           _reviewList?[index].isExpended = 0;
         }
       }

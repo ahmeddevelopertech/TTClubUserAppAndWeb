@@ -18,10 +18,7 @@ class TtClubLandingLocalDataSource {
         iconKey: 'notifications',
         destination: AppRouteDestination(
           key: AppRouteKey.notifications,
-          params: {
-            'fromNotification': 'false',
-            'reservationID': '0',
-          },
+          params: {'fromNotification': 'false', 'reservationID': '0'},
         ),
       ),
 
@@ -75,12 +72,14 @@ class TtClubLandingLocalDataSource {
         ),
       ],
 
-      contactIcons:  [
+      contactIcons: [
         LandingAction(
           id: 'email',
           title: 'Email',
           iconKey: 'email',
-          destination: ExternalUriDestination(Uri.parse('mailto:info@ttclub.org')),
+          destination: ExternalUriDestination(
+            Uri.parse('mailto:info@ttclub.org'),
+          ),
         ),
         LandingAction(
           id: 'website',
@@ -103,7 +102,9 @@ class TtClubLandingLocalDataSource {
           id: 'facebook',
           title: 'Facebook',
           iconKey: 'facebook',
-          destination: ExternalUriDestination(Uri.parse('https://www.facebook.com/140.tel')),
+          destination: ExternalUriDestination(
+            Uri.parse('https://www.facebook.com/share/1ASncxCzPw/'),
+          ),
         ),
       ],
 
@@ -116,7 +117,7 @@ class TtClubLandingLocalDataSource {
           params: {'page': 'home'},
         ),
       ),
-      aboutNavAction:  LandingAction(
+      aboutNavAction: LandingAction(
         id: 'about',
         title: 'من نحن',
         iconKey: 'about',

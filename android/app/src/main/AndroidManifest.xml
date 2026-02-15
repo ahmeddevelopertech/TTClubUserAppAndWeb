@@ -1,4 +1,4 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+﻿<manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.geekxdigital.ttclub.user">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -74,7 +74,7 @@
                 />
             <meta-data
                 android:name="com.google.firebase.messaging.default_notification_channel_id"
-                android:value="demandiumWithoutsound" />
+                android:value="GeekXDigitalWithoutsound" />
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -132,3 +132,4 @@
 
     </application>
 </manifest>
+

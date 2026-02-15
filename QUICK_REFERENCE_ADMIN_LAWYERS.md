@@ -1,13 +1,13 @@
-# Quick Reference - Admin Lawyers APIs
+﻿# Quick Reference - Admin Lawyers APIs
 
-## 🚀 الاستخدام السريع
+## ðŸš€ Ø§Ù„Ø§Ø³ØªØ®Ø¯Ø§Ù… Ø§Ù„Ø³Ø±ÙŠØ¹
 
-### استيراد الـ Providers
+### Ø§Ø³ØªÙŠØ±Ø§Ø¯ Ø§Ù„Ù€ Providers
 ```dart
-import 'package:demandium/feature/tt_club_landing/presentation/providers/international_lawyers_admin_providers.dart';
+import 'package:GeekXDigital/feature/tt_club_landing/presentation/providers/international_lawyers_admin_providers.dart';
 ```
 
-### 1️⃣ جلب القائمة - الاستخدام الأساسي
+### 1ï¸âƒ£ Ø¬Ù„Ø¨ Ø§Ù„Ù‚Ø§Ø¦Ù…Ø© - Ø§Ù„Ø§Ø³ØªØ®Ø¯Ø§Ù… Ø§Ù„Ø£Ø³Ø§Ø³ÙŠ
 ```dart
 class LawyersListScreen extends ConsumerWidget {
   @override
@@ -30,7 +30,7 @@ class LawyersListScreen extends ConsumerWidget {
 }
 ```
 
-### 2️⃣ جلب التفاصيل - الاستخدام الأساسي
+### 2ï¸âƒ£ Ø¬Ù„Ø¨ Ø§Ù„ØªÙØ§ØµÙŠÙ„ - Ø§Ù„Ø§Ø³ØªØ®Ø¯Ø§Ù… Ø§Ù„Ø£Ø³Ø§Ø³ÙŠ
 ```dart
 class LawyerDetailsScreen extends ConsumerWidget {
   final String providerId;
@@ -59,19 +59,19 @@ class LawyerDetailsScreen extends ConsumerWidget {
 
 ---
 
-## 📊 Request Status Values
+## ðŸ“Š Request Status Values
 
 ```dart
-'all'      // جميع الطلبات
-'pending'  // الطلبات المعلقة
-'denied'   // الطلبات المرفوضة
+'all'      // Ø¬Ù…ÙŠØ¹ Ø§Ù„Ø·Ù„Ø¨Ø§Øª
+'pending'  // Ø§Ù„Ø·Ù„Ø¨Ø§Øª Ø§Ù„Ù…Ø¹Ù„Ù‚Ø©
+'denied'   // Ø§Ù„Ø·Ù„Ø¨Ø§Øª Ø§Ù„Ù…Ø±ÙÙˆØ¶Ø©
 ```
 
 ---
 
-## 🔍 الوصول للبيانات
+## ðŸ” Ø§Ù„ÙˆØµÙˆÙ„ Ù„Ù„Ø¨ÙŠØ§Ù†Ø§Øª
 
-### من List Response:
+### Ù…Ù† List Response:
 ```dart
 response.providers          // List<InternationalLawyerProvider>
 response.currentPage        // int
@@ -79,7 +79,7 @@ response.onboardingCount    // int
 response.deniedCount        // int
 ```
 
-### من Details Response:
+### Ù…Ù† Details Response:
 ```dart
 response.providerInfo                        // InternationalLawyerProvider
 response.providerInfo.id                     // String
@@ -91,7 +91,7 @@ response.bookingOverview                    // List<BookingOverview>
 
 ---
 
-## 📝 Filter Examples
+## ðŸ“ Filter Examples
 
 ### Filter by status
 ```dart
@@ -132,7 +132,7 @@ limit: 50
 
 ---
 
-## 🎯 Approval Status
+## ðŸŽ¯ Approval Status
 
 ```dart
 // In InternationalLawyerProvider
@@ -143,17 +143,17 @@ lawyer.isApproved == 2  // denied
 
 ---
 
-## 🔄 Refresh Data
+## ðŸ”„ Refresh Data
 
 ```dart
-// في StatefulWidget
+// ÙÙŠ StatefulWidget
 void refresh() {
   ref.refresh(internationalLawyersListProvider(
     (limit: 10, offset: 1, requestStatus: 'all'),
   ));
 }
 
-// أو في ConsumerWidget
+// Ø£Ùˆ ÙÙŠ ConsumerWidget
 final refreshAsync = ref.watch(
   internationalLawyersListProvider(...),
 );
@@ -161,7 +161,7 @@ final refreshAsync = ref.watch(
 
 ---
 
-## ⚡ Tips & Tricks
+## âš¡ Tips & Tricks
 
 ### Combine with Filters
 ```dart
@@ -241,7 +241,7 @@ class _PaginatedLawyersScreenState
 
 ---
 
-## 🛠️ Error Handling
+## ðŸ› ï¸ Error Handling
 
 ```dart
 lawyersAsync.when(
@@ -266,12 +266,12 @@ lawyersAsync.when(
 
 ---
 
-## 📱 Full Example
+## ðŸ“± Full Example
 
 ```dart
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:demandium/feature/tt_club_landing/presentation/providers/international_lawyers_admin_providers.dart';
+import 'package:GeekXDigital/feature/tt_club_landing/presentation/providers/international_lawyers_admin_providers.dart';
 
 class AdminLawyersPage extends ConsumerStatefulWidget {
   @override
@@ -402,7 +402,7 @@ class _AdminLawyersPageState extends ConsumerState<AdminLawyersPage> {
 
 ---
 
-## 📦 Exports
+## ðŸ“¦ Exports
 
 ```dart
 // All models
@@ -415,5 +415,6 @@ export 'international_lawyers_admin_providers.dart';
 ```
 
 ---
+
 
 

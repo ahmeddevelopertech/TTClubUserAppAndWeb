@@ -26,6 +26,9 @@ class InternationalLawyerVisual {
   final String? flagAsset;
 
   final String? specialty;
+  final String? address;
+  final String? email;
+  final String? phone;
 
   const InternationalLawyerVisual({
     required this.id,
@@ -35,6 +38,9 @@ class InternationalLawyerVisual {
     this.countryCode,
     this.flagAsset,
     this.specialty,
+    this.address,
+    this.email,
+    this.phone,
   });
 
   factory InternationalLawyerVisual.fromJson(Map<String, dynamic> json) {
@@ -60,6 +66,9 @@ class InternationalLawyerVisual {
 
     final specialty =
         (json['specialty'] is String) ? json['specialty'] as String : null;
+    final address = (json['address'] is String) ? json['address'] as String : null;
+    final email = (json['email'] is String) ? json['email'] as String : null;
+    final phone = (json['phone'] is String) ? json['phone'] as String : null;
 
     return InternationalLawyerVisual(
       id: id,
@@ -69,6 +78,9 @@ class InternationalLawyerVisual {
       photoAsset: photoAsset,
       flagAsset: flagAsset,
       specialty: specialty,
+      address: address,
+      email: email,
+      phone: phone,
     );
   }
 }

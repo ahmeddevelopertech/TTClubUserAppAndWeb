@@ -1,74 +1,74 @@
-# توثيق Admin APIs - International Lawyers
+﻿# ØªÙˆØ«ÙŠÙ‚ Admin APIs - International Lawyers
 
-## 📋 نظرة عامة
+## ðŸ“‹ Ù†Ø¸Ø±Ø© Ø¹Ø§Ù…Ø©
 
-تم إنشاء نظام شامل للتواصل مع Admin APIs الخاصة بالمحامين الدوليين، يشمل:
+ØªÙ… Ø¥Ù†Ø´Ø§Ø¡ Ù†Ø¸Ø§Ù… Ø´Ø§Ù…Ù„ Ù„Ù„ØªÙˆØ§ØµÙ„ Ù…Ø¹ Admin APIs Ø§Ù„Ø®Ø§ØµØ© Ø¨Ø§Ù„Ù…Ø­Ø§Ù…ÙŠÙ† Ø§Ù„Ø¯ÙˆÙ„ÙŠÙŠÙ†ØŒ ÙŠØ´Ù…Ù„:
 
-✅ جلب قائمة المحامين الدوليين  
-✅ جلب تفاصيل محامي واحد  
-✅ معالجة الأخطاء والـ Fallback  
-✅ دعم Pagination والتصفية
+âœ… Ø¬Ù„Ø¨ Ù‚Ø§Ø¦Ù…Ø© Ø§Ù„Ù…Ø­Ø§Ù…ÙŠÙ† Ø§Ù„Ø¯ÙˆÙ„ÙŠÙŠÙ†  
+âœ… Ø¬Ù„Ø¨ ØªÙØ§ØµÙŠÙ„ Ù…Ø­Ø§Ù…ÙŠ ÙˆØ§Ø­Ø¯  
+âœ… Ù…Ø¹Ø§Ù„Ø¬Ø© Ø§Ù„Ø£Ø®Ø·Ø§Ø¡ ÙˆØ§Ù„Ù€ Fallback  
+âœ… Ø¯Ø¹Ù… Pagination ÙˆØ§Ù„ØªØµÙÙŠØ©
 
 ---
 
-## 🏗️ البنية المعمارية
+## ðŸ—ï¸ Ø§Ù„Ø¨Ù†ÙŠØ© Ø§Ù„Ù…Ø¹Ù…Ø§Ø±ÙŠØ©
 
-### الملفات المنشأة
+### Ø§Ù„Ù…Ù„ÙØ§Øª Ø§Ù„Ù…Ù†Ø´Ø£Ø©
 
-#### 1. **Models/Entities** 📦
+#### 1. **Models/Entities** ðŸ“¦
 ```
 lib/feature/tt_club_landing/domain/entities/
-├── international_lawyer_provider.dart
-│   ├── InternationalLawyerProvider
-│   ├── ProviderOwner
-│   ├── Account
-│   └── ProviderZone
-├── international_lawyers_list_response.dart
-│   └── InternationalLawyersListResponse
-└── international_lawyer_details_response.dart
-    ├── InternationalLawyerDetailsResponse
-    └── BookingOverview
+â”œâ”€â”€ international_lawyer_provider.dart
+â”‚   â”œâ”€â”€ InternationalLawyerProvider
+â”‚   â”œâ”€â”€ ProviderOwner
+â”‚   â”œâ”€â”€ Account
+â”‚   â””â”€â”€ ProviderZone
+â”œâ”€â”€ international_lawyers_list_response.dart
+â”‚   â””â”€â”€ InternationalLawyersListResponse
+â””â”€â”€ international_lawyer_details_response.dart
+    â”œâ”€â”€ InternationalLawyerDetailsResponse
+    â””â”€â”€ BookingOverview
 ```
 
-#### 2. **Data Layer** 📡
+#### 2. **Data Layer** ðŸ“¡
 ```
 lib/feature/tt_club_landing/data/
-├── datasources/
-│   └── international_lawyers_admin_remote_datasource.dart
-│       └── InternationalLawyersAdminRemoteDataSource
-│           ├── getInternationalLawyersList()
-│           └── getInternationalLawyerDetails()
-└── repositories/
-    └── international_lawyers_admin_repository_impl.dart
-        └── InternationalLawyersAdminRepositoryImpl
+â”œâ”€â”€ datasources/
+â”‚   â””â”€â”€ international_lawyers_admin_remote_datasource.dart
+â”‚       â””â”€â”€ InternationalLawyersAdminRemoteDataSource
+â”‚           â”œâ”€â”€ getInternationalLawyersList()
+â”‚           â””â”€â”€ getInternationalLawyerDetails()
+â””â”€â”€ repositories/
+    â””â”€â”€ international_lawyers_admin_repository_impl.dart
+        â””â”€â”€ InternationalLawyersAdminRepositoryImpl
 ```
 
-#### 3. **Domain Layer** 🎯
+#### 3. **Domain Layer** ðŸŽ¯
 ```
 lib/feature/tt_club_landing/domain/
-├── repositories/
-│   └── international_lawyers_admin_repository.dart
-│       └── InternationalLawyersAdminRepository (Abstract)
-└── usecases/
-    ├── get_international_lawyers_list_usecase.dart
-    │   └── GetInternationalLawyersListUseCase
-    └── get_international_lawyer_details_usecase.dart
-        └── GetInternationalLawyerDetailsUseCase
+â”œâ”€â”€ repositories/
+â”‚   â””â”€â”€ international_lawyers_admin_repository.dart
+â”‚       â””â”€â”€ InternationalLawyersAdminRepository (Abstract)
+â””â”€â”€ usecases/
+    â”œâ”€â”€ get_international_lawyers_list_usecase.dart
+    â”‚   â””â”€â”€ GetInternationalLawyersListUseCase
+    â””â”€â”€ get_international_lawyer_details_usecase.dart
+        â””â”€â”€ GetInternationalLawyerDetailsUseCase
 ```
 
-#### 4. **Presentation Layer** 🎨
+#### 4. **Presentation Layer** ðŸŽ¨
 ```
 lib/feature/tt_club_landing/presentation/providers/
-└── international_lawyers_admin_providers.dart
-    ├── internationalLawyersListProvider
-    └── internationalLawyerDetailsProvider
+â””â”€â”€ international_lawyers_admin_providers.dart
+    â”œâ”€â”€ internationalLawyersListProvider
+    â””â”€â”€ internationalLawyerDetailsProvider
 ```
 
 ---
 
-## 🔌 الـ Endpoints
+## ðŸ”Œ Ø§Ù„Ù€ Endpoints
 
-### 1. جلب قائمة المحامين الدوليين
+### 1. Ø¬Ù„Ø¨ Ù‚Ø§Ø¦Ù…Ø© Ø§Ù„Ù…Ø­Ø§Ù…ÙŠÙ† Ø§Ù„Ø¯ÙˆÙ„ÙŠÙŠÙ†
 
 **Endpoint:**
 ```
@@ -84,9 +84,9 @@ Middleware: auth:api
 **Query Parameters:**
 | Parameter | Type | Required | Values |
 |-----------|------|----------|--------|
-| `limit` | number | ✅ | عدد العناصر في الصفحة |
-| `offset` | number | ✅ | رقم الصفحة |
-| `request_status` | string | ✅ | `pending`, `denied`, `all` |
+| `limit` | number | âœ… | Ø¹Ø¯Ø¯ Ø§Ù„Ø¹Ù†Ø§ØµØ± ÙÙŠ Ø§Ù„ØµÙØ­Ø© |
+| `offset` | number | âœ… | Ø±Ù‚Ù… Ø§Ù„ØµÙØ­Ø© |
+| `request_status` | string | âœ… | `pending`, `denied`, `all` |
 
 **Example:**
 ```
@@ -110,8 +110,8 @@ Middleware: auth:api
             "id": "user-uuid",
             "account": {
               "id": "...",
-              "first_name": "أحمد",
-              "last_name": "علي",
+              "first_name": "Ø£Ø­Ù…Ø¯",
+              "last_name": "Ø¹Ù„ÙŠ",
               "email": "example@example.com",
               "phone": "+201234567890"
             }
@@ -148,14 +148,14 @@ Middleware: auth:api
 
 ---
 
-### 2. جلب تفاصيل محامي واحد
+### 2. Ø¬Ù„Ø¨ ØªÙØ§ØµÙŠÙ„ Ù…Ø­Ø§Ù…ÙŠ ÙˆØ§Ø­Ø¯
 
 **Endpoint:**
 ```
 GET /api/v1/admin/provider/data/overview/{user_id}
 ```
 
-**Note:** اسم الـ path parameter هو `user_id` لكن القيمة الفعلية هي `provider_id`
+**Note:** Ø§Ø³Ù… Ø§Ù„Ù€ path parameter Ù‡Ùˆ `user_id` Ù„ÙƒÙ† Ø§Ù„Ù‚ÙŠÙ…Ø© Ø§Ù„ÙØ¹Ù„ÙŠØ© Ù‡ÙŠ `provider_id`
 
 **Authentication:**
 ```
@@ -165,7 +165,7 @@ Bearer <admin_token>
 **Path Parameters:**
 | Parameter | Type | Required |
 |-----------|------|----------|
-| `user_id` | string | ✅ |
+| `user_id` | string | âœ… |
 
 **Example:**
 ```
@@ -186,8 +186,8 @@ Bearer <admin_token>
         "id": "user-uuid",
         "account": {
           "id": "...",
-          "first_name": "محمد",
-          "last_name": "حسن",
+          "first_name": "Ù…Ø­Ù…Ø¯",
+          "last_name": "Ø­Ø³Ù†",
           "email": "lawyer@example.com",
           "phone": "+201234567890"
         }
@@ -219,13 +219,13 @@ Bearer <admin_token>
 
 ---
 
-## 💻 كيفية الاستخدام
+## ðŸ’» ÙƒÙŠÙÙŠØ© Ø§Ù„Ø§Ø³ØªØ®Ø¯Ø§Ù…
 
-### مثال 1: جلب قائمة المحامين
+### Ù…Ø«Ø§Ù„ 1: Ø¬Ù„Ø¨ Ù‚Ø§Ø¦Ù…Ø© Ø§Ù„Ù…Ø­Ø§Ù…ÙŠÙ†
 
 ```dart
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:demandium/feature/tt_club_landing/presentation/providers/international_lawyers_admin_providers.dart';
+import 'package:GeekXDigital/feature/tt_club_landing/presentation/providers/international_lawyers_admin_providers.dart';
 
 class InternationalLawyersListScreen extends ConsumerWidget {
   const InternationalLawyersListScreen({Key? key}) : super(key: key);
@@ -272,11 +272,11 @@ class InternationalLawyersListScreen extends ConsumerWidget {
 }
 ```
 
-### مثال 2: جلب تفاصيل محامي واحد
+### Ù…Ø«Ø§Ù„ 2: Ø¬Ù„Ø¨ ØªÙØ§ØµÙŠÙ„ Ù…Ø­Ø§Ù…ÙŠ ÙˆØ§Ø­Ø¯
 
 ```dart
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:demandium/feature/tt_club_landing/presentation/providers/international_lawyers_admin_providers.dart';
+import 'package:GeekXDigital/feature/tt_club_landing/presentation/providers/international_lawyers_admin_providers.dart';
 
 class InternationalLawyerDetailsScreen extends ConsumerWidget {
   final String providerId;
@@ -326,7 +326,7 @@ class InternationalLawyerDetailsScreen extends ConsumerWidget {
 }
 ```
 
-### مثال 3: مع Pagination
+### Ù…Ø«Ø§Ù„ 3: Ù…Ø¹ Pagination
 
 ```dart
 class PaginatedLawyersScreen extends ConsumerStatefulWidget {
@@ -392,33 +392,33 @@ class _PaginatedLawyersScreenState extends ConsumerState<PaginatedLawyersScreen>
 
 ---
 
-## 🎯 Status Codes شرح
+## ðŸŽ¯ Status Codes Ø´Ø±Ø­
 
-| Code | معنى |
+| Code | Ù…Ø¹Ù†Ù‰ |
 |------|------|
-| `0` | Pending (قيد المراجعة) |
-| `1` | Approved (موافق عليه) |
-| `2` | Denied (مرفوض) |
+| `0` | Pending (Ù‚ÙŠØ¯ Ø§Ù„Ù…Ø±Ø§Ø¬Ø¹Ø©) |
+| `1` | Approved (Ù…ÙˆØ§ÙÙ‚ Ø¹Ù„ÙŠÙ‡) |
+| `2` | Denied (Ù…Ø±ÙÙˆØ¶) |
 
 ---
 
-## ⚠️ معالجة الأخطاء
+## âš ï¸ Ù…Ø¹Ø§Ù„Ø¬Ø© Ø§Ù„Ø£Ø®Ø·Ø§Ø¡
 
-### المحاولة الأولى: جلب من API
+### Ø§Ù„Ù…Ø­Ø§ÙˆÙ„Ø© Ø§Ù„Ø£ÙˆÙ„Ù‰: Ø¬Ù„Ø¨ Ù…Ù† API
 ```dart
 try {
   final response = await _apiClient.getData(uri);
   if (response.statusCode == 200) {
-    // معالجة البيانات
+    // Ù…Ø¹Ø§Ù„Ø¬Ø© Ø§Ù„Ø¨ÙŠØ§Ù†Ø§Øª
   } else {
     throw Exception('API Error: ${response.statusText}');
   }
 } catch (e) {
-  rethrow; // إرسال الخطأ للـ UI
+  rethrow; // Ø¥Ø±Ø³Ø§Ù„ Ø§Ù„Ø®Ø·Ø£ Ù„Ù„Ù€ UI
 }
 ```
 
-### في الـ UI:
+### ÙÙŠ Ø§Ù„Ù€ UI:
 ```dart
 lawyersAsync.when(
   data: (data) => showData(data),
@@ -429,44 +429,45 @@ lawyersAsync.when(
 
 ---
 
-## 🔐 الأمان
+## ðŸ” Ø§Ù„Ø£Ù…Ø§Ù†
 
-⚠️ **تأكد من:**
-- ✅ توفر الـ Admin Token في الـ ApiClient
-- ✅ إرسال requests من محسابات authorized فقط
-- ✅ التعامل مع الأخطاء بحذر
+âš ï¸ **ØªØ£ÙƒØ¯ Ù…Ù†:**
+- âœ… ØªÙˆÙØ± Ø§Ù„Ù€ Admin Token ÙÙŠ Ø§Ù„Ù€ ApiClient
+- âœ… Ø¥Ø±Ø³Ø§Ù„ requests Ù…Ù† Ù…Ø­Ø³Ø§Ø¨Ø§Øª authorized ÙÙ‚Ø·
+- âœ… Ø§Ù„ØªØ¹Ø§Ù…Ù„ Ù…Ø¹ Ø§Ù„Ø£Ø®Ø·Ø§Ø¡ Ø¨Ø­Ø°Ø±
 
 ---
 
-## 📊 Request Status Filters
+## ðŸ“Š Request Status Filters
 
 ```dart
-// جميع الطلبات
+// Ø¬Ù…ÙŠØ¹ Ø§Ù„Ø·Ù„Ø¨Ø§Øª
 requestStatus = 'all'
 
-// الطلبات المعلقة فقط
+// Ø§Ù„Ø·Ù„Ø¨Ø§Øª Ø§Ù„Ù…Ø¹Ù„Ù‚Ø© ÙÙ‚Ø·
 requestStatus = 'pending'
 
-// الطلبات المرفوضة فقط
+// Ø§Ù„Ø·Ù„Ø¨Ø§Øª Ø§Ù„Ù…Ø±ÙÙˆØ¶Ø© ÙÙ‚Ø·
 requestStatus = 'denied'
 ```
 
 ---
 
-## 🚀 الخطوات التالية
+## ðŸš€ Ø§Ù„Ø®Ø·ÙˆØ§Øª Ø§Ù„ØªØ§Ù„ÙŠØ©
 
-1. ✅ ربط الـ Endpoints بنجاح
-2. ⏳ اختبار الـ APIs بالبيانات الحقيقية
-3. ⏳ إنشاء UI Screens لعرض البيانات
-4. ⏳ إضافة Loading States و Error Handling
-5. ⏳ إضافة Caching إذا لزم الأمر
+1. âœ… Ø±Ø¨Ø· Ø§Ù„Ù€ Endpoints Ø¨Ù†Ø¬Ø§Ø­
+2. â³ Ø§Ø®ØªØ¨Ø§Ø± Ø§Ù„Ù€ APIs Ø¨Ø§Ù„Ø¨ÙŠØ§Ù†Ø§Øª Ø§Ù„Ø­Ù‚ÙŠÙ‚ÙŠØ©
+3. â³ Ø¥Ù†Ø´Ø§Ø¡ UI Screens Ù„Ø¹Ø±Ø¶ Ø§Ù„Ø¨ÙŠØ§Ù†Ø§Øª
+4. â³ Ø¥Ø¶Ø§ÙØ© Loading States Ùˆ Error Handling
+5. â³ Ø¥Ø¶Ø§ÙØ© Caching Ø¥Ø°Ø§ Ù„Ø²Ù… Ø§Ù„Ø£Ù…Ø±
 
 ---
 
-## 📞 للمساعدة
+## ðŸ“ž Ù„Ù„Ù…Ø³Ø§Ø¹Ø¯Ø©
 
-- تحقق من الـ Endpoint URL بدقة
-- تأكد من توفر Admin Token
-- فعّل Logging لرؤية API Calls
+- ØªØ­Ù‚Ù‚ Ù…Ù† Ø§Ù„Ù€ Endpoint URL Ø¨Ø¯Ù‚Ø©
+- ØªØ£ÙƒØ¯ Ù…Ù† ØªÙˆÙØ± Admin Token
+- ÙØ¹Ù‘Ù„ Logging Ù„Ø±Ø¤ÙŠØ© API Calls
+
 
 

@@ -21,7 +21,6 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
-
   var firstNameController = TextEditingController();
   var lastNameController = TextEditingController();
   var emailController = TextEditingController();
@@ -47,10 +46,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
     Get.find<AuthController>().toggleTerms(value: false, shouldUpdate: false);
     final ConfigModel config = Get.find<SplashController>().configModel;
 
-    if (config.content?.referEarnStatus == 1 && (widget.referralCode?.isNotEmpty ?? false)) {
+    if (config.content?.referEarnStatus == 1 &&
+        (widget.referralCode?.isNotEmpty ?? false)) {
       referCodeController.text = widget.referralCode ?? '';
     }
   }
+
   @override
   void dispose() {
     super.dispose();
@@ -60,110 +61,148 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return CustomPopWidget(
-      onPopInvoked: (){
+      onPopInvoked: () {
         AuthController authController = Get.find();
-        authController.acceptTerms == true ? authController.toggleTerms() :
-        authController.acceptTerms ;
+        authController.acceptTerms == true
+            ? authController.toggleTerms()
+            : authController.acceptTerms;
       },
       child: Scaffold(
-        endDrawer:ResponsiveHelper.isDesktop(context) ? const MenuDrawer() :null,
-        appBar: const CustomAppBar(title: "", isBackgroundTransparent: true,),
+        endDrawer: ResponsiveHelper.isDesktop(context)
+            ? const MenuDrawer()
+            : null,
+        appBar: const CustomAppBar(title: "", isBackgroundTransparent: true),
         body: SafeArea(
           child: GetBuilder<AuthController>(
-            builder: (authController){
-
+            builder: (authController) {
               var config = Get.find<SplashController>().configModel.content;
-              var socialLogin = config?.customerLogin?.loginOption?.socialMediaLogin;
+              var socialLogin =
+                  config?.customerLogin?.loginOption?.socialMediaLogin;
 
               return FooterBaseView(
                 child: WebShadowWrap(
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeExtraLarge),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: Dimensions.paddingSizeExtraLarge,
+                    ),
                     child: Column(
                       children: [
                         Form(
                           key: customerSignUpKey,
                           child: Column(
                             children: [
-                              const SizedBox(height: Dimensions.paddingSizeExtraMoreLarge),
-
-                              Hero(tag: Images.logo,
-                                child: Image.asset(Images.logo, width: Dimensions.logoSize),
+                              const SizedBox(
+                                height: Dimensions.paddingSizeExtraMoreLarge,
                               ),
 
-                              const SizedBox(height: Dimensions.paddingSizeExtraMoreLarge),
-                              if(ResponsiveHelper.isMobile(context))
-                                _firstList(authController),
-                              if(ResponsiveHelper.isMobile(context))
-                                _secondList(authController),
-                             if(!ResponsiveHelper.isMobile(context))
-                             Row(crossAxisAlignment: CrossAxisAlignment.start,children: [
-                                Expanded(child: _firstList(authController),),
-                                const SizedBox(width: Dimensions.paddingSizeLarge,),
-                                Expanded(
-                                  child: _secondList(authController),
+                              Hero(
+                                tag: Images.logo,
+                                child: Image.asset(
+                                  Images.logo,
+                                  width: Dimensions.logoSize,
                                 ),
-                              ]),
-                            ]),
+                              ),
+
+                              const SizedBox(
+                                height: Dimensions.paddingSizeExtraMoreLarge,
+                              ),
+                              if (ResponsiveHelper.isMobile(context))
+                                _firstList(authController),
+                              if (ResponsiveHelper.isMobile(context))
+                                _secondList(authController),
+                              if (!ResponsiveHelper.isMobile(context))
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Expanded(child: _firstList(authController)),
+                                    const SizedBox(
+                                      width: Dimensions.paddingSizeLarge,
+                                    ),
+                                    Expanded(
+                                      child: _secondList(authController),
+                                    ),
+                                  ],
+                                ),
+                            ],
                           ),
+                        ),
                         ConditionCheckBox(
                           checkBoxValue: authController.acceptTerms,
-                          onTap: (bool? value){
-                            if(customerSignUpKey.currentState?.validate() == true){
+                          onTap: (bool? value) {
+                            if (customerSignUpKey.currentState?.validate() ==
+                                true) {
                               authController.toggleTerms(value: true);
-                            }else{
+                            } else {
                               authController.toggleTerms(value: false);
                             }
                           },
                         ),
-                        const SizedBox(height: Dimensions.paddingSizeExtraLarge),
-                         CustomButton(
+                        const SizedBox(
+                          height: Dimensions.paddingSizeExtraLarge,
+                        ),
+                        CustomButton(
                           buttonText: 'sign_up'.tr,
                           isLoading: authController.isLoading,
-                          onPressed: authController.acceptTerms
-                              && customerSignUpKey.currentState?.validate() == true
-                              ?  () => _register(authController)
+                          onPressed:
+                              authController.acceptTerms &&
+                                  customerSignUpKey.currentState?.validate() ==
+                                      true
+                              ? () => _register(authController)
                               : null,
                         ),
                         const SizedBox(height: Dimensions.paddingSizeDefault),
-                        socialLogin == 1 ? Padding(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: ResponsiveHelper.isDesktop(context) ? Dimensions.webMaxWidth /3.5 :
-                            ResponsiveHelper.isTab(context) ? Dimensions.webMaxWidth / 5.5 : 0,
-                          ),
-                          child: SocialLoginWidget(redirectUrl: widget.redirectRoute),
-                        ) : const SizedBox(),
-                        const SizedBox(height: Dimensions.paddingSizeDefault,),
+                        socialLogin == 1
+                            ? Padding(
+                                padding: EdgeInsets.symmetric(
+                                  horizontal:
+                                      ResponsiveHelper.isDesktop(context)
+                                      ? Dimensions.webMaxWidth / 3.5
+                                      : ResponsiveHelper.isTab(context)
+                                      ? Dimensions.webMaxWidth / 5.5
+                                      : 0,
+                                ),
+                                child: SocialLoginWidget(
+                                  redirectUrl: widget.redirectRoute,
+                                ),
+                              )
+                            : const SizedBox(),
+                        const SizedBox(height: Dimensions.paddingSizeDefault),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text('${'already_have_an_account'.tr} ',
+                            Text(
+                              '${'already_have_an_account'.tr} ',
                               style: robotoRegular.copyWith(
                                 fontSize: Dimensions.fontSizeDefault,
-                                color: Theme.of(context).textTheme.bodyLarge!.color,
+                                color: Theme.of(
+                                  context,
+                                ).textTheme.bodyLarge!.color,
                               ),
                             ),
                             InkWell(
                               onTap: () {
                                 Get.toNamed(RouteHelper.getSignInRoute());
                               },
-                              child: Text('sign_in_here'.tr, style: robotoRegular.copyWith(
-                                decoration: TextDecoration.underline,
-                                color: Theme.of(context).colorScheme.tertiary,
-                                fontSize: Dimensions.fontSizeDefault,
-                              )),
+                              child: Text(
+                                'sign_in_here'.tr,
+                                style: robotoRegular.copyWith(
+                                  decoration: TextDecoration.underline,
+                                  color: Theme.of(context).colorScheme.tertiary,
+                                  fontSize: Dimensions.fontSizeDefault,
+                                ),
+                              ),
                             ),
                           ],
                         ),
-                        const SizedBox(height: Dimensions.paddingSizeSmall,),
+                        const SizedBox(height: Dimensions.paddingSizeSmall),
 
-                         const SizedBox(height: Dimensions.paddingSizeExtraMoreLarge,),
-
-
+                        const SizedBox(
+                          height: Dimensions.paddingSizeExtraMoreLarge,
+                        ),
                       ],
                     ),
                   ),
-                  ),
+                ),
               );
             },
           ),
@@ -172,164 +211,220 @@ class _SignUpScreenState extends State<SignUpScreen> {
     );
   }
 
-
-
   Widget _firstList(AuthController authController) {
-    return Column(children: [
-      CustomTextField(
-        title: 'first_name'.tr,
-        hintText: 'enter_your_first_name'.tr,
-        controller: firstNameController,
-        isAutoFocus: false,
-        focusNode: _firstNameFocus,
-        nextFocus: _lastNameFocus,
-        inputType: TextInputType.name,
-        capitalization: TextCapitalization.words,
-        onValidate: (String? value){
-          return FormValidation().isValidFirstName(value!);
-        },
+    return Column(
+      children: [
+        CustomTextField(
+          title: 'first_name'.tr,
+          hintText: 'enter_your_first_name'.tr,
+          controller: firstNameController,
+          isAutoFocus: false,
+          focusNode: _firstNameFocus,
+          nextFocus: _lastNameFocus,
+          inputType: TextInputType.name,
+          capitalization: TextCapitalization.words,
+          onValidate: (String? value) {
+            return FormValidation().isValidFirstName(value!);
+          },
+        ),
+        const SizedBox(height: Dimensions.paddingSizeTextFieldGap),
 
-      ),
-      const SizedBox(height: Dimensions.paddingSizeTextFieldGap),
+        CustomTextField(
+          title: 'last_name'.tr,
+          hintText: 'enter_your_last_name'.tr,
+          controller: lastNameController,
+          focusNode: _lastNameFocus,
+          nextFocus: _emailFocus,
+          inputType: TextInputType.name,
+          capitalization: TextCapitalization.words,
+          onValidate: (String? value) {
+            return FormValidation().isValidLastName(value!);
+          },
+        ),
+        const SizedBox(height: Dimensions.paddingSizeTextFieldGap),
 
-      CustomTextField(
-        title: 'last_name'.tr,
-        hintText: 'enter_your_last_name'.tr,
-        controller: lastNameController,
-        focusNode: _lastNameFocus,
-        nextFocus: _emailFocus,
-        inputType: TextInputType.name,
-        capitalization: TextCapitalization.words,
-        onValidate: (String? value){
-          return FormValidation().isValidLastName(value!);
-        },
-      ),
-      const SizedBox(height: Dimensions.paddingSizeTextFieldGap),
+        CustomTextField(
+          title: 'email_address'.tr,
+          hintText: 'enter_email_address'.tr,
+          controller: emailController,
+          focusNode: _emailFocus,
+          nextFocus: _phoneFocus,
+          inputType: TextInputType.emailAddress,
+          onValidate: (String? value) {
+            return FormValidation().isValidEmail(value);
+          },
+        ),
+        const SizedBox(height: Dimensions.paddingSizeTextFieldGap),
 
-      CustomTextField(
-        title: 'email_address'.tr,
-        hintText: 'enter_email_address'.tr,
-        controller: emailController,
-        focusNode: _emailFocus,
-        nextFocus: _phoneFocus,
-        inputType: TextInputType.emailAddress,
-        onValidate: (String? value){
-          return FormValidation().isValidEmail(value);
-        },
-      ),
-      const SizedBox(height: Dimensions.paddingSizeTextFieldGap),
-
-      CustomTextField(
-        onCountryChanged: (CountryCode countryCode){
-          authController.countryDialCode = countryCode.dialCode!;
-        },
-        countryDialCode: authController.countryDialCode,
-        hintText: 'enter_phone_number'.tr,
-        controller: phoneController,
-        focusNode: _phoneFocus,
-        nextFocus: _passwordFocus,
-        inputType: TextInputType.phone,
-        isRequired: false,
-        onValidate: (String? value) {
-          if(value == null || value.isEmpty){
-            return 'enter_phone_number'.tr;
-          }else{
-            return FormValidation().isValidPhone(
-                authController.countryDialCode+(value),
-                fromAuthPage: true
-            );
-          }
-        },
-      ),
-      const SizedBox(height: Dimensions.paddingSizeTextFieldGap),
-    ],);
+        CustomTextField(
+          onCountryChanged: (CountryCode countryCode) {
+            authController.countryDialCode = countryCode.dialCode!;
+          },
+          countryDialCode: authController.countryDialCode,
+          hintText: 'enter_phone_number'.tr,
+          controller: phoneController,
+          focusNode: _phoneFocus,
+          nextFocus: _passwordFocus,
+          inputType: TextInputType.phone,
+          isRequired: false,
+          onValidate: (String? value) {
+            if (value == null || value.isEmpty) {
+              return 'enter_phone_number'.tr;
+            } else {
+              return FormValidation().isValidPhone(
+                authController.countryDialCode + (value),
+                fromAuthPage: true,
+              );
+            }
+          },
+        ),
+        const SizedBox(height: Dimensions.paddingSizeTextFieldGap),
+      ],
+    );
   }
 
   Widget _secondList(AuthController authController) {
-    return Column(children: [
+    return Column(
+      children: [
+        CustomTextField(
+          title: 'password'.tr,
+          hintText: '****************'.tr,
+          controller: passwordController,
+          focusNode: _passwordFocus,
+          nextFocus: _confirmPasswordFocus,
+          inputType: TextInputType.visiblePassword,
+          onValidate: (String? value) {
+            return FormValidation().isValidPassword(value!);
+          },
+          isPassword: true,
+        ),
+        const SizedBox(height: Dimensions.paddingSizeTextFieldGap),
 
-      CustomTextField(
-        title: 'password'.tr,
-        hintText: '****************'.tr,
-        controller: passwordController,
-        focusNode: _passwordFocus,
-        nextFocus: _confirmPasswordFocus,
-        inputType: TextInputType.visiblePassword,
-        onValidate: (String? value) {
-          return FormValidation().isValidPassword(value!);
-        },
-        isPassword: true,
-      ),
-      const SizedBox(height: Dimensions.paddingSizeTextFieldGap),
-
-      CustomTextField(
-        title: 'confirm_password'.tr,
-        hintText: '****************'.tr,
-        controller: confirmPasswordController,
-        focusNode: _confirmPasswordFocus,
-        nextFocus: _referCodeFocus,
-        inputType: TextInputType.visiblePassword,
-        isPassword: true,
-        onValidate: (String? value) {
-          if(value == null || value.isEmpty){
-            return 'this_field_can_not_empty'.tr;
-          }else{
-            return FormValidation().isValidConfirmPassword(
-              passwordController.text,
-              confirmPasswordController.text,
-            );
-          }
-        },
-      ),
-      const SizedBox(height: Dimensions.paddingSizeTextFieldGap),
-      CustomTextField(
-        title: 'referral_code'.tr,
-        hintText: 'optional'.tr,
-        controller: referCodeController,
-        focusNode: _referCodeFocus,
-        inputType: TextInputType.text,
-        inputAction: TextInputAction.done,
-        isRequired: false,
-      ),
-      const SizedBox(height: Dimensions.paddingSizeTextFieldGap),
-    ],);
+        CustomTextField(
+          title: 'confirm_password'.tr,
+          hintText: '****************'.tr,
+          controller: confirmPasswordController,
+          focusNode: _confirmPasswordFocus,
+          nextFocus: _referCodeFocus,
+          inputType: TextInputType.visiblePassword,
+          isPassword: true,
+          onValidate: (String? value) {
+            if (value == null || value.isEmpty) {
+              return 'this_field_can_not_empty'.tr;
+            } else {
+              return FormValidation().isValidConfirmPassword(
+                passwordController.text,
+                confirmPasswordController.text,
+              );
+            }
+          },
+        ),
+        const SizedBox(height: Dimensions.paddingSizeTextFieldGap),
+        CustomTextField(
+          title: 'referral_code'.tr,
+          hintText: 'optional'.tr,
+          controller: referCodeController,
+          focusNode: _referCodeFocus,
+          inputType: TextInputType.text,
+          inputAction: TextInputAction.done,
+          isRequired: false,
+        ),
+        const SizedBox(height: Dimensions.paddingSizeTextFieldGap),
+      ],
+    );
   }
 
   void _register(AuthController authController) async {
-    if(customerSignUpKey.currentState!.validate()) {
+    if (customerSignUpKey.currentState!.validate()) {
       SignUpBody signUpBody;
-      String numberWithCountryCode = PhoneVerificationHelper.getValidPhoneNumber(
-          authController.countryDialCode + phoneController.value.text, withCountryCode: true
+      String numberWithCountryCode =
+          PhoneVerificationHelper.getValidPhoneNumber(
+            authController.countryDialCode + phoneController.value.text,
+            withCountryCode: true,
+          );
+      final firstName = firstNameController.value.text.trim();
+      final lastName = lastNameController.value.text.trim();
+      final userTypeLabel = _userTypeLabel(widget.joinType);
+      final decoratedFirstName = _buildDecoratedFirstName(
+        firstName,
+        lastName,
+        userTypeLabel,
+      );
+      final decoratedLastName = _buildDecoratedLastName(
+        lastName,
+        userTypeLabel,
       );
 
-      if(referCodeController.text!=""){
+      if (referCodeController.text != "") {
         signUpBody = SignUpBody(
-            fName: firstNameController.value.text.trim(),
-            lName: lastNameController.value.text.trim(),
-            email: emailController.value.text.trim(),
-            phone: numberWithCountryCode.trim(),
-            password: passwordController.value.text.trim(),
-            confirmPassword: confirmPasswordController.value.text.trim(),
-            referCode: referCodeController.text.trim(),
-            userType: widget.joinType
-        );
-      }else{
-        signUpBody = SignUpBody(
-          fName: firstNameController.value.text.trim(),
-          lName: lastNameController.value.text.trim(),
+          fName: decoratedFirstName,
+          lName: decoratedLastName,
           email: emailController.value.text.trim(),
           phone: numberWithCountryCode.trim(),
           password: passwordController.value.text.trim(),
           confirmPassword: confirmPasswordController.value.text.trim(),
-          userType: widget.joinType
+          referCode: referCodeController.text.trim(),
+        );
+      } else {
+        signUpBody = SignUpBody(
+          fName: decoratedFirstName,
+          lName: decoratedLastName,
+          email: emailController.value.text.trim(),
+          phone: numberWithCountryCode.trim(),
+          password: passwordController.value.text.trim(),
+          confirmPassword: confirmPasswordController.value.text.trim(),
         );
       }
-      authController.registration(signUpBody: signUpBody, redirectUrl: widget.redirectRoute);
-
-      }
+      authController.registration(
+        signUpBody: signUpBody,
+        redirectUrl: widget.redirectRoute,
+      );
     }
+  }
 
-  void _clearControllerValue(){
+  String _userTypeLabel(String? joinType) {
+    switch (joinType?.toLowerCase()) {
+      case 'lawyers':
+        return '(محامي)';
+      case 'companies':
+        return '(شركة)';
+      case 'individuals_membership':
+        return '(عضو)';
+      case 'club_delegate':
+        return '(منتدب نادي)';
+      case 'legal_sponsorship':
+        return '(رعاية قانونية)';
+      default:
+        return '';
+    }
+  }
+
+  String _buildDecoratedFirstName(
+    String firstName,
+    String lastName,
+    String userTypeLabel,
+  ) {
+    if (userTypeLabel.isEmpty) {
+      return firstName;
+    }
+    // If last name exists, append the type to last name to keep first name natural.
+    if (lastName.isNotEmpty) {
+      return firstName;
+    }
+    return '$firstName $userTypeLabel'.trim();
+  }
+
+  String _buildDecoratedLastName(String lastName, String userTypeLabel) {
+    if (userTypeLabel.isEmpty) {
+      return lastName;
+    }
+    if (lastName.isEmpty) {
+      return '';
+    }
+    return '$lastName $userTypeLabel'.trim();
+  }
+
+  void _clearControllerValue() {
     firstNameController.text = "";
     lastNameController.text = "";
     emailController.text = "";
@@ -339,5 +434,3 @@ class _SignUpScreenState extends State<SignUpScreen> {
     referCodeController.text = "";
   }
 }
-
-

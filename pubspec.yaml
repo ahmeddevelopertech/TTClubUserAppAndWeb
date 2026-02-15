@@ -1,7 +1,7 @@
-name: demandium
+﻿name: demandium
 description: A new Flutter application.
 publish_to: 'none' #
-version: 1.0.8+8
+version: 1.0.9+9
 
 environment:
   sdk: ^3.8.1
@@ -115,7 +115,6 @@ flutter:
     - assets/json/
     - assets/map/
     - assets/
-    - assets/data/international_lawyers.json
     - assets/images/international_lawyers/photos/
     - assets/images/international_lawyers/cards/
     - assets/images/flags_generated/
@@ -134,3 +133,4 @@ flutter:
           weight: 500
         - asset: assets/font/Roboto-Bold.ttf
           weight: 700
+

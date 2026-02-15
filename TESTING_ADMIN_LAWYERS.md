@@ -1,4 +1,4 @@
-// Quick Testing Guide for Admin Lawyers APIs
+﻿// Quick Testing Guide for Admin Lawyers APIs
 
 // ============================================================
 // FILE: test/features/tt_club_landing/admin_lawyers_test.dart
@@ -6,13 +6,13 @@
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-import 'package:demandium/feature/tt_club_landing/domain/entities/international_lawyer_provider.dart';
-import 'package:demandium/feature/tt_club_landing/domain/entities/international_lawyers_list_response.dart';
-import 'package:demandium/feature/tt_club_landing/domain/entities/international_lawyer_details_response.dart';
-import 'package:demandium/feature/tt_club_landing/data/datasources/international_lawyers_admin_remote_datasource.dart';
-import 'package:demandium/feature/tt_club_landing/domain/repositories/international_lawyers_admin_repository.dart';
-import 'package:demandium/feature/tt_club_landing/domain/usecases/get_international_lawyers_list_usecase.dart';
-import 'package:demandium/feature/tt_club_landing/domain/usecases/get_international_lawyer_details_usecase.dart';
+import 'package:GeekXDigital/feature/tt_club_landing/domain/entities/international_lawyer_provider.dart';
+import 'package:GeekXDigital/feature/tt_club_landing/domain/entities/international_lawyers_list_response.dart';
+import 'package:GeekXDigital/feature/tt_club_landing/domain/entities/international_lawyer_details_response.dart';
+import 'package:GeekXDigital/feature/tt_club_landing/data/datasources/international_lawyers_admin_remote_datasource.dart';
+import 'package:GeekXDigital/feature/tt_club_landing/domain/repositories/international_lawyers_admin_repository.dart';
+import 'package:GeekXDigital/feature/tt_club_landing/domain/usecases/get_international_lawyers_list_usecase.dart';
+import 'package:GeekXDigital/feature/tt_club_landing/domain/usecases/get_international_lawyer_details_usecase.dart';
 
 void main() {
   group('International Lawyers Admin APIs', () {
@@ -250,4 +250,5 @@ class MockInternationalLawyersAdminRepository
 
 // With coverage:
 // flutter test --coverage test/features/tt_club_landing/admin_lawyers_test.dart
+
 
