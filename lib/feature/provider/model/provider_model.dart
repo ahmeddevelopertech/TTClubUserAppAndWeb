@@ -1,15 +1,13 @@
 import 'package:demandium/utils/core_export.dart';
 
-
 class ProviderModel {
   ProviderContent? content;
   ProviderModel({this.content});
 
   ProviderModel.fromJson(Map<String, dynamic> json) {
-
-    content =
-    json['content'] != null ? ProviderContent.fromJson(json['content']) : null;
-
+    content = json['content'] != null
+        ? ProviderContent.fromJson(json['content'])
+        : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -33,18 +31,18 @@ class ProviderContent {
   int? total;
   int? perPage;
 
-  ProviderContent(
-      {this.currentPage,
-        this.data,
-        this.firstPageUrl,
-        this.from,
-        this.lastPage,
-        this.lastPageUrl,
-        this.path,
-        this.to,
-        this.total,
-        this.perPage,
-      });
+  ProviderContent({
+    this.currentPage,
+    this.data,
+    this.firstPageUrl,
+    this.from,
+    this.lastPage,
+    this.lastPageUrl,
+    this.path,
+    this.to,
+    this.total,
+    this.perPage,
+  });
 
   ProviderContent.fromJson(Map<String, dynamic> json) {
     currentPage = json['current_page'];
@@ -109,6 +107,9 @@ class ProviderData {
   String? updatedAt;
   int? isApproved;
   String? zoneId;
+  String? providerType;
+  String? providerSubType;
+  String? providerCategory;
   Owner? owner;
   int? serviceAvailability;
   bool? nextBookingEligibility;
@@ -124,48 +125,50 @@ class ProviderData {
   Coordinates? coordinates;
   double? distance;
 
-
-  ProviderData(
-      {this.id,
-        this.userId,
-        this.companyName,
-        this.companyPhone,
-        this.companyAddress,
-        this.companyEmail,
-        this.logo,
-        this.logoFullPath,
-        this.coverImageFullPath,
-        this.contactPersonName,
-        this.contactPersonPhone,
-        this.contactPersonEmail,
-        this.orderCount,
-        this.serviceManCount,
-        this.serviceCapacityPerDay,
-        this.ratingCount,
-        this.avgRating,
-        this.commissionStatus,
-        this.commissionPercentage,
-        this.isActive,
-        this.isFavorite,
-        this.createdAt,
-        this.updatedAt,
-        this.isApproved,
-        this.zoneId,
-        this.owner,
-        this.subscribedServices,
-        this.cashLimitStatus,
-        this.serviceAvailability,
-        this.nextBookingEligibility,
-        this.scheduleBookingEligibility,
-        this.chatEligibility,
-        this.weekends,
-        this.timeSchedule,
-        this.totalServiceServed,
-        this.subscribedServicesCount,
-        this.coordinates,
-        this.distance,
-        this.serviceLocation
-      });
+  ProviderData({
+    this.id,
+    this.userId,
+    this.companyName,
+    this.companyPhone,
+    this.companyAddress,
+    this.companyEmail,
+    this.logo,
+    this.logoFullPath,
+    this.coverImageFullPath,
+    this.contactPersonName,
+    this.contactPersonPhone,
+    this.contactPersonEmail,
+    this.orderCount,
+    this.serviceManCount,
+    this.serviceCapacityPerDay,
+    this.ratingCount,
+    this.avgRating,
+    this.commissionStatus,
+    this.commissionPercentage,
+    this.isActive,
+    this.isFavorite,
+    this.createdAt,
+    this.updatedAt,
+    this.isApproved,
+    this.zoneId,
+    this.providerType,
+    this.providerSubType,
+    this.providerCategory,
+    this.owner,
+    this.subscribedServices,
+    this.cashLimitStatus,
+    this.serviceAvailability,
+    this.nextBookingEligibility,
+    this.scheduleBookingEligibility,
+    this.chatEligibility,
+    this.weekends,
+    this.timeSchedule,
+    this.totalServiceServed,
+    this.subscribedServicesCount,
+    this.coordinates,
+    this.distance,
+    this.serviceLocation,
+  });
 
   ProviderData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -184,15 +187,30 @@ class ProviderData {
     serviceManCount = json['service_man_count'];
     serviceCapacityPerDay = json['service_capacity_per_day'];
     ratingCount = json['rating_count'];
-    avgRating = json['avg_rating'] != null ? double.tryParse(double.tryParse(json['avg_rating'].toString())!.toStringAsExponential(2)) : null;
+    avgRating = json['avg_rating'] != null
+        ? double.tryParse(
+            double.tryParse(
+              json['avg_rating'].toString(),
+            )!.toStringAsExponential(2),
+          )
+        : null;
     commissionStatus = json['commission_status'];
-    commissionPercentage = int.tryParse(json['commission_percentage'].toString());
+    commissionPercentage = int.tryParse(
+      json['commission_percentage'].toString(),
+    );
     isActive = int.tryParse(json['is_active'].toString());
     isFavorite = int.tryParse(json['is_favorite'].toString());
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
     isApproved = json['is_approved'];
     zoneId = json['zone_id'];
+    providerType =
+        (json['provider_type'] ?? json['providerType'] ?? json['type'])
+            ?.toString();
+    providerSubType = (json['provider_sub_type'] ?? json['providerSubType'])
+        ?.toString();
+    providerCategory = (json['provider_category'] ?? json['providerCategory'])
+        ?.toString();
     owner = json['owner'] != null ? Owner.fromJson(json['owner']) : null;
     serviceAvailability = int.tryParse(json['service_availability'].toString());
     nextBookingEligibility = json['nextBookingEligibility'];
@@ -202,7 +220,9 @@ class ProviderData {
         ? TimeSchedule.fromJson(json['time_schedule'])
         : null;
     weekends = json['weekends'] != null ? json['weekends'].cast<String>() : [];
-    serviceLocation = json['service_locations'] != null ? json['service_locations'].cast<String>() : [];
+    serviceLocation = json['service_locations'] != null
+        ? json['service_locations'].cast<String>()
+        : [];
     if (json['subscribed_services'] != null) {
       subscribedServices = <SubscribedServices>[];
       json['subscribed_services'].forEach((v) {
@@ -211,12 +231,12 @@ class ProviderData {
     }
     cashLimitStatus = json['cash_limit_status'];
     totalServiceServed = int.tryParse(json['total_service_served'].toString());
-    subscribedServicesCount = int.tryParse(json['subscribed_services_count'].toString());
+    subscribedServicesCount = int.tryParse(
+      json['subscribed_services_count'].toString(),
+    );
     coordinates = json['coordinates'] != null
         ? Coordinates.fromJson(json['coordinates'])
         : null;
-
-
   }
 
   Map<String, dynamic> toJson() {
@@ -246,6 +266,9 @@ class ProviderData {
     data['updated_at'] = updatedAt;
     data['is_approved'] = isApproved;
     data['zone_id'] = zoneId;
+    data['provider_type'] = providerType;
+    data['provider_sub_type'] = providerSubType;
+    data['provider_category'] = providerCategory;
     data['service_availability'] = serviceAvailability;
     data['nextBookingEligibility'] = nextBookingEligibility;
     data['scheduleBookingEligibility'] = scheduleBookingEligibility;
@@ -259,8 +282,9 @@ class ProviderData {
       data['owner'] = owner!.toJson();
     }
     if (subscribedServices != null) {
-      data['subscribed_services'] =
-          subscribedServices!.map((v) => v.toJson()).toList();
+      data['subscribed_services'] = subscribedServices!
+          .map((v) => v.toJson())
+          .toList();
     }
     data['cash_limit_status'] = cashLimitStatus;
     data['total_service_served'] = totalServiceServed;
@@ -293,26 +317,26 @@ class Owner {
   double? walletBalance;
   int? loyaltyPoint;
 
-  Owner(
-      {this.id,
-        this.firstName,
-        this.lastName,
-        this.email,
-        this.phone,
-        this.identificationNumber,
-        this.identificationType,
-        this.gender,
-        this.profileImage,
-        this.fcmToken,
-        this.isPhoneVerified,
-        this.isEmailVerified,
-        this.isActive,
-        this.userType,
-        this.createdAt,
-        this.updatedAt,
-        this.walletBalance,
-        this.loyaltyPoint,
-     });
+  Owner({
+    this.id,
+    this.firstName,
+    this.lastName,
+    this.email,
+    this.phone,
+    this.identificationNumber,
+    this.identificationType,
+    this.gender,
+    this.profileImage,
+    this.fcmToken,
+    this.isPhoneVerified,
+    this.isEmailVerified,
+    this.isActive,
+    this.userType,
+    this.createdAt,
+    this.updatedAt,
+    this.walletBalance,
+    this.loyaltyPoint,
+  });
 
   Owner.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -369,15 +393,16 @@ class SubscribedServices {
   String? updatedAt;
   SubCategory? subCategory;
 
-  SubscribedServices(
-      {this.id,
-        this.providerId,
-        this.categoryId,
-        this.subCategoryId,
-        this.isSubscribed,
-        this.createdAt,
-        this.updatedAt,
-        this.subCategory});
+  SubscribedServices({
+    this.id,
+    this.providerId,
+    this.categoryId,
+    this.subCategoryId,
+    this.isSubscribed,
+    this.createdAt,
+    this.updatedAt,
+    this.subCategory,
+  });
 
   SubscribedServices.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -420,17 +445,18 @@ class SubCategory {
   String? createdAt;
   String? updatedAt;
 
-  SubCategory(
-      {this.id,
-        this.parentId,
-        this.name,
-        this.image,
-        this.position,
-        this.description,
-        this.isActive,
-        this.isFeatured,
-        this.createdAt,
-        this.updatedAt});
+  SubCategory({
+    this.id,
+    this.parentId,
+    this.name,
+    this.image,
+    this.position,
+    this.description,
+    this.isActive,
+    this.isFeatured,
+    this.createdAt,
+    this.updatedAt,
+  });
 
   SubCategory.fromJson(Map<String, dynamic> json) {
     id = json['id'];

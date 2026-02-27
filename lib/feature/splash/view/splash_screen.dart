@@ -63,7 +63,7 @@ class SplashScreenState extends State<SplashScreen> {
   }
 
   void _route() {
-    Get.find<SplashController>().getConfigData().then((isSuccess) async {
+    Get.find<SplashController>().getConfigData().then((_) async {
       if (Get.find<LocationController>().getUserAddress() != null) {
         AddressModel addressModel = Get.find<LocationController>()
             .getUserAddress()!;
@@ -78,31 +78,9 @@ class SplashScreenState extends State<SplashScreen> {
         Get.find<LocationController>().saveUserAddress(addressModel);
       }
 
-      if (isSuccess) {
-        Timer(const Duration(seconds: 1), () async {
-          try {
-            if (_checkAvailableUpdate()) {
-              Get.offNamed(RouteHelper.getUpdateRoute('update'));
-            } else if (_checkMaintenanceModeActive() &&
-                !AppConstants.avoidMaintenanceMode) {
-              Get.offAllNamed(RouteHelper.getMaintenanceRoute());
-            } else {
-              if (widget.body != null) {
-                _notificationRoute();
-              } else {
-                if (Get.find<SplashController>()
-                    .isShowInitialLanguageScreen()) {
-                  Get.offNamed(RouteHelper.getLanguageScreen('fromOthers'));
-                }
-                Get.offNamed(RouteHelper.getTtClubLandingRoute());
-              }
-            }
-          } catch (_) {
-            // Never block user on splash due to config/version parse issues.
-            Get.offNamed(RouteHelper.getTtClubLandingRoute());
-          }
-        });
-      } else {}
+      Timer(const Duration(seconds: 1), () {
+        Get.offNamed(RouteHelper.getTtClubLandingRoute());
+      });
     });
   }
 
@@ -121,146 +99,6 @@ class SplashScreenState extends State<SplashScreen> {
         },
       ),
     );
-  }
-
-  bool _checkAvailableUpdate() {
-    final ConfigModel configModel = Get.find<SplashController>().configModel;
-    final localVersion = _tryParseVersion(AppConstants.appVersion);
-    final serverVersion = _tryParseVersion(
-      GetPlatform.isAndroid
-          ? configModel.content?.minimumVersion?.minVersionForAndroid
-          : configModel.content?.minimumVersion?.minVersionForIos,
-    );
-    if (localVersion == null || serverVersion == null) {
-      return false;
-    }
-    return localVersion.compareTo(serverVersion) == -1;
-  }
-
-  Version? _tryParseVersion(String? value) {
-    final raw = (value ?? '').trim();
-    if (raw.isEmpty) {
-      return null;
-    }
-    try {
-      return Version.parse(raw);
-    } catch (_) {
-      return null;
-    }
-  }
-
-  bool _checkMaintenanceModeActive() {
-    final ConfigModel configModel = Get.find<SplashController>().configModel;
-    return (configModel.content?.maintenanceMode?.maintenanceStatus == 1 &&
-        configModel
-                .content
-                ?.maintenanceMode
-                ?.selectedMaintenanceSystem
-                ?.mobileApp ==
-            1);
-  }
-
-  void _notificationRoute() {
-    String notificationType = widget.body?.notificationType ?? "";
-
-    switch (notificationType) {
-      case "chatting":
-        {
-          Get.toNamed(
-            RouteHelper.getInboxScreenRoute(
-              fromNotification: "fromNotification",
-            ),
-          );
-        }
-        break;
-
-      case "bidding":
-        {
-          Get.toNamed(
-            RouteHelper.getMyPostScreen(fromNotification: "fromNotification"),
-          );
-        }
-        break;
-
-      case "booking" || 'booking_ignored':
-        {
-          if (widget.body!.bookingId != null && widget.body!.bookingId != "") {
-            if (widget.body?.bookingType == "repeat" &&
-                widget.body?.repeatBookingType == "single") {
-              Get.toNamed(
-                RouteHelper.getBookingDetailsScreen(
-                  subBookingId: widget.body!.bookingId!,
-                  fromPage: 'fromNotification',
-                ),
-              );
-            } else if (widget.body?.bookingType == "repeat" &&
-                widget.body?.repeatBookingType != "single") {
-              Get.toNamed(
-                RouteHelper.getRepeatBookingDetailsScreen(
-                  bookingId: widget.body!.bookingId,
-                  fromPage: "fromNotification",
-                ),
-              );
-            } else {
-              Get.toNamed(
-                RouteHelper.getBookingDetailsScreen(
-                  bookingID: widget.body!.bookingId!,
-                  fromPage: 'fromNotification',
-                ),
-              );
-            }
-          } else {
-            Get.toNamed(RouteHelper.getMainRoute(""));
-          }
-        }
-        break;
-
-      case "privacy_policy":
-        {
-          Get.toNamed(
-            RouteHelper.getHtmlRoute(
-              HtmlType.privacyPolicy.value,
-              title: 'privacy_policy',
-            ),
-          );
-        }
-        break;
-
-      case "terms_and_conditions":
-        {
-          Get.toNamed(
-            RouteHelper.getHtmlRoute(
-              HtmlType.termsAndCondition.value,
-              title: 'terms_and_conditions',
-            ),
-          );
-        }
-        break;
-
-      case "wallet":
-        {
-          Get.toNamed(
-            RouteHelper.getMyWalletScreen(fromNotification: "fromNotification"),
-          );
-        }
-        break;
-
-      case "loyalty_point":
-        {
-          Get.toNamed(
-            RouteHelper.getLoyaltyPointScreen(
-              fromNotification: "fromNotification",
-            ),
-          );
-        }
-        break;
-
-      default:
-        {
-          Get.toNamed(RouteHelper.getNotificationRoute());
-        }
-        break;
-    }
   }
 }
 

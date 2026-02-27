@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:get/get.dart';
+import 'package:demandium/feature/location/controller/location_controller.dart';
 
 import '../providers/international_lawyers_providers.dart';
 import '../providers/tt_club_landing_providers.dart';
@@ -9,11 +12,53 @@ import '../widgets/landing_header.dart';
 import '../widgets/landing_tile.dart';
 import '../widgets/nearest_lawyer_fab.dart';
 
-class TtClubLandingPage extends ConsumerWidget {
+class TtClubLandingPage extends ConsumerStatefulWidget {
   const TtClubLandingPage({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<TtClubLandingPage> createState() => _TtClubLandingPageState();
+}
+
+class _TtClubLandingPageState extends ConsumerState<TtClubLandingPage> {
+  bool _locationRequested = false;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _requestCurrentLocationOnOpen();
+    });
+  }
+
+  Future<void> _requestCurrentLocationOnOpen() async {
+    if (_locationRequested) return;
+    _locationRequested = true;
+
+    try {
+      if (!await Geolocator.isLocationServiceEnabled()) return;
+
+      var permission = await Geolocator.checkPermission();
+      if (permission == LocationPermission.denied) {
+        permission = await Geolocator.requestPermission();
+      }
+      if (permission == LocationPermission.denied ||
+          permission == LocationPermission.deniedForever) {
+        return;
+      }
+
+      final locationController = Get.find<LocationController>();
+      final address = await locationController.getCurrentLocation(
+        true,
+        deviceCurrentLocation: true,
+      );
+      await locationController.saveUserAddress(address);
+    } catch (_) {
+      // Keep landing flow smooth even if location fails.
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final cs = theme.colorScheme;
     const brand = Color(0xFFD6B36A);
@@ -146,7 +191,9 @@ class TtClubLandingPage extends ConsumerWidget {
                                   ElevatedButton(
                                     onPressed: () {
                                       // Retry by invalidating the provider so it re-fetches
-                                      ref.invalidate(internationalLawyersProvider);
+                                      ref.invalidate(
+                                        internationalLawyersProvider,
+                                      );
                                     },
                                     child: Text('إعادة المحاولة'),
                                   ),
